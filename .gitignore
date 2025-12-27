@@ -1,0 +1,17 @@
+## JetBrain
+.idea
+
+## Gradle
+.gradle
+
+## macOS
+.DS_Store
+
+## Default
+*.iml
+/local.properties
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
