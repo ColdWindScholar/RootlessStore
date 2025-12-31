@@ -56,9 +56,9 @@ class MainActivity : ComponentActivity(){
 
 private fun runShell(
     shellCommand: String
-): String {
+): List<*> {
     val runShell = Shell.cmd(shellCommand).exec()
-    return runShell.out.toString()
+    return runShell.out
 }
 
 @Composable
