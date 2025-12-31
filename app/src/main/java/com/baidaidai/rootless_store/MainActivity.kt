@@ -128,6 +128,33 @@ fun GreetingScreen(
                 }
             }
         }
+        Spacer(
+            modifier = Modifier
+                .height(30.dp)
+        )
+        Card(
+            modifier = Modifier
+                .height(500.dp)
+                .fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(30.dp)
+            ) {
+                LazyColumn(
+                    state = lazyListState
+                ) {
+                    items(
+                        items = shellOutPutList
+                    ) { result ->
+                        Text("~ ${result.command}")
+                        result.output.forEach { line ->
+                            Text(line.toString())
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
