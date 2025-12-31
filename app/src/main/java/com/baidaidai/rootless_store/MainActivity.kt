@@ -106,7 +106,20 @@ fun GreetingScreen(
                         }
                         Button(
                             onClick = {
-                                Log.d("Libsu",runShell(value))
+                                val shellOutput = runShell(value)
+                                if (shellOutput.isNotEmpty()) {
+                                    shellOutPutList.add(
+                                        ShellResult(
+                                            command = value,
+                                            output = shellOutput
+                                        )
+                                    )
+                                }
+                                coroutineScope.launch {
+                                    if(shellOutPutList.isNotEmpty()){
+                                        lazyListState.scrollToItem(shellOutPutList.size-1)
+                                    }
+                                }
                             }
                         ) {
                             Text(text = "Run")
