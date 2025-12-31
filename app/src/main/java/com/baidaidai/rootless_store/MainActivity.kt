@@ -82,7 +82,6 @@ fun GreetingScreen(
         modifier = Modifier
             .padding(contentPaddingValues)
             .fillMaxSize()
-            .wrapContentSize()
             .padding(horizontal = 20.dp)
     ) {
         Card(
