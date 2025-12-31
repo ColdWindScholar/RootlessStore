@@ -66,7 +66,19 @@ fun GreetingScreen(
     contentPaddingValues: PaddingValues
 ){
     var value by remember { mutableStateOf("") }
-    Box(
+
+    val lazyListState = rememberLazyListState()
+
+    val coroutineScope = rememberCoroutineScope()
+
+    data class ShellResult(
+        val command: String,
+        val output: List<*>
+    )
+
+    val shellOutPutList = remember { mutableStateListOf<ShellResult>() }
+
+    Column(
         modifier = Modifier
             .padding(contentPaddingValues)
             .fillMaxSize()
