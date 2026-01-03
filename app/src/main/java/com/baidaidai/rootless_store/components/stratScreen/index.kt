@@ -14,7 +14,7 @@ import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevel
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
 import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
-import com.example.compose.RootlessStoreTheme
+import com.baidaidai.rootless_store.ui.theme.*
 
 @Composable
 fun RootlessStoreStratScreenContainer(){

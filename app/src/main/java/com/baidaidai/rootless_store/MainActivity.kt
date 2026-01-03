@@ -38,7 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.rememberCoroutineScope
 import com.baidaidai.rootless_store.components.stratScreen.RootlessStoreStratScreenContainer
-import com.example.compose.RootlessStoreTheme
+import com.baidaidai.rootless_store.ui.theme.*
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity(){
