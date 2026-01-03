@@ -29,23 +29,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.baidaidai.rootless_store.ui.theme.RootLessStoreTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import com.topjohnwu.superuser.Shell
 import androidx.compose.foundation.lazy.*
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.rememberCoroutineScope
 import com.baidaidai.rootless_store.components.stratScreen.RootlessStoreStratScreenContainer
+import com.example.compose.RootlessStoreTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity(){
+    @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            RootLessStoreTheme {
+            RootlessStoreTheme {
 //                Scaffold() { contentPadding->
 //                    GreetingScreen(contentPaddingValues = contentPadding)
 //                }
