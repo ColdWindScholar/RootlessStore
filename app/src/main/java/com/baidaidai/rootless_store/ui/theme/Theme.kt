@@ -1,4 +1,4 @@
-package com.example.compose
+package com.baidaidai.rootless_store.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -15,7 +15,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import com.example.ui.theme.AppTypography
+import com.baidaidai.rootless_store.ui.theme.*
 
 private val lightScheme = lightColorScheme(
     primary = _root_ide_package_.com.baidaidai.rootless_store.ui.theme.primaryLight,
