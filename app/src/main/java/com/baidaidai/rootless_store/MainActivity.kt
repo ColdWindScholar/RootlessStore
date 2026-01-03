@@ -46,9 +46,10 @@ class MainActivity : ComponentActivity(){
         enableEdgeToEdge()
         setContent {
             RootLessStoreTheme {
-                Scaffold() { contentPadding->
-                    GreetingScreen(contentPaddingValues = contentPadding)
-                }
+//                Scaffold() { contentPadding->
+//                    GreetingScreen(contentPaddingValues = contentPadding)
+//                }
+                RootlessStoreStratScreenContainer()
             }
         }
     }
