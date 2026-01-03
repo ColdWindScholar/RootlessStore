@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,7 +14,7 @@ import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevel
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
 import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
-import com.baidaidai.rootless_store.ui.theme.RootLessStoreTheme
+import com.example.compose.RootlessStoreTheme
 
 @Composable
 fun RootlessStoreStratScreenContainer(){
@@ -49,10 +50,11 @@ fun RootlessStoreStratScreenContainer(){
 
 
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @PreviewLightDark
 @Composable
 private fun _RootlessStoreStratScreenContainerPrevierer_(){
-    RootLessStoreTheme() {
+    RootlessStoreTheme() {
         RootlessStoreStratScreenContainer()
     }
 }
