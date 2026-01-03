@@ -1,7 +1,6 @@
 package com.baidaidai.rootless_store
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -38,6 +37,7 @@ import com.topjohnwu.superuser.Shell
 import androidx.compose.foundation.lazy.*
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.rememberCoroutineScope
+import com.baidaidai.rootless_store.components.stratScreen.RootlessStoreStratScreenContainer
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity(){
