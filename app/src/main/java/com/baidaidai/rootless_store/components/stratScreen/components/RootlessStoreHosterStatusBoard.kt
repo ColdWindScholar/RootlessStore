@@ -86,13 +86,15 @@ fun RootlessStoreHosterStatusBoard(
                     "Plugins",
                     "${hosterStatus.pluginStatus.activeCount}/${hosterStatus.pluginStatus.totalCount}"
                 )
-                HosterStatusRow(
-                    "RAM",
-                    "${hosterStatus.ramStatus.residueRAM}/${hosterStatus.ramStatus.totalRAM}"
+                HosterStatusProgressRow(
+                    label = "RAM",
+                    currentValue = hosterStatus.ramStatus.usedRAM,
+                    maxValue = hosterStatus.ramStatus.totalRAM
                 )
-                HosterStatusRow(
-                    "Storage",
-                    "${hosterStatus.storageStatus.residueStorage}/${hosterStatus.storageStatus.totalStorage}"
+                HosterStatusProgressRow(
+                    label = "Storage",
+                    currentValue = hosterStatus.storageStatus.usedStorage,
+                    maxValue = hosterStatus.storageStatus.totalStorage
                 )
                 HosterStatusRow("Temp", hosterStatus.tempStatus.toString())
             }
