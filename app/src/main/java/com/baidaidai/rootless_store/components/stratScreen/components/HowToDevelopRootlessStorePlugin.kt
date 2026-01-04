@@ -21,10 +21,15 @@ import com.baidaidai.rootless_store.R
 
 @Composable
 fun HowToDevelopRootlessStorePlugin(){
+    val cardColors = CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+    )
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation()
+        elevation = CardDefaults.cardElevation(),
+        colors = cardColors
     ){
         Column(
             modifier = Modifier
