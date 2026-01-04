@@ -36,8 +36,8 @@ fun RootlessStoreHosterStatusBoard(
         selinuxStatus = SELinuxStatus.Restricted,
         absolutePath = "/data/local/tmp/rootless_store",
         pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = RAMStatus(totalRAM = 0, residueRAM = 0),
-        storageStatus = StorageStatus(totalStorage = 0, residueStorage = 0),
+        ramStatus = RAMStatus(totalRAM = 24f, usedRAM = 16.5f),
+        storageStatus = StorageStatus(totalStorage = 512f, usedStorage = 168.9f),
         tempStatus = TempStatus.LOW
     )
 ){
