@@ -11,6 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,10 +22,15 @@ import com.baidaidai.rootless_store.R
 
 @Composable
 fun RootLessStoreVersionCheckerContainer(){
+    val cardColors = CardDefaults.cardColors(
+        containerColor = colorScheme.primaryContainer,
+        contentColor = colorScheme.onPrimaryContainer,
+    )
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation()
+        elevation = CardDefaults.cardElevation(),
+        colors = cardColors
     ){
         Column(
             modifier = Modifier
