@@ -38,6 +38,7 @@ fun RootlessStoreStratScreenContainer(){
     rootlessStoreStratScreenViewModel.prepareViewModel(context)
 
     val storageStatus by rootlessStoreStratScreenViewModel.storageStatus.collectAsState()
+    val ramStatus by rootlessStoreStratScreenViewModel.ramStatus.collectAsState()
 
     val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
         hosterOverallStatus = HosterOverallStatus.LIMITED,
@@ -45,7 +46,7 @@ fun RootlessStoreStratScreenContainer(){
         selinuxStatus = SELinuxStatus.Restricted,
         absolutePath = "/data/local/tmp/rootless_store",
         pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = RAMStatus(totalRAM = 24f, usedRAM = 16.5f),
+        ramStatus = ramStatus,
         storageStatus = storageStatus,
         tempStatus = TempStatus.LOW
     )
