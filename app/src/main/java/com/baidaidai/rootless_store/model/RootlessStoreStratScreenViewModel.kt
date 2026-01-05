@@ -23,6 +23,7 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
     private val _storageStatus: MutableStateFlow<StorageStatus> = MutableStateFlow(getStorageStatus())
     private val _ramStatus: MutableStateFlow<RAMStatus> = MutableStateFlow(getRAMStatus())
     val storageStatus: StateFlow<StorageStatus> = _storageStatus.asStateFlow()
+    val ramStatus: StateFlow<RAMStatus> = _ramStatus.asStateFlow()
 
 
     fun prepareViewModel(
@@ -31,6 +32,7 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
         if (context != null){
             this.context = context
             _upgradeThe_storageStatus()
+            _upgradeThe_RAMStatus()
         }
     }
 
@@ -44,9 +46,25 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
             )
         }
     }
+    private fun getRAMStatus(): RAMStatus{
+        if (this.context != null){
+            return RAMStatusGatewayImpl(this.context!!).getRAMStatus()
+        }else{
+            return RAMStatus(
+                totalRAM = 24.0,
+                usedRAM = 0.0
+            )
+        }
+    }
     private fun _upgradeThe_storageStatus(){
         this._storageStatus.update {
             getStorageStatus()
         }
     }
+    private fun _upgradeThe_RAMStatus(){
+        this._ramStatus.update {
+            getRAMStatus()
+        }
+    }
+
 }
