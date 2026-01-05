@@ -1,6 +1,7 @@
 package com.baidaidai.rootless_store.components.stratScreen.model
 
 import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.RAMStatus
 
 data class RootlessStoreHosterStatus(
     val hosterOverallStatus: HosterOverallStatus,
