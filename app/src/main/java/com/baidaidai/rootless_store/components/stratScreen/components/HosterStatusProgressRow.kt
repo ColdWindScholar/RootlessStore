@@ -41,7 +41,7 @@ fun HosterStatusProgressRow(label: String, currentValue: Double,maxValue: Double
         ) {
             LinearProgressIndicator(
                 progress = {
-                    currentValueProgress
+                    currentValueProgress.toFloat()
                 },
                 drawStopIndicator = {}
             )
