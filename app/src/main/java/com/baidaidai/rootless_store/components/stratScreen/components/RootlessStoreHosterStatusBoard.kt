@@ -20,13 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.components.stratScreen.model.HosterOverallStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.PluginStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.RAMStatus
 import com.baidaidai.rootless_store.components.stratScreen.model.RootlessStoreHosterStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.SELinuxStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.StorageStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.TempStatus
 
 @Composable
 fun RootlessStoreHosterStatusBoard(
