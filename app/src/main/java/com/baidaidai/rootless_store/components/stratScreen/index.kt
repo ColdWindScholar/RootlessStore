@@ -32,6 +32,7 @@ import androidx.compose.runtime.getValue
 
 @Composable
 fun RootlessStoreStratScreenContainer(){
+    val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar()},
         bottomBar = { NecessaryComponents.StartScreenNavigationBar()}
