@@ -37,6 +37,19 @@ fun RootlessStoreStratScreenContainer(){
     val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
     rootlessStoreStratScreenViewModel.prepareViewModel(context)
 
+    val storageStatus by rootlessStoreStratScreenViewModel.storageStatus.collectAsState()
+
+    val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
+        hosterOverallStatus = HosterOverallStatus.LIMITED,
+        kernelVersion = "Unknown",
+        selinuxStatus = SELinuxStatus.Restricted,
+        absolutePath = "/data/local/tmp/rootless_store",
+        pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
+        ramStatus = RAMStatus(totalRAM = 24f, usedRAM = 16.5f),
+        storageStatus = storageStatus,
+        tempStatus = TempStatus.LOW
+    )
+
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar()},
         bottomBar = { NecessaryComponents.StartScreenNavigationBar()}
