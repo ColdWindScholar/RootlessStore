@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 @Composable
 fun HosterStatusProgressRow(label: String, currentValue: Float,maxValue: Float){
     val currentValueProgress by rememberSaveable { mutableFloatStateOf(currentValue/maxValue) }
+fun HosterStatusProgressRow(label: String, currentValue: Double,maxValue: Double){
+    val currentValueProgress by rememberSaveable { mutableDoubleStateOf(currentValue/maxValue) }
     var currentValuePercentage by rememberSaveable { mutableIntStateOf((currentValueProgress*100).toInt()) }
     Row(
         modifier = Modifier
