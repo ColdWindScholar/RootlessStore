@@ -24,16 +24,7 @@ import com.baidaidai.rootless_store.components.stratScreen.model.RootlessStoreHo
 
 @Composable
 fun RootlessStoreHosterStatusBoard(
-    hosterStatus: RootlessStoreHosterStatus = RootlessStoreHosterStatus(
-        hosterOverallStatus = HosterOverallStatus.LIMITED,
-        kernelVersion = "Unknown",
-        selinuxStatus = SELinuxStatus.Restricted,
-        absolutePath = "/data/local/tmp/rootless_store",
-        pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = RAMStatus(totalRAM = 24f, usedRAM = 16.5f),
-        storageStatus = StorageStatus(totalStorage = 512f, usedStorage = 168.9f),
-        tempStatus = TempStatus.LOW
-    )
+    hosterStatus: RootlessStoreHosterStatus
 ){
     Card(
         modifier = Modifier
