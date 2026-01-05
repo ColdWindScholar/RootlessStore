@@ -57,7 +57,7 @@ fun RootLessStoreVersionCheckerContainer(){
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Version: 0.0.0",
+                        text = "Version: 0.0.1",
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
