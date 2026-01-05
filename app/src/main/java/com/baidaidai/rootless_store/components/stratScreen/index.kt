@@ -68,7 +68,9 @@ fun RootlessStoreStratScreenContainer(){
             )
 
             /* Hoster Status */
-            RootlessStoreHosterStatusBoard()
+            RootlessStoreHosterStatusBoard(
+                hosterStatus = rootlessStoreHosterStatus
+            )
             Spacer(
                 modifier = Modifier
                     .height(20.dp)
