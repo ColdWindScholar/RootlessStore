@@ -66,4 +66,5 @@ dependencies {
     implementation("dev.rikka.shizuku:provider:13.1.5")
     implementation("androidx.compose.material:material-icons-core:1.7.6")
     implementation("androidx.compose.material:material-icons-extended:1.7.6")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
 }
