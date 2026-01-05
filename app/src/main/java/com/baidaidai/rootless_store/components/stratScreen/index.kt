@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.components.stratScreen
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -7,14 +8,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevelopRootlessStorePlugin
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
 import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
+import com.baidaidai.rootless_store.components.stratScreen.model.HosterOverallStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.PluginStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.RAMStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.SELinuxStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.StorageStatus
+import com.baidaidai.rootless_store.components.stratScreen.model.TempStatus
+import com.baidaidai.rootless_store.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.*
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 
 @Composable
 fun RootlessStoreStratScreenContainer(){
