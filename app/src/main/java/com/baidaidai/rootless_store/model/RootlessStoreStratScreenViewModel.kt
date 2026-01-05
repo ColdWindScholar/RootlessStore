@@ -33,6 +33,7 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
             this.context = context
             _upgradeThe_storageStatus()
             _upgradeThe_RAMStatus()
+            keepRamReaderRunning()
         }
     }
 
@@ -64,6 +65,16 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
     private fun _upgradeThe_RAMStatus(){
         this._ramStatus.update {
             getRAMStatus()
+        }
+    }
+
+    private fun keepRamReaderRunning(){
+        viewModelScope.launch {
+            while (true){
+                _upgradeThe_RAMStatus()
+                delay(1000)
+                Log.d("RAM_Status","updated, current:${getRAMStatus().usedRAM}, total${getRAMStatus().totalRAM}, precentage:${(getRAMStatus().usedRAM / getRAMStatus().totalRAM*100).toFloat()}")
+            }
         }
     }
 
