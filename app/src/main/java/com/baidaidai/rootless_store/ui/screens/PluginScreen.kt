@@ -14,6 +14,18 @@ import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @Composable
-fun RootlessStorePluginScreenContainer(){
+fun RootlessStorePluginScreenContainer(
+    contentPadding: PaddingValues,
+    plugins:List<PluginManiFest>
+){
+    LazyColumn(
+        modifier = Modifier
+            .padding(contentPadding)
+            .fillMaxSize()
+    ) {
+        items(plugins){
 
+        }
+    }
+}
 }
