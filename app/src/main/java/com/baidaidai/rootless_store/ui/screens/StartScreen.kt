@@ -28,7 +28,7 @@ import com.baidaidai.rootless_store.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @Composable
-fun RootlessStoreStratScreenContainer(){
+fun RootlessStoreStartScreenContainer(){
 
     val context: Context = LocalContext.current
     val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
@@ -87,6 +87,6 @@ fun RootlessStoreStratScreenContainer(){
 @Composable
 private fun _RootlessStoreStratScreenContainerPrevierer_(){
     RootlessStoreTheme() {
-        RootlessStoreStratScreenContainer()
+        RootlessStoreStartScreenContainer()
     }
 }
