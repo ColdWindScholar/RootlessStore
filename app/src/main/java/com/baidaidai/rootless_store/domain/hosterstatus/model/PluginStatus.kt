@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.stratScreen.model
+package com.baidaidai.rootless_store.domain.hosterstatus.model
 
 data class PluginStatus(
     val activeCount: Int,

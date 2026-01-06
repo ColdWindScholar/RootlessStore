@@ -19,11 +19,11 @@ import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevel
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
 import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
-import com.baidaidai.rootless_store.components.stratScreen.model.HosterOverallStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.PluginStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.RootlessStoreHosterStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.SELinuxStatus
-import com.baidaidai.rootless_store.components.stratScreen.model.TempStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.PluginStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.SELinuxStatus
+import com.baidaidai.rootless_store.domain.hosterstatus.model.TempStatus
 import com.baidaidai.rootless_store.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
