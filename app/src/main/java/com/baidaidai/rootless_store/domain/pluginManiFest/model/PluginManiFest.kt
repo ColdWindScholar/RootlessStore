@@ -1,5 +1,40 @@
 package com.baidaidai.rootless_store.domain.pluginManiFest.model
 
+import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
+
 data class PluginManiFest(
-    val b: Int
-)
+    /**
+     * This is an initial version only.
+     *
+     *     The type must be confirmed manually for now.
+     *
+     *     In later versions, package parameters will be loaded by reading a JSON manifest (deserialization).
+     *
+     *     No usable methods are available in the 0.x.x series yet.
+     */
+
+    // Plugin Basic Infos
+    val installedVersion: String,
+    val name: String,
+    val iconURI: String,
+    val author: String,
+
+    // Plugin Runtime Infos
+    val enabled: Boolean,
+    val requiredEnvironment: HosterOverallStatus,
+    val state: PluginState,
+    val source: PluginSource,
+){
+    companion object {
+        val _testOnly_ = PluginManiFest(
+            installedVersion = "0.0.0",
+            name = "Test Plugin",
+            iconURI = "content://rootless_store/plugin_icon/test",
+            author = "Rootless Store",
+            enabled = true,
+            requiredEnvironment = HosterOverallStatus.LIMITED,
+            state = PluginState.Great,
+            source = PluginSource.Local,
+        )
+    }
+}
