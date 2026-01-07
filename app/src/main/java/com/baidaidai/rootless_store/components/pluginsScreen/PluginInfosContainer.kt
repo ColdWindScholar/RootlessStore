@@ -29,12 +29,6 @@ fun PluginInfosContainer(
     pluginManiFest: PluginManiFest,
     modifier: Modifier = Modifier
 ){
-    val statusLabel = if (pluginManiFest.enabled) "Enabled" else "Disabled"
-    val statusColor = if (pluginManiFest.enabled) {
-        MaterialTheme.colorScheme.primary
-    } else {
-        MaterialTheme.colorScheme.error
-    }
     Card(
         modifier = modifier
             .fillMaxWidth(),
@@ -76,10 +70,9 @@ fun PluginInfosContainer(
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
-                Text(
-                    text = statusLabel,
-                    style = MaterialTheme.typography.labelMedium,
-                    color = statusColor
+                Switch(
+                    checked = pluginManiFest.enabled,
+                    onCheckedChange = {}
                 )
             }
             HorizontalDivider()
