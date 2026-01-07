@@ -25,6 +25,9 @@ fun RootlessStorePluginScreenContainer(
         modifier = Modifier
             .padding(contentPadding)
             .fillMaxSize()
+            .padding(vertical = 15.dp)
+            .padding(horizontal = 15.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(plugins){
 
