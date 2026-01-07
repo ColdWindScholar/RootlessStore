@@ -30,7 +30,7 @@ fun RootlessStorePluginScreenContainer(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(plugins){
-
+            PluginInfosContainer(pluginManiFest = it)
         }
     }
 }
