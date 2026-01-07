@@ -52,31 +52,10 @@ fun RootlessStoreStartScreenContainer(){
         topBar = { NecessaryComponents.StartScreenTopAppBar()},
         bottomBar = { NecessaryComponents.StartScreenNavigationBar()}
     ) { contentPadding->
-        Column(
-            modifier = Modifier
-                .padding(contentPadding)
-                .padding(horizontal = 15.dp)
-                .padding(top = 10.dp)
-        ) {
-            /* Version */
-            RootLessStoreVersionCheckerContainer()
-            Spacer(
-                modifier = Modifier
-                    .height(20.dp)
-            )
-
-            /* Hoster Status */
-            RootlessStoreHosterStatusBoard(
-                hosterStatus = rootlessStoreHosterStatus
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(20.dp)
-            )
-
-            /* How to Make Plugin */
-            HowToDevelopRootlessStorePlugin()
-        }
+        HomeScreen(
+            contentPadding = contentPadding,
+            rootlessStoreHosterStatus = rootlessStoreHosterStatus
+        )
     }
 }
 
