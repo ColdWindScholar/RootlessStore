@@ -42,14 +42,32 @@ fun RootlessStoreStartScreenContainer(){
         tempStatus = TempStatus.LOW
     )
 
+    val navController = rememberNavController()
+
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar()},
         bottomBar = { NecessaryComponents.StartScreenNavigationBar()}
     ) { contentPadding->
-        HomeScreen(
-            contentPadding = contentPadding,
-            rootlessStoreHosterStatus = rootlessStoreHosterStatus
-        )
+        NavHost(
+            navController = navController,
+            startDestination = "HomeScreen"
+        ){
+            composable(
+                route = "HomeScreen"
+            ){
+                HomeScreen(
+                    contentPadding = contentPadding,
+                    rootlessStoreHosterStatus = rootlessStoreHosterStatus
+                )
+            }
+            composable(
+                route = "PluginScreen"
+            ){
+                RootlessStorePluginScreenContainer(
+                    contentPadding = contentPadding
+                )
+            }
+        }
     }
 }
 
