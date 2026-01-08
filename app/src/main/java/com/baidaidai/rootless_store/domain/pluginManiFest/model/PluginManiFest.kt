@@ -27,11 +27,11 @@ data class PluginManiFest(
 ){
     companion object {
         val _testOnly_ = PluginManiFest(
-            installedVersion = "0.0.0",
+            installedVersion = "x.x.x",
             name = "Test Plugin",
             iconURI = "content://rootless_store/plugin_icon/test",
-            author = "Rootless Store",
-            enabled = true,
+            author = "Rootless Store(Creater. Bai)",
+            enabled = false,
             requiredEnvironment = HosterOverallStatus.LIMITED,
             state = PluginState.Great,
             source = PluginSource.Local,
