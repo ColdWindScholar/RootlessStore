@@ -19,7 +19,7 @@ import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 @Composable
 fun RootlessStorePluginScreenContainer(
     contentPadding: PaddingValues,
-    plugins:List<PluginManiFest>
+    plugins:List<PluginManiFest> = listOf<PluginManiFest>(PluginManiFest._testOnly_)
 ){
     LazyColumn(
         modifier = Modifier
