@@ -86,7 +86,6 @@ fun PluginInfosContainer(
                     label = "Required",
                     value = pluginManiFest.requiredEnvironment.toString()
                 )
-                PluginInfoRow(label = "Icon", value = pluginManiFest.iconURI)
             }
         }
     }
