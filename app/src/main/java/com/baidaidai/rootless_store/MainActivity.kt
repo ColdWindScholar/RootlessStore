@@ -11,6 +11,10 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.baidaidai.rootless_store.ui.screens.RootlessStoreStartScreenContainer
 import com.baidaidai.rootless_store.ui.theme.*
+
+val RootLessStoreLocalContext = compositionLocalOf<Context>{
+    error("No Context Provide")
+}
 class MainActivity : ComponentActivity(){
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +22,11 @@ class MainActivity : ComponentActivity(){
         enableEdgeToEdge()
         setContent {
             RootlessStoreTheme {
-                RootlessStoreStartScreenContainer()
+                CompositionLocalProvider(
+                    RootLessStoreLocalContext provides LocalContext.current
+                ) {
+                    RootlessStoreStartScreenContainer()
+                }
             }
         }
     }
