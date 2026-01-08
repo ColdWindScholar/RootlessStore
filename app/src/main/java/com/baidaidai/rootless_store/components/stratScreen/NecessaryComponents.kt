@@ -30,47 +30,42 @@ object NecessaryComponents {
     }
 
     @Composable
-    fun StartScreenNavigationBar(){
+    fun StartScreenNavigationBar(
+        navigatorController: NavController
+    ) {
+        val NavigationBarRenderingList = listOf(
+            NavBarItemSpec(
+                number = 0,
+                pattern = painterResource(R.drawable.outline_home_24),
+                contentDeprecated = "Home",
+                destination = "HomeScreen"
+            ),
+            NavBarItemSpec(
+                number = 1,
+                pattern = painterResource(R.drawable.outline_extension_24),
+                contentDeprecated = "Plugin",
+                destination = "PluginScreen"
+            ),
+            NavBarItemSpec(
+                number = 2,
+                pattern = painterResource(R.drawable.outline_list_alt_24),
+                contentDeprecated = "Sources",
+                destination = "SourcesScreen"
+            )
+        )
+        var currentSelected by rememberSaveable { mutableIntStateOf(0) }
         NavigationBar {
-            NavigationBarItem(
-                selected = true,
-                onClick = {},
-                icon = {
-                    Icon(
-                        Icons.Outlined.Home,
-                        contentDescription = "Home"
-                    )
-                },
-                label = {
-                    Text("Home")
-                }
-            )
-            NavigationBarItem(
-                selected = false,
-                onClick = {},
-                icon = {
-                    Icon(
-                        painter = painterResource(R.drawable.outline_extension_24),
-                        contentDescription = "Plugins"
-                    )
-                },
-                label = {
-                    Text("Plugins")
-                }
-            )
-            NavigationBarItem(
-                selected = false,
-                onClick = {},
-                icon = {
-                    Icon(
-                        painter = painterResource(R.drawable.outline_list_alt_24),
-                        contentDescription = "Sources"
-                    )
-                },
-                label = {
-                    Text("Sources")
-                }
-            )
+            NavigationBarRenderingList.forEachIndexed { index, spec ->
+                NavigationBarItem(
+                    selected = index == currentSelected,
+                    onClick = {
+                        currentSelected = index
+                        navigatorController.navigate(spec.destination)
+                    },
+                    icon = { Icon(spec.pattern, contentDescription = spec.contentDeprecated) },
+                    label = { Text(spec.contentDeprecated) }
+                )
+            }
         }
     }
 }
