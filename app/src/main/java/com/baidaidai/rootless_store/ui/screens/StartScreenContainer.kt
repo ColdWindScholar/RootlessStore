@@ -1,24 +1,18 @@
 package com.baidaidai.rootless_store.ui.screens
 
 import android.content.Context
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevelopRootlessStorePlugin
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
-import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
-import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
 import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.PluginStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.RootlessStoreHosterStatus
