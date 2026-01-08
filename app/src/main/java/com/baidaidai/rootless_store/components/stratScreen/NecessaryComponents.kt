@@ -9,8 +9,14 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import com.baidaidai.rootless_store.R
+import com.baidaidai.rootless_store.domain.StartScreenNavigationBar.model.NavBarItemSpec
 
 object NecessaryComponents {
     @OptIn(ExperimentalMaterial3Api::class)
