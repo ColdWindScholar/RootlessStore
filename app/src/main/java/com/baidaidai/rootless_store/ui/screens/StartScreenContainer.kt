@@ -46,7 +46,7 @@ fun RootlessStoreStartScreenContainer(){
 
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar()},
-        bottomBar = { NecessaryComponents.StartScreenNavigationBar()}
+        bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)}
     ) { contentPadding->
         NavHost(
             navController = navController,
