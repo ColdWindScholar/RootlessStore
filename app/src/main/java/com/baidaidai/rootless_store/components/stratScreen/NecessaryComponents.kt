@@ -1,8 +1,7 @@
 package com.baidaidai.rootless_store.components.stratScreen.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -15,7 +14,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import com.baidaidai.rootless_store.OpenDocumentLauncher
 import com.baidaidai.rootless_store.R
+import com.baidaidai.rootless_store.RootLessStoreLocalContext
 import com.baidaidai.rootless_store.domain.StartScreenNavigationBar.model.NavBarItemSpec
 
 object NecessaryComponents {
@@ -66,6 +67,27 @@ object NecessaryComponents {
                     label = { Text(spec.contentDeprecated) }
                 )
             }
+        }
+    }
+
+    @Composable
+    fun StartScreenFloatingButton(){
+        val context = RootLessStoreLocalContext.current
+        val documentLauncher = OpenDocumentLauncher.current
+
+        FloatingActionButton(
+            onClick = {
+                documentLauncher.launch(
+                    arrayOf(
+                        "application/zip",
+                    )
+                )
+            }
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.outline_box_add_24),
+                contentDescription = "Install"
+            )
         }
     }
 }
