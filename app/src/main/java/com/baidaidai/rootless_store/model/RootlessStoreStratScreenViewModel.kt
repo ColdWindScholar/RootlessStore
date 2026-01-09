@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.data.hosterstatus.impl.RAMStatusGatewayImpl
-import com.baidaidai.rootless_store.data.hosterstatus.impl.StorageGatewayImpl
+import com.baidaidai.rootless_store.data.hosterstatus.impl.StorageStatusGatewayImpl
 import com.baidaidai.rootless_store.domain.hosterstatus.model.RAMStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
 import kotlinx.coroutines.delay
@@ -39,7 +39,7 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
 
     private fun getStorageStatus(): StorageStatus{
         if (this.context != null){
-            return StorageGatewayImpl(this.context!!).getStorageStatus()
+            return StorageStatusGatewayImpl(this.context!!).getStorageStatus()
         }else{
             return StorageStatus(
                 totalStorage = 128.0,
