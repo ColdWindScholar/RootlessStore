@@ -5,7 +5,7 @@ import com.baidaidai.rootless_store.data.hosterstatus.storage.StorageInfoReader
 import com.baidaidai.rootless_store.domain.hosterstatus.gateway.StorageStatusGetAway
 import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
 
-class StorageGatewayImpl(
+class StorageStatusGatewayImpl(
     private val context: Context
 ) : StorageStatusGetAway {
     override fun getStorageStatus(): StorageStatus {
