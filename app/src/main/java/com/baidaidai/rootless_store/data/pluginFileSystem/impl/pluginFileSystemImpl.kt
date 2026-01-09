@@ -14,7 +14,9 @@ class PluginFileSystemGatewayImpl(val context: Context): PluginFileSystemGateway
 
     override fun installPlugin(originFileURI: Uri) {
         if (androidFileSystemCapability.confirmPluginPathExists()){
-            /* get user's files  */
+            /* got user's files  */
+            val a = Math.random()*100  // 假装是哈希值
+
             _pre_intallPlugin(originFileURI)
         }else{
             androidFileSystemCapability.createFileDir("Plugin")
