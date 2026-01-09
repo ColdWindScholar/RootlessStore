@@ -45,8 +45,9 @@ fun RootlessStoreStartScreenContainer(){
     val navController = rememberNavController()
 
     Scaffold(
-        topBar = { NecessaryComponents.StartScreenTopAppBar()},
-        bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)}
+        topBar = { NecessaryComponents.StartScreenTopAppBar() },
+        bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)},
+        floatingActionButton = { NecessaryComponents.StartScreenFloatingButton() }
     ) { contentPadding->
         NavHost(
             navController = navController,
