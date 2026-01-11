@@ -1,7 +1,9 @@
 package com.baidaidai.rootless_store.domain.pluginManiFest.model
 
 import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PluginManiFest(
     /**
      * This is an initial version only.
@@ -15,7 +17,8 @@ data class PluginManiFest(
 
     // Plugin Basic Infos
     val installedVersion: String,
-    val name: String,
+    val pluginRenderingName: String,
+    val pluginPackageName: String,
     val iconURI: String,
     val author: String,
 
@@ -28,7 +31,8 @@ data class PluginManiFest(
     companion object {
         val _testOnly_ = PluginManiFest(
             installedVersion = "x.x.x",
-            name = "Test Plugin",
+            pluginRenderingName=  "Test Plugin",
+            pluginPackageName = "TestPlugin",
             iconURI = "content://rootless_store/plugin_icon/test",
             author = "Rootless Store(Creater. Bai)",
             enabled = false,
