@@ -34,32 +34,44 @@ class AndroidFileSystemCapability(
         return name!!
     }
 
+    /**
+     * In Android, Copy File always use iO, Not Official API
+     *
+     * So, We use "oldFile.InputStream->newFile.OutputStream"
+     */
     fun copyFile(originFileURI: Uri, destination: File, destinationFileName: String? = null) {
 
+        // Get file's name, always powered by readManiFestJsonContent
         val fileName = when {
-            !destinationFileName.isNullOrBlank() -> destinationFileName.trim()
+            !destinationFileName.isNullOrBlank() -> destinationFileName.trim()  // 只有destinationFilName显式指定，否则不走
             else -> readZipContent(originFileURI).let { json -> readManiFestJsonContent(json) }.trim()
         }
 
+        // Provide void file, for copy use
         createOneVoidFile(destination,fileName)  // needs prevent override files
         val operationFile = File(destination,"$fileName.zip")
 
+        // The core of copy operator
         context.contentResolver.openInputStream(originFileURI).use { input ->
             FileOutputStream(operationFile).use { output ->
                 input!!.copyTo(output)
             }
         }
 
-//        return try {
-//            // use的目的是自动关闭流
-//            Log.d("copyFile","Finally")
-//            true
-//        } catch (e: Throwable) {
-//            e.printStackTrace() // 打印异常日志便于排查
-//            false
-//        }
+////        return try {
+////            // use的目的是自动关闭流
+////            Log.d("copyFile","Finally")
+////            true
+////        } catch (e: Throwable) {
+////            e.printStackTrace() // 打印异常日志便于排查
+////            false
+////        }
     }
 
+    /**
+     *  This is original logic
+     *  only return solid json
+     */
     fun readZipContent(uri: Uri): String{
         context.contentResolver.openInputStream(uri).use { inputStream ->
 //            if (inputStream == null) {
@@ -68,12 +80,14 @@ class AndroidFileSystemCapability(
 //            }
 
             ZipInputStream(BufferedInputStream(inputStream)).use { zipInputStream ->
+                /**
+                 * The entry is like relative path, but root path is zipFile/...
+                 */
                 var zipEntry = zipInputStream.nextEntry
                 while (zipEntry != null) {
                     val entryPath = zipEntry.name                       // 可能是 "a/b/PluginManifest.json"
                     val fileNameOnly = entryPath.substringAfterLast('/') // 取最后一级文件名
-                    val isTarget = !zipEntry.isDirectory &&
-                            fileNameOnly.equals("PluginManifest.json", ignoreCase = true)
+                    val isTarget = !zipEntry.isDirectory && fileNameOnly.equals("PluginManifest.json", ignoreCase = true)
 
                     if (isTarget) {
                         // 读取当前 entry 的内容（这里用 readBytes，适合 manifest 这种小文件）
@@ -99,6 +113,11 @@ class AndroidFileSystemCapability(
         return File(context.getExternalFilesDir(null),path.toString()).exists()
     }
 
+    /**
+     * This is private method, only converse json(String) intro PluginMainFest
+     *
+     * The method is original logic, only return solid pluginPackageName
+     */
     private fun readManiFestJsonContent(jsonContent: String): String {
         val json = Json {
             ignoreUnknownKeys = true // JSON 多字段也不炸
