@@ -62,7 +62,7 @@ fun PluginInfosContainer(
                         .weight(1f)
                 ){
                     Text(
-                        text = pluginManiFest.name,
+                        text = pluginManiFest.pluginRenderingName,
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
