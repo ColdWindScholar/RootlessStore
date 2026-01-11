@@ -51,6 +51,31 @@ class AndroidFileSystemCapability(
             e.printStackTrace() // 打印异常日志便于排查
             Log.d("copyFile","Fault")
             false
+    fun copyFile(originFileURI: Uri, destination: File, destinationFileName: String? = null) {
+
+        val fileName = when {
+            !destinationFileName.isNullOrBlank() -> destinationFileName.trim()
+            else -> readZipContent(originFileURI).let { json -> readManiFestJsonContent(json) }.trim()
+        }
+
+        createOneVoidFile(destination,fileName)  // needs prevent override files
+        val operationFile = File(destination,"$fileName.zip")
+
+        context.contentResolver.openInputStream(originFileURI).use { input ->
+            FileOutputStream(operationFile).use { output ->
+                input!!.copyTo(output)
+            }
+        }
+
+//        return try {
+//            // use的目的是自动关闭流
+//            Log.d("copyFile","Finally")
+//            true
+//        } catch (e: Throwable) {
+//            e.printStackTrace() // 打印异常日志便于排查
+//            false
+//        }
+    }
         }
     }
 
