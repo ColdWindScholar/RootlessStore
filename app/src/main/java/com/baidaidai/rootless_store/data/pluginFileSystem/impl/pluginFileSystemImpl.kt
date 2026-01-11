@@ -8,7 +8,7 @@ import com.baidaidai.rootless_store.data.pluginFileSystem.androidFileSystem.Andr
 import com.baidaidai.rootless_store.domain.pluginFileSystem.gateway.PluginFileSystemGateway
 import java.io.File
 
-class PluginFileSystemGatewayImpl(val context: Context): PluginFileSystemGateway, AppCompatActivity(){
+class PluginFileSystemGatewayImpl(val context: Context): PluginFileSystemGateway{
     private val defaultPluginLocation = File(context.getExternalFilesDir(null),"Plugin")
     val androidFileSystemCapability = AndroidFileSystemCapability(context)
 
