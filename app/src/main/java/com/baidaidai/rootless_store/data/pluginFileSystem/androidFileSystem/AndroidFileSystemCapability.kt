@@ -34,23 +34,6 @@ class AndroidFileSystemCapability(
         return name!!
     }
 
-    fun copyFile(originFileURI: Uri, destination: File): Boolean {
-        val fileName = getFileNames(originFileURI)
-        createOneVoidFile(destination,fileName)
-        val operationFile = File(destination,fileName)
-        return try {
-            context.contentResolver.openInputStream(originFileURI).use { input ->
-                FileOutputStream(operationFile).use { output ->
-                    Log.d("copyFile","e")
-                    input!!.copyTo(output)
-                }
-            }
-            Log.d("copyFile","Finally")
-            true
-        } catch (e: Throwable) {
-            e.printStackTrace() // 打印异常日志便于排查
-            Log.d("copyFile","Fault")
-            false
     fun copyFile(originFileURI: Uri, destination: File, destinationFileName: String? = null) {
 
         val fileName = when {
@@ -76,6 +59,38 @@ class AndroidFileSystemCapability(
 //            false
 //        }
     }
+
+    fun readZipContent(uri: Uri): String{
+        context.contentResolver.openInputStream(uri).use { inputStream ->
+//            if (inputStream == null) {
+//                Log.e("readZipContent", "openInputStream returned null, uri=$uri")
+//                return
+//            }
+
+            ZipInputStream(BufferedInputStream(inputStream)).use { zipInputStream ->
+                var zipEntry = zipInputStream.nextEntry
+                while (zipEntry != null) {
+                    val entryPath = zipEntry.name                       // 可能是 "a/b/PluginManifest.json"
+                    val fileNameOnly = entryPath.substringAfterLast('/') // 取最后一级文件名
+                    val isTarget = !zipEntry.isDirectory &&
+                            fileNameOnly.equals("PluginManifest.json", ignoreCase = true)
+
+                    if (isTarget) {
+                        // 读取当前 entry 的内容（这里用 readBytes，适合 manifest 这种小文件）
+                        val json = zipInputStream.readBytes().toString(Charsets.UTF_8)
+                        Log.d("readZipContent", "PluginManifest.json content: $json")
+
+                        zipInputStream.closeEntry()
+                        return json
+                    }
+
+                    zipInputStream.closeEntry()
+                    zipEntry = zipInputStream.nextEntry
+                }
+
+                Log.w("readZipContent", "PluginManifest.json not found, uri=$uri")
+                return ""
+            }
         }
     }
 
