@@ -99,4 +99,13 @@ class AndroidFileSystemCapability(
         return File(context.getExternalFilesDir(null),path.toString()).exists()
     }
 
+    private fun readManiFestJsonContent(jsonContent: String): String {
+        val json = Json {
+            ignoreUnknownKeys = true // JSON 多字段也不炸
+            isLenient = true
+        }
+        val manifest: PluginManiFest = json.decodeFromString(PluginManiFest.serializer(),jsonContent)
+        return manifest.pluginPackageName
+    }
+
 }
