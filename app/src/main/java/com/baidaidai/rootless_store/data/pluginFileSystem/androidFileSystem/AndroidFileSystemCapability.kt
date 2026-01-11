@@ -25,8 +25,7 @@ class AndroidFileSystemCapability(
     }
 
     fun createOneVoidFile(destination: File,fileName: String): Boolean{
-        val result = File(destination,fileName).createNewFile()  // 创建了文件，而非单纯路径
-        Log.d("createOneFile",result.toString())
+        val result = File(destination,"$fileName.zip").createNewFile()  // 创建了文件，而非单纯路径
         return result
     }
 
