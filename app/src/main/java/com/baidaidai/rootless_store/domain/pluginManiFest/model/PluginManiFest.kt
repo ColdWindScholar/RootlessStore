@@ -19,6 +19,15 @@ data class PluginManiFest(
     val installedVersion: String,
     val pluginRenderingName: String,
     val pluginPackageName: String,
+    /**
+     * You can use any random data you like. Generally,
+     *
+     *
+     * Such as MD5 SHA256 HASH
+     *
+     * The more random it is, the fewer mistakes you’ll make.
+     */
+    val pluginID: String,
     val iconURI: String,
     val author: String,
 
@@ -33,6 +42,7 @@ data class PluginManiFest(
             installedVersion = "x.x.x",
             pluginRenderingName=  "Test Plugin",
             pluginPackageName = "TestPlugin",
+            pluginID = "29bb10c46772264df3c0d0fade57d2eb",
             iconURI = "content://rootless_store/plugin_icon/test",
             author = "Rootless Store(Creater. Bai)",
             enabled = false,
