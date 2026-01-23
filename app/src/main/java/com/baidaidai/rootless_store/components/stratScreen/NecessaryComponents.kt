@@ -69,18 +69,11 @@ object NecessaryComponents {
     }
 
     @Composable
-    fun StartScreenFloatingButton(){
-        val context = RootLessStoreLocalContext.current
-        val documentLauncher = OpenDocumentLauncher.current
-
+    fun StartScreenFloatingButton(
+        onClick:()-> Unit
+    ){
         FloatingActionButton(
-            onClick = {
-                documentLauncher.launch(
-                    arrayOf(
-                        "application/zip",
-                    )
-                )
-            }
+            onClick = onClick
         ) {
             Icon(
                 painter = painterResource(R.drawable.outline_box_add_24),
