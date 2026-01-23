@@ -1,0 +1,63 @@
+package com.baidaidai.rootless_store.data.local.room
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
+import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginSource
+import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginState
+
+@Entity(tableName = "pluginInfo")
+data class PluginInfoEntity(
+
+    /**
+     * pluginID is primaryKey
+     *
+     * See more infos
+     * @example com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginMainFest
+     */
+    @PrimaryKey
+    val pluginID: String,
+
+    // Plugin Basic Infos
+    val installedVersion: String,
+    val pluginRenderingName: String,
+    val pluginPackageName: String,
+    val iconURI: String,
+    val author: String,
+
+    // Plugin Runtime Infos
+    val enabled: Boolean,
+    val requiredEnvironment: HosterOverallStatus,
+    val state: PluginState,
+    val source: PluginSource,
+){
+    companion object {
+
+        /**
+         * Create a PluginInfoEntity from PluginManiFest.
+         *
+         * This is the single source of truth for mapping
+         * manifest data into database entity.
+         */
+        fun fromManifest(
+            manifest: PluginManiFest
+        ): PluginInfoEntity =
+            PluginInfoEntity(
+                pluginID = manifest.pluginID,
+
+                // Basic Infos
+                installedVersion = manifest.installedVersion,
+                pluginRenderingName = manifest.pluginRenderingName,
+                pluginPackageName = manifest.pluginPackageName,
+                iconURI = manifest.iconURI,
+                author = manifest.author,
+
+                // Runtime Infos
+                enabled = manifest.enabled,
+                requiredEnvironment = manifest.requiredEnvironment,
+                state = manifest.state,
+                source = manifest.source
+            )
+    }
+}
