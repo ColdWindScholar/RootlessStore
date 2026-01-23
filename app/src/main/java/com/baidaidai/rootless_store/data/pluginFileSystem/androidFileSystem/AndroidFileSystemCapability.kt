@@ -108,6 +108,15 @@ class AndroidFileSystemCapability(
         }
     }
 
+    fun readManifestJsonContent(jsonContent: String): PluginManiFest{
+        val json = Json {
+            ignoreUnknownKeys = true // JSON 多字段也不炸
+            isLenient = true
+        }
+        val manifest: PluginManiFest = json.decodeFromString(PluginManiFest.serializer(),jsonContent)
+        return manifest
+    }
+
     private fun confirmPathExists(path: String): Boolean{
         Log.d("confirmPathExists",File(context.getExternalFilesDir(null),path.toString()).exists().toString())
         return File(context.getExternalFilesDir(null),path.toString()).exists()
@@ -118,13 +127,5 @@ class AndroidFileSystemCapability(
      *
      * The method is original logic, only return solid pluginPackageName
      */
-    private fun readManiFestJsonContent(jsonContent: String): String {
-        val json = Json {
-            ignoreUnknownKeys = true // JSON 多字段也不炸
-            isLenient = true
-        }
-        val manifest: PluginManiFest = json.decodeFromString(PluginManiFest.serializer(),jsonContent)
-        return manifest.pluginPackageName
-    }
 
 }
