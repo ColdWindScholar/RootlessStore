@@ -1,61 +1,71 @@
-package com.baidaidai.rootless_store.model
+package com.baidaidai.rootless_store.ui.model
 
 import android.content.Context
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.data.hosterstatus.impl.RAMStatusGatewayImpl
 import com.baidaidai.rootless_store.data.hosterstatus.impl.StorageStatusGatewayImpl
 import com.baidaidai.rootless_store.domain.hosterstatus.model.RAMStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RootlessStoreStratScreenViewModel: ViewModel() {
-    private var context: Context? = null
+@HiltViewModel
+class RootlessStoreStratScreenViewModel @Inject constructor(
+    @ApplicationContext private val context: Context
+): ViewModel() {
+//    private var context: Context? = null
 
     private val _storageStatus: MutableStateFlow<StorageStatus> = MutableStateFlow(getStorageStatus())
     private val _ramStatus: MutableStateFlow<RAMStatus> = MutableStateFlow(getRAMStatus())
     val storageStatus: StateFlow<StorageStatus> = _storageStatus.asStateFlow()
     val ramStatus: StateFlow<RAMStatus> = _ramStatus.asStateFlow()
 
-
-    fun prepareViewModel(
-        context: Context? = null
-    ){
-        if (context != null){
-            this.context = context
-            _upgradeThe_storageStatus()
-            _upgradeThe_RAMStatus()
-            keepRamReaderRunning()
-        }
+    init {
+        keepRamReaderRunning()
     }
+
+//    fun prepareViewModel(
+//        context: Context? = null
+//    ){
+//        if (context != null){
+//            this.context = context
+//            _upgradeThe_storageStatus()
+//            _upgradeThe_RAMStatus()
+//            keepRamReaderRunning()
+//        }
+//    }
 
     private fun getStorageStatus(): StorageStatus{
-        if (this.context != null){
-            return StorageStatusGatewayImpl(this.context!!).getStorageStatus()
-        }else{
-            return StorageStatus(
-                totalStorage = 128.0,
-                usedStorage = 100.0
-            )
-        }
+        return StorageStatusGatewayImpl(this.context).getStorageStatus()
+//        if (this.context != null){
+//            return
+//        }else{
+//            return StorageStatus(
+//                totalStorage = 128.0,
+//                usedStorage = 100.0
+//            )
+//        }
     }
     private fun getRAMStatus(): RAMStatus{
-        if (this.context != null){
-            return RAMStatusGatewayImpl(this.context!!).getRAMStatus()
-        }else{
-            return RAMStatus(
-                totalRAM = 24.0,
-                usedRAM = 0.0
-            )
-        }
+
+        return RAMStatusGatewayImpl(this.context).getRAMStatus()
+//        if (this.context != null){
+//        }else{
+//            return RAMStatus(
+//                totalRAM = 24.0,
+//                usedRAM = 0.0
+//            )
+//        }
     }
     private fun _upgradeThe_storageStatus(){
         this._storageStatus.update {
@@ -65,6 +75,12 @@ class RootlessStoreStratScreenViewModel: ViewModel() {
     private fun _upgradeThe_RAMStatus(){
         this._ramStatus.update {
             getRAMStatus()
+        }
+    }
+
+    object dbOperator{
+        private fun _appendPluginInformationsIntroDatabase(){
+
         }
     }
 
