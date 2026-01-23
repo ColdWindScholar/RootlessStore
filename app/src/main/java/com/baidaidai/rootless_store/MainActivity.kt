@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store
 
+import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,13 +13,17 @@ import androidx.compose.ui.platform.LocalContext
 import com.baidaidai.rootless_store.ui.screens.RootlessStoreStartScreenContainer
 import com.baidaidai.rootless_store.ui.theme.*
 import com.baidaidai.rootless_store.data.pluginFileSystem.impl.PluginFileSystemGatewayImpl
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
 val RootLessStoreLocalContext = compositionLocalOf<Context>{
     error("No Context Provide")
 }
-val OpenDocumentLauncher = compositionLocalOf<ManagedActivityResultLauncher<Array<String>, Uri?>>{
-    error("No ActivityResultLauncher Provide")
-}
+
+@HiltAndroidApp
+class RootlessStoreApp : Application()
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity(){
     @OptIn(ExperimentalMaterial3ExpressiveApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
