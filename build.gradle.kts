@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
+
+    // Add the ksp support
     id("com.google.devtools.ksp") version "2.0.21-1.0.27" apply false
+
+    // Add the Hilt(DI) support
     id("com.google.dagger.hilt.android") version "2.57.1" apply false
 }
