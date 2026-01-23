@@ -25,11 +25,11 @@ import com.baidaidai.rootless_store.ui.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @Composable
-fun RootlessStoreStartScreenContainer(){
-
-    val context: Context = LocalContext.current
+fun RootlessStoreStartScreenContainer(
+    pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel()
+){
+    
     val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
-    rootlessStoreStratScreenViewModel.prepareViewModel(context)
 
     val storageStatus by rootlessStoreStratScreenViewModel.storageStatus.collectAsState()
     val ramStatus by rootlessStoreStratScreenViewModel.ramStatus.collectAsState()
