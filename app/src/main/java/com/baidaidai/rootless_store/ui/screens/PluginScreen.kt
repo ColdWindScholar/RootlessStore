@@ -35,14 +35,13 @@ fun RootlessStorePluginScreenContainer(
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
-@PreviewLightDark
-@Composable
-private fun _RootlessStorePluginScreenContainerPreview_(){
-    val _TESTONLY_FakePluginsList_ = listOf<PluginManiFest>(PluginManiFest._testOnly_)
-    RootlessStoreTheme {
-        Scaffold {
-            RootlessStorePluginScreenContainer(contentPadding = it,_TESTONLY_FakePluginsList_)
-        }
-    }
-}
+//@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+//@PreviewLightDark
+//@Composable
+//private fun _RootlessStorePluginScreenContainerPreview_(){
+//    RootlessStoreTheme {
+//        Scaffold {
+//            RootlessStorePluginScreenContainer(contentPadding = it)
+//        }
+//    }
+//}
