@@ -5,7 +5,6 @@ import android.net.Uri
 interface PluginFileSystemGateway {
     fun installPlugin(originFileURI: Uri): Unit
     fun uninstallPlugin(): Unit
-
     /* Not Surely if it's stable  */
-//    fun readPlugin(): Unit
+    fun readPluginManifest(originFileURI: Uri): PluginManiFest
 }
