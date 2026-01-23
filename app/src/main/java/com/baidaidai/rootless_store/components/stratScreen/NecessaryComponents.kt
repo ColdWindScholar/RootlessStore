@@ -14,9 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
-import com.baidaidai.rootless_store.OpenDocumentLauncher
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.RootLessStoreLocalContext
 import com.baidaidai.rootless_store.domain.StartScreenNavigationBar.model.NavBarItemSpec
 
 object NecessaryComponents {
