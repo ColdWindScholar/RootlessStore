@@ -1,13 +1,15 @@
 package com.baidaidai.rootless_store.ui.screens
 
-import android.content.Context
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,7 +20,8 @@ import com.baidaidai.rootless_store.domain.hosterstatus.model.PluginStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.RootlessStoreHosterStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.SELinuxStatus
 import com.baidaidai.rootless_store.domain.hosterstatus.model.TempStatus
-import com.baidaidai.rootless_store.model.RootlessStoreStratScreenViewModel
+import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
+import com.baidaidai.rootless_store.ui.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @Composable
