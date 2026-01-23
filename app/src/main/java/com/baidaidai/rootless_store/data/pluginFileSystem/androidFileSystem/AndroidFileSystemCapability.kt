@@ -44,7 +44,11 @@ class AndroidFileSystemCapability(
         // Get file's name, always powered by readManiFestJsonContent
         val fileName = when {
             !destinationFileName.isNullOrBlank() -> destinationFileName.trim()  // 只有destinationFilName显式指定，否则不走
-            else -> readZipContent(originFileURI).let { json -> readManiFestJsonContent(json) }.trim()
+            else -> {
+                readRawPluginManifest(originFileURI).let { json ->
+                    readManifestJsonContent(json).pluginPackageName
+                }.trim()
+            }
         }
 
         // Provide void file, for copy use
