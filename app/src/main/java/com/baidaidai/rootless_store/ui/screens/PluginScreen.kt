@@ -17,9 +17,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun RootlessStorePluginScreenContainer(
-    contentPadding: PaddingValues,
-    plugins:List<PluginManiFest> = listOf<PluginManiFest>(PluginManiFest._testOnly_)
+    contentPadding: PaddingValues
 ){
+    val pluginScreenViewModel = hiltViewModel<RootLessStorePluginScreenViewModel>()
+    val renderingList by pluginScreenViewModel.pluginInfoList.collectAsState()
     LazyColumn(
         modifier = Modifier
             .padding(contentPadding)
@@ -28,7 +29,7 @@ fun RootlessStorePluginScreenContainer(
             .padding(horizontal = 15.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(plugins){
+        items(renderingList){
             PluginInfosContainer(pluginManiFest = it)
         }
     }
