@@ -47,6 +47,16 @@ fun RootlessStoreStartScreenContainer(
 
     val navController = rememberNavController()
 
+    // Define the operation ,which after got the file's URI
+    val openDocumentLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri: Uri? ->
+        uri?.let {
+            pluginScreenViewModel.updateFileURI(uri)
+            pluginScreenViewModel.installPlugin()
+        }
+    }
+
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar() },
         bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)},
