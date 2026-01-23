@@ -76,7 +76,7 @@ class AndroidFileSystemCapability(
      *  This is original logic
      *  only return solid json
      */
-    fun readZipContent(uri: Uri): String{
+    fun readRawPluginManifest(uri: Uri): String{
         context.contentResolver.openInputStream(uri).use { inputStream ->
 //            if (inputStream == null) {
 //                Log.e("readZipContent", "openInputStream returned null, uri=$uri")
