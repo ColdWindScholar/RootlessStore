@@ -12,7 +12,6 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.baidaidai.rootless_store.ui.screens.RootlessStoreStartScreenContainer
 import com.baidaidai.rootless_store.ui.theme.*
-import com.baidaidai.rootless_store.data.pluginFileSystem.impl.PluginFileSystemGatewayImpl
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -32,20 +31,9 @@ class MainActivity : ComponentActivity(){
         setContent {
             val context = LocalContext.current
 
-            val pluginFileSystemImpl = remember(context) {
-                PluginFileSystemGatewayImpl(context)
-            }
-
-            val openDocumentLauncher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.OpenDocument()
-            ) { uri: Uri? ->
-                uri?.let { pluginFileSystemImpl.installPlugin(it) }
-            }
-
             RootlessStoreTheme {
                 CompositionLocalProvider(
                     RootLessStoreLocalContext provides context,
-                    OpenDocumentLauncher provides openDocumentLauncher
                 ) {
                     RootlessStoreStartScreenContainer()
                 }
