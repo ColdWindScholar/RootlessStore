@@ -60,7 +60,15 @@ fun RootlessStoreStartScreenContainer(
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar() },
         bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)},
-        floatingActionButton = { NecessaryComponents.StartScreenFloatingButton() }
+        floatingActionButton = {
+            NecessaryComponents.StartScreenFloatingButton{
+                openDocumentLauncher.launch(
+                    arrayOf(
+                        "application/zip",
+                    )
+                )
+            }
+        }
     ) { contentPadding->
         NavHost(
             navController = navController,
