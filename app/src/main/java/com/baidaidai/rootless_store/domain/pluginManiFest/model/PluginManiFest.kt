@@ -20,6 +20,7 @@ data class PluginManiFest(
     val pluginRenderingName: String,
     val pluginPackageName: String,
     /**
+     * This is primary key of Room DB
      * You can use any random data you like. Generally,
      *
      *
@@ -30,12 +31,13 @@ data class PluginManiFest(
     val pluginID: String,
     val iconURI: String,
     val author: String,
+    val pluginDescription:String,
 
     // Plugin Runtime Infos
-    val enabled: Boolean,
+    val enabled: Boolean,  // shouldn't belong here
     val requiredEnvironment: HosterOverallStatus,
-    val state: PluginState,
-    val source: PluginSource,
+    val state: PluginState,  // shouldn't belong here
+    val source: PluginSource,  // shouldn't belong here
 ){
     companion object {
         val _testOnly_ = PluginManiFest(
@@ -49,6 +51,7 @@ data class PluginManiFest(
             requiredEnvironment = HosterOverallStatus.LIMITED,
             state = PluginState.Great,
             source = PluginSource.Local,
+            pluginDescription = "Tested by Creater. Bai"
         )
     }
 }
