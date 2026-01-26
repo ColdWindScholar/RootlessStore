@@ -25,6 +25,7 @@ data class PluginInfoEntity(
     val pluginPackageName: String,
     val iconURI: String,
     val author: String,
+    val pluginDescription:String,
 
     // Plugin Runtime Infos
     val enabled: Boolean,
@@ -52,6 +53,7 @@ data class PluginInfoEntity(
                 pluginPackageName = manifest.pluginPackageName,
                 iconURI = manifest.iconURI,
                 author = manifest.author,
+                pluginDescription = manifest.pluginDescription,
 
                 // Runtime Infos
                 enabled = manifest.enabled,
