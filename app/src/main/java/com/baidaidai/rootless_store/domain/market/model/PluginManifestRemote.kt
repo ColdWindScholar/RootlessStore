@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.domain.plugin.market.model
+package com.baidaidai.rootless_store.domain.market.model
 
 //import kotlinx.serialization.Serializable
 //
