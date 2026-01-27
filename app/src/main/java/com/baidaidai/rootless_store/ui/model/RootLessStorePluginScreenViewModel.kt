@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.domain.Repository.UseCase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.Repository.UseCase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewScoped
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     private val installOnePluginUseCase: InstallOnePluginUseCase
 ): ViewModel() {
 
-    private val _pluginInfoList = MutableStateFlow(emptyList<PluginManiFest>())
+    private val _pluginInfoList = MutableStateFlow(emptyList<PluginManifestLocal>())
     private val _fileURI = MutableStateFlow<Uri>(value = Uri.EMPTY)
     val pluginInfoList = _pluginInfoList.asStateFlow()
     val fileURI = _fileURI.asStateFlow()

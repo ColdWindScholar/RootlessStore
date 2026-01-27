@@ -6,6 +6,7 @@ import com.baidaidai.rootless_store.data.local.room.PluginInfoDataBase
 import com.baidaidai.rootless_store.data.local.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.Repository.Gateway.RepositoryGateway
 import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -33,13 +34,13 @@ class RepositoryImpl @Inject constructor(
     // READ
     override suspend fun getOnePluginInfo(
         pluginID: String
-    ): PluginManiFest? {
+    ): PluginManifestLocal? {
 //      TODO("Not yet implemented")
         val pluginInfo = pluginInfoDAO.getOneEntirePluginInfoByPluginID(pluginID)
         return pluginInfo
     }
 
-    override suspend fun getWholePluginInfo(): List<PluginManiFest>? {
+    override suspend fun getWholePluginInfo(): List<PluginManifestLocal>? {
 //      TODO("Not yet implemented")
         val pluginManifestList = pluginInfoDAO.getEntirePluginManifest()
         return pluginManifestList

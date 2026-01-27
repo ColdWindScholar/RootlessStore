@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import kotlinx.serialization.json.Json
 import java.io.BufferedInputStream
 import java.io.File
@@ -112,12 +112,12 @@ class AndroidFileSystemCapability(
         }
     }
 
-    fun readManifestJsonContent(jsonContent: String): PluginManiFest{
+    fun readManifestJsonContent(jsonContent: String): PluginManifestLocal{
         val json = Json {
             ignoreUnknownKeys = true // JSON 多字段也不炸
             isLenient = true
         }
-        val manifest: PluginManiFest = json.decodeFromString(PluginManiFest.serializer(),jsonContent)
+        val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.serializer(),jsonContent)
         return manifest
     }
 

@@ -5,8 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
-import javax.inject.Inject
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 
 @Dao
 interface PluginInfoDAO {
@@ -21,10 +20,10 @@ interface PluginInfoDAO {
 
     // Read
     @Query("SELECT * FROM pluginInfo WHERE pluginID = :pluginID LIMIT 1")
-    suspend fun getOneEntirePluginInfoByPluginID(pluginID: String): PluginManiFest?
+    suspend fun getOneEntirePluginInfoByPluginID(pluginID: String): PluginManifestLocal?
 
     @Query(value = "SELECT * FROM pluginInfo")
-    suspend fun getEntirePluginManifest(): List<PluginManiFest>?
+    suspend fun getEntirePluginManifest(): List<PluginManifestLocal>
 
     // Delete
     @Delete

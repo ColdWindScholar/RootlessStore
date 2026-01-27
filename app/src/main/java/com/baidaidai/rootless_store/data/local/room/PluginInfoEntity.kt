@@ -2,10 +2,10 @@ package com.baidaidai.rootless_store.data.local.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginSource
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginState
+import com.baidaidai.rootless_store.domain.plugin.model.HosterOverallStatus
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.model.PluginSource
+import com.baidaidai.rootless_store.domain.plugin.model.PluginState
 
 @Entity(tableName = "pluginInfo")
 data class PluginInfoEntity(
@@ -42,7 +42,7 @@ data class PluginInfoEntity(
          * manifest data into database entity.
          */
         fun fromManifest(
-            manifest: PluginManiFest
+            manifest: PluginManifestLocal
         ): PluginInfoEntity =
             PluginInfoEntity(
                 pluginID = manifest.pluginID,

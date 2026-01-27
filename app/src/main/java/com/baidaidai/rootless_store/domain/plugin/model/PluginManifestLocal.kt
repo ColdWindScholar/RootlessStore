@@ -1,10 +1,9 @@
-package com.baidaidai.rootless_store.domain.pluginManiFest.model
+package com.baidaidai.rootless_store.domain.plugin.model
 
-import com.baidaidai.rootless_store.domain.hosterstatus.model.HosterOverallStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PluginManiFest(
+data class PluginManifestLocal(
     /**
      * This is an initial version only.
      *
@@ -40,7 +39,7 @@ data class PluginManiFest(
     val source: PluginSource,  // shouldn't belong here
 ){
     companion object {
-        val _testOnly_ = PluginManiFest(
+        val _testOnly_ = PluginManifestLocal(
             installedVersion = "x.x.x",
             pluginRenderingName=  "Test Plugin",
             pluginPackageName = "TestPlugin",
