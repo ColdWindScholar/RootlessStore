@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.data.hosterstatus.impl.RAMStatusGatewayImpl
 import com.baidaidai.rootless_store.data.hosterstatus.impl.StorageStatusGatewayImpl
-import com.baidaidai.rootless_store.domain.hosterstatus.model.RAMStatus
-import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
-import dagger.hilt.android.AndroidEntryPoint
+import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
+import com.baidaidai.rootless_store.domain.plugin.model.StorageStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay

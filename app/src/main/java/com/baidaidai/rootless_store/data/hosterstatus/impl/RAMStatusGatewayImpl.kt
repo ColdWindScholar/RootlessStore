@@ -2,8 +2,8 @@ package com.baidaidai.rootless_store.data.hosterstatus.impl
 
 import android.content.Context
 import com.baidaidai.rootless_store.data.hosterstatus.RAM.RAMInfoReader
-import com.baidaidai.rootless_store.domain.hosterstatus.gateway.RAMStatusGateway
-import com.baidaidai.rootless_store.domain.hosterstatus.model.RAMStatus
+import com.baidaidai.rootless_store.domain.plugin.gateway.RAMStatusGateway
+import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
 
 class RAMStatusGatewayImpl(
     private val context: Context

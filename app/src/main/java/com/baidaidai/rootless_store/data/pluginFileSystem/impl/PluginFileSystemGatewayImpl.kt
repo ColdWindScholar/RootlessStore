@@ -3,8 +3,7 @@ package com.baidaidai.rootless_store.data.pluginFileSystem.impl
 import android.content.Context
 import android.net.Uri
 import com.baidaidai.rootless_store.data.pluginFileSystem.androidFileSystem.AndroidFileSystemCapability
-import com.baidaidai.rootless_store.domain.pluginFileSystem.gateway.PluginFileSystemGateway
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.gateway.PluginFileSystemGateway
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File

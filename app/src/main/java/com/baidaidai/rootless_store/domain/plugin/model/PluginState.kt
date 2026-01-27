@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.domain.pluginManiFest.model
+package com.baidaidai.rootless_store.domain.plugin.model
 
 import kotlinx.serialization.Serializable
 

@@ -2,8 +2,8 @@ package com.baidaidai.rootless_store.data.hosterstatus.impl
 
 import android.content.Context
 import com.baidaidai.rootless_store.data.hosterstatus.storage.StorageInfoReader
-import com.baidaidai.rootless_store.domain.hosterstatus.gateway.StorageStatusGetAway
-import com.baidaidai.rootless_store.domain.hosterstatus.model.StorageStatus
+import com.baidaidai.rootless_store.domain.plugin.gateway.StorageStatusGetAway
+import com.baidaidai.rootless_store.domain.plugin.model.StorageStatus
 
 class StorageStatusGatewayImpl(
     private val context: Context
