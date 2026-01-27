@@ -1,7 +1,7 @@
-package com.baidaidai.rootless_store.data.hosterstatus.impl
+package com.baidaidai.rootless_store.data.status.impl
 
 import android.content.Context
-import com.baidaidai.rootless_store.data.hosterstatus.storage.StorageInfoReader
+import com.baidaidai.rootless_store.data.status.datasource.StorageInfoReader
 import com.baidaidai.rootless_store.domain.plugin.gateway.StorageStatusGetAway
 import com.baidaidai.rootless_store.domain.plugin.model.StorageStatus
 

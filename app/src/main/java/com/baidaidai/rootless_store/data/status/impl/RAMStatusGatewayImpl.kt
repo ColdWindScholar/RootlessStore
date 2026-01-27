@@ -1,7 +1,7 @@
-package com.baidaidai.rootless_store.data.hosterstatus.impl
+package com.baidaidai.rootless_store.data.status.impl
 
 import android.content.Context
-import com.baidaidai.rootless_store.data.hosterstatus.RAM.RAMInfoReader
+import com.baidaidai.rootless_store.data.status.datasource.RAMInfoReader
 import com.baidaidai.rootless_store.domain.plugin.gateway.RAMStatusGateway
 import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
 
