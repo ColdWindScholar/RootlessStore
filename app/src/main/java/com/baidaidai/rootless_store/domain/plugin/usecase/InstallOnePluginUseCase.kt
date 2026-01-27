@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.domain.Repository.UseCase
+package com.baidaidai.rootless_store.domain.plugin.usecase
 
 import android.net.Uri
 import androidx.hilt.navigation.compose.hiltViewModel
