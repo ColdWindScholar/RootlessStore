@@ -87,4 +87,5 @@ dependencies {
     // Paging Libs
     implementation("androidx.paging:paging-runtime:3.3.6")
     implementation("androidx.paging:paging-compose:3.4.0-rc01") // Optional
+    implementation("androidx.paging:paging-compose:3.3.6") // Optional
 }

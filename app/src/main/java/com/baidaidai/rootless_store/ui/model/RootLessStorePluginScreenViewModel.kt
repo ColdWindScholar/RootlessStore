@@ -3,9 +3,8 @@ package com.baidaidai.rootless_store.ui.model
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.rootless_store.domain.Repository.UseCase.GetWholePluginInfoUseCase
-import com.baidaidai.rootless_store.domain.Repository.UseCase.InstallOnePluginUseCase
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
+import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.scopes.ViewScoped
