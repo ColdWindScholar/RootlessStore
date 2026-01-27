@@ -14,7 +14,7 @@ class PluginPagingSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PluginItemDto> {
         val page = params.key ?: 0
 
-        val resp = api.getPlugins(pageNumber = page).body<PluginPageResponse>()
+        val resp = api.getPlugins(pageNumber = page).body<PluginPageResponseDto>()
 
         val nextKey = if (resp.meta.hasMore) page + 1 else null
 
