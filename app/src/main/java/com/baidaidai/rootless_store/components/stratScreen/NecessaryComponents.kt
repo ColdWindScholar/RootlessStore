@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.domain.StartScreenNavigationBar.model.NavBarItemSpec
+import com.baidaidai.rootless_store.domain.plugin.model.NavBarItemSpec
 
 object NecessaryComponents {
     @OptIn(ExperimentalMaterial3Api::class)
