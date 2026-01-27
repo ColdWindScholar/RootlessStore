@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.rootless_store.data.hosterstatus.impl.RAMStatusGatewayImpl
-import com.baidaidai.rootless_store.data.hosterstatus.impl.StorageStatusGatewayImpl
+import com.baidaidai.rootless_store.data.status.impl.RAMStatusGatewayImpl
+import com.baidaidai.rootless_store.data.status.impl.StorageStatusGatewayImpl
 import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
 import com.baidaidai.rootless_store.domain.plugin.model.StorageStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
