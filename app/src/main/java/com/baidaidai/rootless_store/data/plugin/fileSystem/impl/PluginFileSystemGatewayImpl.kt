@@ -1,8 +1,8 @@
-package com.baidaidai.rootless_store.data.pluginFileSystem.impl
+package com.baidaidai.rootless_store.data.plugin.fileSystem.impl
 
 import android.content.Context
 import android.net.Uri
-import com.baidaidai.rootless_store.data.pluginFileSystem.androidFileSystem.AndroidFileSystemCapability
+import com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem.AndroidFileSystemCapability
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginFileSystemGateway
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext

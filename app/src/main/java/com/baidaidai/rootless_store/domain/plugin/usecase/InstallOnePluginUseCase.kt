@@ -1,9 +1,9 @@
 package com.baidaidai.rootless_store.domain.plugin.usecase
 
 import android.net.Uri
-import com.baidaidai.rootless_store.data.local.room.PluginInfoEntity
-import com.baidaidai.rootless_store.data.pluginFileSystem.impl.PluginFileSystemGatewayImpl
-import com.baidaidai.rootless_store.data.repository.PluginInfoGatewayImpl
+import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
+import com.baidaidai.rootless_store.data.plugin.fileSystem.impl.PluginFileSystemGatewayImpl
+import com.baidaidai.rootless_store.data.plugin.repository.PluginInfoGatewayImpl
 import javax.inject.Inject
 
 class InstallOnePluginUseCase @Inject constructor(

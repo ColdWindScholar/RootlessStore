@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.data.pluginFileSystem.androidFileSystem
+package com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem
 
 import android.content.Context
 import android.net.Uri

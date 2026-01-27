@@ -1,6 +1,6 @@
 package com.baidaidai.rootless_store.domain.plugin.usecase
 
-import com.baidaidai.rootless_store.data.repository.PluginInfoGatewayImpl
+import com.baidaidai.rootless_store.data.plugin.repository.PluginInfoGatewayImpl
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.data.local.room
+package com.baidaidai.rootless_store.data.plugin.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

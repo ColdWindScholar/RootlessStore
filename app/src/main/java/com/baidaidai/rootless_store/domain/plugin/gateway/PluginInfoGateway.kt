@@ -1,7 +1,7 @@
 package com.baidaidai.rootless_store.domain.plugin.gateway
 
 import androidx.room.RoomDatabase
-import com.baidaidai.rootless_store.data.local.room.PluginInfoEntity
+import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 
 interface PluginInfoGateway {
