@@ -26,7 +26,7 @@ import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 
 @Composable
 fun PluginInfosContainer(
-    pluginManiFest: PluginManiFest,
+    pluginManifestLocal: PluginManifestLocal,
     modifier: Modifier = Modifier
 ){
     Card(
@@ -62,16 +62,16 @@ fun PluginInfosContainer(
                         .weight(1f)
                 ){
                     Text(
-                        text = pluginManiFest.pluginRenderingName,
+                        text = pluginManifestLocal.pluginRenderingName,
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Version: ${pluginManiFest.installedVersion}",
+                        text = "Version: ${pluginManifestLocal.installedVersion}",
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
                 Switch(
-                    checked = pluginManiFest.enabled,
+                    checked = pluginManifestLocal.enabled,
                     onCheckedChange = {}
                 )
             }
@@ -79,12 +79,12 @@ fun PluginInfosContainer(
             Column(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                PluginInfoRow(label = "Author", value = pluginManiFest.author)
-                PluginInfoRow(label = "Source", value = pluginManiFest.source.toString())
-                PluginInfoRow(label = "State", value = pluginManiFest.state.toString())
+                PluginInfoRow(label = "Author", value = pluginManifestLocal.author)
+                PluginInfoRow(label = "Source", value = pluginManifestLocal.source.toString())
+                PluginInfoRow(label = "State", value = pluginManifestLocal.state.toString())
                 PluginInfoRow(
                     label = "Required",
-                    value = pluginManiFest.requiredEnvironment.toString()
+                    value = pluginManifestLocal.requiredEnvironment.toString()
                 )
             }
         }
@@ -125,5 +125,5 @@ private fun PluginInfoRow(
 @Composable
 @PreviewLightDark
 private fun _PluginInfosContainerPreview_(){
-    PluginInfosContainer(PluginManiFest._testOnly_)
+    PluginInfosContainer(PluginManifestLocal._testOnly_)
 }
