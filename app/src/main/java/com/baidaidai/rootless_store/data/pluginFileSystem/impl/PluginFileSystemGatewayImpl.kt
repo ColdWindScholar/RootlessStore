@@ -5,6 +5,7 @@ import android.net.Uri
 import com.baidaidai.rootless_store.data.pluginFileSystem.androidFileSystem.AndroidFileSystemCapability
 import com.baidaidai.rootless_store.domain.pluginFileSystem.gateway.PluginFileSystemGateway
 import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
+import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class PluginFileSystemGatewayImpl @Inject constructor(
         TODO("")
     }
 
-    override fun readPluginManifest(originFileURI: Uri): PluginManiFest {
+    override fun readPluginManifest(originFileURI: Uri): PluginManifestLocal {
         return androidFileSystemCapability.readRawPluginManifest(uri = originFileURI).let {
             androidFileSystemCapability.readManifestJsonContent(it)
         }
