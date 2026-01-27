@@ -9,9 +9,9 @@ import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(
+class PluginInfoGatewayImpl @Inject constructor(
     @ApplicationContext context: Context,
-): RepositoryGateway {
+): PluginInfoGateway {
 
     override val appDatabase = Room.databaseBuilder(
         context = context,

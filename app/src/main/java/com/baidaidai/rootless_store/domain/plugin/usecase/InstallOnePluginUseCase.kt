@@ -3,14 +3,12 @@ package com.baidaidai.rootless_store.domain.plugin.usecase
 import android.net.Uri
 import com.baidaidai.rootless_store.data.local.room.PluginInfoEntity
 import com.baidaidai.rootless_store.data.pluginFileSystem.impl.PluginFileSystemGatewayImpl
-import com.baidaidai.rootless_store.data.repository.RepositoryImpl
-import com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginManiFest
-import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
+import com.baidaidai.rootless_store.data.repository.PluginInfoGatewayImpl
 import javax.inject.Inject
 
 class InstallOnePluginUseCase @Inject constructor(
     private val pluginFileSystemGatewayImpl: PluginFileSystemGatewayImpl,
-    private val repositoryImpl: RepositoryImpl
+    private val repositoryImpl: PluginInfoGatewayImpl
 ){
     suspend operator fun invoke(
         uri: Uri,
