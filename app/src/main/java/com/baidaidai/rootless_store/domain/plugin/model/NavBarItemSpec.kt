@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.domain.StartScreenNavigationBar.model
+package com.baidaidai.rootless_store.domain.plugin.model
 
 import androidx.compose.ui.graphics.painter.Painter
 
