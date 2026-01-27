@@ -4,13 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.baidaidai.rootless_store.data.market.remote.api.PluginMarketAPI
 import com.baidaidai.rootless_store.data.market.remote.dto.PluginItemDto
+import com.baidaidai.rootless_store.data.market.remote.dto.PluginPageResponseDto
 import io.ktor.client.call.body
-
-@Serializable
-data class PluginPageResponse(
-    val data: List<PluginItemDto>,
-    val meta: MetaDto
-)
 
 class PluginPagingSource (
     private val api: PluginMarketAPI
