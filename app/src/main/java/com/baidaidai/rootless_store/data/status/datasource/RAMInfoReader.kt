@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.data.hosterstatus.RAM
+package com.baidaidai.rootless_store.data.status.datasource
 
 import android.app.ActivityManager
 import android.content.Context

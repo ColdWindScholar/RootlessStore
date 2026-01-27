@@ -1,9 +1,7 @@
-package com.baidaidai.rootless_store.data.hosterstatus.storage
+package com.baidaidai.rootless_store.data.status.datasource
 
 import android.content.Context
 import android.os.StatFs
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
 class StorageInfoReader(
     private val appContext: Context
