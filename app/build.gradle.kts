@@ -86,6 +86,11 @@ dependencies {
 
     // Paging Libs
     implementation("androidx.paging:paging-runtime:3.3.6")
-    implementation("androidx.paging:paging-compose:3.4.0-rc01") // Optional
     implementation("androidx.paging:paging-compose:3.3.6") // Optional
+
+    // Ktor Libs
+    implementation("io.ktor:ktor-client-core:2.3.13")
+    implementation("io.ktor:ktor-client-android:2.3.13")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
 }
