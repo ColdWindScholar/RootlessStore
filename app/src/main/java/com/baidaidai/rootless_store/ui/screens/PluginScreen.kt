@@ -30,7 +30,12 @@ fun RootlessStorePluginScreenContainer(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(renderingList){
-            PluginInfosContainer(pluginManifestLocal = it)
+            PluginInfosContainer(pluginManifest = it){
+                pluginScreenViewModel.setPluginEnabled(
+                    pluginID = it.pluginID,
+                    pluginEnabledStatus = !it.enabled
+                )
+            }
         }
     }
 }
