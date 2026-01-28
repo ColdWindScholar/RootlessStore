@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.domain.plugin.model
 
+import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import kotlinx.serialization.Serializable
 
 @Serializable
