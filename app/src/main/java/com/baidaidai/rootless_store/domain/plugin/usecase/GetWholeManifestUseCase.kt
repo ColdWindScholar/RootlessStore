@@ -11,7 +11,7 @@ class GetWholePluginInfoUseCase @Inject constructor(
         val result = repositoryImpl.getWholePluginInfo()
 
         if (result.isNullOrEmpty()){
-            return listOf(PluginManifestLocal._testOnly_)
+            return emptyList<PluginManifestRoom>()
         }else{
             return result
         }
