@@ -127,5 +127,5 @@ private fun PluginInfoRow(
 @Composable
 @PreviewLightDark
 private fun _PluginInfosContainerPreview_(){
-    PluginInfosContainer(PluginManifestLocal._testOnly_)
+    PluginInfosContainer(PluginManifestLocal._testOnly_){}
 }
