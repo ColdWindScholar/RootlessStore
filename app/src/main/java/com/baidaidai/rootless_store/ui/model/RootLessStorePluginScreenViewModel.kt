@@ -7,6 +7,7 @@ import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseC
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import com.baidaidai.rootless_store.domain.plugin.usecase.SetPluginEnabledUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +18,8 @@ import kotlin.collections.emptyList
 @HiltViewModel
 class RootLessStorePluginScreenViewModel @Inject constructor(
     private val getWholePluginInfoUseCase: GetWholePluginInfoUseCase,
-    private val installOnePluginUseCase: InstallOnePluginUseCase
+    private val installOnePluginUseCase: InstallOnePluginUseCase,
+    private val setPluginEnabledUseCase: SetPluginEnabledUseCase
 ): ViewModel() {
 
     private val _pluginInfoList = MutableStateFlow(emptyList<PluginManifestLocal>())
@@ -37,6 +39,17 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
         viewModelScope.launch {
             installOnePluginUseCase(fileURI.value)
             getAllPlugins()
+        }
+    }
+    fun setPluginEnabled(
+        pluginID: String,
+        pluginEnabledStatus: Boolean
+    ){
+        viewModelScope.launch {
+            setPluginEnabledUseCase(
+                pluginID = pluginID,
+                pluginEnabledStatus = pluginEnabledStatus
+            )
         }
     }
 
