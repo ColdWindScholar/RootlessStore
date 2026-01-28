@@ -4,14 +4,14 @@ import android.content.Context
 import androidx.room.Room
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDataBase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
-import com.baidaidai.rootless_store.domain.plugin.gateway.PluginInfoGateway
+import com.baidaidai.rootless_store.domain.plugin.repository.PluginInfoRepository
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PluginInfoGatewayImpl @Inject constructor(
+class PluginInfoRepositoryImpl @Inject constructor(
     @ApplicationContext context: Context,
-): PluginInfoGateway {
+): PluginInfoRepository {
 
     override val appDatabase = Room.databaseBuilder(
         context = context,

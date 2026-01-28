@@ -6,13 +6,13 @@ import androidx.paging.PagingData
 import com.baidaidai.rootless_store.data.market.paging.PluginPagingSource
 import com.baidaidai.rootless_store.data.market.remote.api.PluginMarketAPI
 import com.baidaidai.rootless_store.data.market.remote.dto.PluginItemDto
-import com.baidaidai.rootless_store.domain.market.gateway.PluginMarketRepositoryGateway
+import com.baidaidai.rootless_store.domain.market.repository.PluginMarketRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class PluginMarketRepositoryGatewayImpl @Inject constructor(
+class PluginMarketRepositoryImpl @Inject constructor(
     private val api: PluginMarketAPI
-): PluginMarketRepositoryGateway {
+): PluginMarketRepository {
     override fun getPlugins(): Flow<PagingData<PluginItemDto>> {
         return Pager(
             config = PagingConfig(

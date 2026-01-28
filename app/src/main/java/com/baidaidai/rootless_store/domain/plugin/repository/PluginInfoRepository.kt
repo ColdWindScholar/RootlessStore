@@ -1,10 +1,10 @@
-package com.baidaidai.rootless_store.domain.plugin.gateway
+package com.baidaidai.rootless_store.domain.plugin.repository
 
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 
-interface PluginInfoGateway {
+interface PluginInfoRepository {
     // 以为DB为中心的Gateway
 
     val appDatabase: RoomDatabase
