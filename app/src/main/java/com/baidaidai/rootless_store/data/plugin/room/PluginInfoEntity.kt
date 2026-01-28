@@ -56,7 +56,7 @@ data class PluginInfoEntity(
                 pluginDescription = manifest.pluginDescription,
 
                 // Runtime Infos
-                enabled = manifest.enabled,
+                enabled = false,
                 requiredEnvironment = manifest.requiredEnvironment,
                 state = manifest.state,
                 source = manifest.source
