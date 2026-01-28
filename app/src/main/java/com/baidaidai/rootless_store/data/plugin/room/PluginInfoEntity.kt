@@ -42,7 +42,7 @@ data class PluginInfoEntity(
          * manifest data into database entity.
          */
         fun fromManifest(
-            manifest: PluginManifestLocal
+            manifest: PluginManifestRoom
         ): PluginInfoEntity =
             PluginInfoEntity(
                 pluginID = manifest.pluginID,
