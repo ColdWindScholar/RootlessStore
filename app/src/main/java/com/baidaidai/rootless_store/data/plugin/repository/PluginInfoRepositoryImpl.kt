@@ -30,6 +30,13 @@ class PluginInfoRepositoryImpl @Inject constructor(
     }
 
     // Update
+    override suspend fun enablePluginByID(pluginID: String) {
+        pluginInfoDAO.updateEnabled(pluginID = pluginID, enabled = true)
+    }
+
+    override suspend fun disablePluginByID(pluginID: String) {
+        pluginInfoDAO.updateEnabled(pluginID = pluginID, enabled = false)
+    }
 
     // READ
     override suspend fun getOnePluginInfo(
