@@ -1,7 +1,7 @@
 package com.baidaidai.rootless_store.domain.plugin.gateway
 
 import android.net.Uri
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 
 interface PluginFileSystemGateway {
     fun installPlugin(originFileURI: Uri): Unit

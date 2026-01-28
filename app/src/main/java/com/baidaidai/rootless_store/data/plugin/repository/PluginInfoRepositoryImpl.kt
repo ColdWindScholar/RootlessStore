@@ -5,7 +5,8 @@ import androidx.room.Room
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDataBase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.repository.PluginInfoRepository
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

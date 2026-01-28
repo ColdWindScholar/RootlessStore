@@ -2,7 +2,8 @@ package com.baidaidai.rootless_store.domain.plugin.repository
 
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 interface PluginInfoRepository {
     // 以为DB为中心的Gateway

@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import kotlinx.serialization.json.Json
 import java.io.BufferedInputStream
 import java.io.File
