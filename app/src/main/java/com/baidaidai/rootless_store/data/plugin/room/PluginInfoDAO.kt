@@ -18,6 +18,9 @@ interface PluginInfoDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
+    // Update
+    @Query("UPDATE pluginInfo SET enabled = :enabled WHERE pluginID = :pluginID")
+    suspend fun updateEnabled(pluginID: String, enabled: Boolean)
 
     // Read
     @Query("SELECT * FROM pluginInfo WHERE pluginID = :pluginID LIMIT 1")
