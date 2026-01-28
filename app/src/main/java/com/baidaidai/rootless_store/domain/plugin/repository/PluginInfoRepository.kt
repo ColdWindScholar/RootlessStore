@@ -11,7 +11,7 @@ interface PluginInfoRepository {
     val appDatabase: RoomDatabase
     suspend fun getOnePluginInfo(pluginID: String): PluginManifestLocal?
 
-    suspend fun getWholePluginInfo(): List<PluginManifestLocal>?
+    suspend fun getWholePluginInfo(): List<PluginManifestRoom>?
 
     suspend fun insertOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
