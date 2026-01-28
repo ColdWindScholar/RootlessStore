@@ -19,7 +19,7 @@ class InstallOnePluginUseCase @Inject constructor(
          * 3. Update VM
          */
         // n
-        val pluginManiFest = pluginFileSystemGatewayImpl.readPluginManifest(uri)
+        val pluginManiFest = pluginFileSystemGatewayImpl.readPluginManifest(uri).toManifestRoom()
         val pluginInfoEntity = PluginInfoEntity.fromManifest(pluginManiFest)
 
         pluginFileSystemGatewayImpl.installPlugin(uri)
