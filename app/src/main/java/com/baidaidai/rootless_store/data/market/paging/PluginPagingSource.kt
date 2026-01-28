@@ -9,9 +9,9 @@ import io.ktor.client.call.body
 
 class PluginPagingSource (
     private val api: PluginMarketAPI
-) : PagingSource<Int, PluginItemDto>() {
+) : PagingSource<Int, PluginManifestRemote>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PluginItemDto> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PluginManifestRemote> {
         val page = params.key ?: 0
 
         val resp = api.getPlugins(pageNumber = page).body<PluginPageResponseDto>()
@@ -25,7 +25,7 @@ class PluginPagingSource (
         )
     }
 
-    override fun getRefreshKey(state: PagingState<Int, PluginItemDto>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, PluginManifestRemote>): Int? {
         TODO("Not yet implemented")
     }
 }
