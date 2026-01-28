@@ -27,7 +27,7 @@ interface PluginInfoDAO {
     suspend fun getOneEntirePluginInfoByPluginID(pluginID: String): PluginManifestLocal?
 
     @Query(value = "SELECT * FROM pluginInfo")
-    suspend fun getEntirePluginManifest(): List<PluginManifestLocal>
+    suspend fun getEntirePluginManifest(): List<PluginManifestRoom>
 
     // Delete
     @Delete
