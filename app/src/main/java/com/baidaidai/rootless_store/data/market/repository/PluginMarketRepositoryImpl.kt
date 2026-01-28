@@ -5,8 +5,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.baidaidai.rootless_store.data.market.paging.PluginPagingSource
 import com.baidaidai.rootless_store.data.market.remote.api.PluginMarketAPI
-import com.baidaidai.rootless_store.data.market.remote.dto.PluginItemDto
 import com.baidaidai.rootless_store.domain.market.repository.PluginMarketRepository
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
