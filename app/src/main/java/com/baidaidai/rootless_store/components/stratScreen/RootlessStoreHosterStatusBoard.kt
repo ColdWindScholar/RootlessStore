@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.domain.plugin.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 
 @Composable
 fun RootlessStoreHosterStatusBoard(

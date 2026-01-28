@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevelopRootlessStorePlugin
 import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
-import com.baidaidai.rootless_store.domain.plugin.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 
 @Composable
 fun HomeScreen(

@@ -8,6 +8,8 @@ import com.baidaidai.rootless_store.data.status.impl.RAMStatusGatewayImpl
 import com.baidaidai.rootless_store.data.status.impl.StorageStatusGatewayImpl
 import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
 import com.baidaidai.rootless_store.domain.plugin.model.StorageStatus
+import com.baidaidai.rootless_store.domain.status.model.RAMStatus
+import com.baidaidai.rootless_store.domain.status.model.StorageStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay

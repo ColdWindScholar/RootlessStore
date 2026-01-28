@@ -15,11 +15,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
-import com.baidaidai.rootless_store.domain.plugin.model.HosterOverallStatus
-import com.baidaidai.rootless_store.domain.plugin.model.PluginStatus
-import com.baidaidai.rootless_store.domain.plugin.model.RootlessStoreHosterStatus
-import com.baidaidai.rootless_store.domain.plugin.model.SELinuxStatus
-import com.baidaidai.rootless_store.domain.plugin.model.TempStatus
+import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
+import com.baidaidai.rootless_store.domain.status.model.PluginStatus
+import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.domain.status.model.SELinuxStatus
+import com.baidaidai.rootless_store.domain.status.model.TempStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme

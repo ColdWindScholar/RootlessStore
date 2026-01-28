@@ -1,9 +1,9 @@
-package com.baidaidai.rootless_store.data.status.impl
+package com.baidaidai.rootless_store.data.status.gateway
 
 import android.content.Context
 import com.baidaidai.rootless_store.data.status.datasource.RAMInfoReader
-import com.baidaidai.rootless_store.domain.plugin.gateway.RAMStatusGateway
-import com.baidaidai.rootless_store.domain.plugin.model.RAMStatus
+import com.baidaidai.rootless_store.domain.status.gateway.RAMStatusGateway
+import com.baidaidai.rootless_store.domain.status.model.RAMStatus
 
 class RAMStatusGatewayImpl(
     private val context: Context
