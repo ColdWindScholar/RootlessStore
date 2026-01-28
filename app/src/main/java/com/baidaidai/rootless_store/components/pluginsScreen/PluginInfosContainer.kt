@@ -74,8 +74,8 @@ fun PluginInfosContainer(
                     )
                 }
                 Switch(
-                    checked = pluginManifestLocal.enabled,
-                    onCheckedChange = {}
+                    checked = (pluginManifest as PluginManifestRoom).enabled,
+                    onCheckedChange = { onClick() }
                 )
             }
             HorizontalDivider()
