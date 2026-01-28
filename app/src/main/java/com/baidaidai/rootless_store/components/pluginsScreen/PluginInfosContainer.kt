@@ -28,8 +28,9 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
 fun PluginInfosContainer(
-    pluginManifestLocal: PluginManifestLocal,
-    modifier: Modifier = Modifier
+    pluginManifest: PluginManifest,
+    modifier: Modifier = Modifier,
+    onClick: ()-> Unit
 ){
     Card(
         modifier = modifier
