@@ -32,7 +32,8 @@ fun SourcesScreen(
         items(
             count = renderingList.itemCount
         ){ plugin ->
-            PluginInfosContainer(PluginManifestLocal._testOnly_)
+            val items = renderingList[plugin]
+            PluginInfosContainer(pluginManifest = items!!){}
         }
     }
 }
