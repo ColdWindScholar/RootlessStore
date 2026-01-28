@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import com.baidaidai.rootless_store.domain.plugin.usecase.SetPluginEnabledUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
