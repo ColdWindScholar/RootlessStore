@@ -65,11 +65,11 @@ fun PluginInfosContainer(
                         .weight(1f)
                 ){
                     Text(
-                        text = pluginManifestLocal.pluginRenderingName,
+                        text = pluginManifest.pluginRenderingName,
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Version: ${pluginManifestLocal.installedVersion}",
+                        text = "Version: ${pluginManifest.installedVersion}",
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
@@ -82,12 +82,12 @@ fun PluginInfosContainer(
             Column(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                PluginInfoRow(label = "Author", value = pluginManifestLocal.author)
-                PluginInfoRow(label = "Source", value = pluginManifestLocal.source.toString())
-                PluginInfoRow(label = "State", value = pluginManifestLocal.state.toString())
+                PluginInfoRow(label = "Author", value = pluginManifest.author)
+//                PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
+//                PluginInfoRow(label = "State", value = pluginManifest.state.toString())
                 PluginInfoRow(
                     label = "Required",
-                    value = pluginManifestLocal.requiredEnvironment.toString()
+                    value = pluginManifest.requiredEnvironment.toString()
                 )
             }
         }
