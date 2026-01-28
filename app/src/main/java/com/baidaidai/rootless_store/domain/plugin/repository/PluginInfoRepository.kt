@@ -17,4 +17,8 @@ interface PluginInfoRepository {
 
     suspend fun deleteOnePluginInfo()
 
+    suspend fun enablePluginByID(pluginID: String)
+
+    suspend fun disablePluginByID(pluginID: String)
+
 }
