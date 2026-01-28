@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.data.status.impl
+package com.baidaidai.rootless_store.data.status.gateway
 
 import android.content.Context
 import com.baidaidai.rootless_store.data.status.datasource.StorageInfoReader
