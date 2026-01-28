@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.data.market.remote.dto
 
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import kotlinx.serialization.Serializable
 
 @Serializable
