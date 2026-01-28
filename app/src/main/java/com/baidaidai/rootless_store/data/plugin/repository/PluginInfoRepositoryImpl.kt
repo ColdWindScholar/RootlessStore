@@ -47,7 +47,7 @@ class PluginInfoRepositoryImpl @Inject constructor(
         return pluginInfo
     }
 
-    override suspend fun getWholePluginInfo(): List<PluginManifestLocal>? {
+    override suspend fun getWholePluginInfo(): List<PluginManifestRoom>? {
 //      TODO("Not yet implemented")
         val pluginManifestList = pluginInfoDAO.getEntirePluginManifest()
         return pluginManifestList
