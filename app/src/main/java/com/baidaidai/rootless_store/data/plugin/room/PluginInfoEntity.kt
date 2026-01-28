@@ -23,7 +23,7 @@ data class PluginInfoEntity(
     val installedVersion: String,
     val pluginRenderingName: String,
     val pluginPackageName: String,
-    val iconURI: String,
+    val iconURI: String?,
     val author: String,
     val pluginDescription:String,
 
