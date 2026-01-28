@@ -21,7 +21,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     private val setPluginEnabledUseCase: SetPluginEnabledUseCase
 ): ViewModel() {
 
-    private val _pluginInfoList = MutableStateFlow(emptyList<PluginManifestLocal>())
+    private val _pluginInfoList = MutableStateFlow(emptyList<PluginManifestRoom>())  // Will change back to PluginManifestLocal feature
     private val _fileURI = MutableStateFlow<Uri>(value = Uri.EMPTY)
     val pluginInfoList = _pluginInfoList.asStateFlow()
     val fileURI = _fileURI.asStateFlow()
