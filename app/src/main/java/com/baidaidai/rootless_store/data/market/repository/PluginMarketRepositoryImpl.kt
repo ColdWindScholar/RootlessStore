@@ -13,7 +13,7 @@ import javax.inject.Inject
 class PluginMarketRepositoryImpl @Inject constructor(
     private val api: PluginMarketAPI
 ): PluginMarketRepository {
-    override fun getPlugins(): Flow<PagingData<PluginItemDto>> {
+    override fun getPlugins(): Flow<PagingData<PluginManifestRemote>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
