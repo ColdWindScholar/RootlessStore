@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfosContainer
-import com.baidaidai.rootless_store.domain.plugin.model.PluginManifestLocal
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourcesScreenViewModel
 
 @Composable
