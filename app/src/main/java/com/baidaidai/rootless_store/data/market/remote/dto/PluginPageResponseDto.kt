@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PluginPageResponseDto(
-    val data: List<PluginItemDto>,
+    val data: List<PluginManifestRemote>,
     val meta: MetaDto
 )
