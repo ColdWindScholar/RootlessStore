@@ -82,8 +82,8 @@ fun PluginInfoContainer(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 PluginInfoRow(label = "Author", value = pluginManifest.author)
-//                PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
-//                PluginInfoRow(label = "State", value = pluginManifest.state.toString())
+                PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
+                PluginInfoRow(label = "State", value = pluginManifest.state.toString())
                 PluginInfoRow(
                     label = "Required",
                     value = pluginManifest.requiredEnvironment.toString()
