@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.baidaidai.rootless_store.components.stratScreen.components.HowToDevelopRootlessStorePlugin
-import com.baidaidai.rootless_store.components.stratScreen.components.RootLessStoreVersionCheckerContainer
-import com.baidaidai.rootless_store.components.stratScreen.components.RootlessStoreHosterStatusBoard
+import com.baidaidai.rootless_store.components.startScreen.HowToDevelopRootlessStorePlugin
+import com.baidaidai.rootless_store.components.startScreen.RootLessStoreVersionCheckerContainer
+import com.baidaidai.rootless_store.components.startScreen.RootlessStoreHosterStatusBoard
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 
 @Composable
