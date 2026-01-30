@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfosContainer
+import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainer
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourcesScreenViewModel
 
 @Composable
@@ -33,7 +33,7 @@ fun SourcesScreen(
             count = renderingList.itemCount
         ){ plugin ->
             val items = renderingList[plugin]
-            PluginInfosContainer(pluginManifest = items!!){}
+            PluginInfoContainer(pluginManifest = items!!){}
         }
     }
 }
