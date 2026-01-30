@@ -20,10 +20,10 @@ object SourcesScreenNecessaryComponents {
     ){
         LargeFlexibleTopAppBar(
             title = {
-                Text("Plugin")
+                Text("Sources")
             },
             subtitle = {
-                Text(text = "Instead 1 plugin")
+                Text(text = "Append 1 Repository")
             },
             navigationIcon = {
                 TextButton(
