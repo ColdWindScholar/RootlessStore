@@ -60,21 +60,25 @@ fun RootlessStoreStartScreenContainer(
     }
 
     Scaffold(
-        topBar = { NecessaryComponents.StartScreenTopAppBar() },
-        bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)},
         topBar = {
             when(currentDestination){
                 "PluginScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar()
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
             }
         },
+        bottomBar = { StartScreenNecessaryComponents.StartScreenNavigationBar(navController)},
         floatingActionButton = {
-            NecessaryComponents.StartScreenFloatingButton{
-                openDocumentLauncher.launch(
-                    arrayOf(
-                        "application/zip",
-                    )
-                )
+            when(currentDestination){
+                "PluginScreen" -> {
+                    StartScreenNecessaryComponents.StartScreenFloatingButton{
+                        openDocumentLauncher.launch(
+                            arrayOf(
+                                "application/zip",
+                            )
+                        )
+                    }
+                }
+                else -> {}
             }
         }
     ) { contentPadding->
