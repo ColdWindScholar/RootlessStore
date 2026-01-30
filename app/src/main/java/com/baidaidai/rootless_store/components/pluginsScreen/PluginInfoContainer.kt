@@ -22,8 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifest
-import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
