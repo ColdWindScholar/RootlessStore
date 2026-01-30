@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.stratScreen.components
+package com.baidaidai.rootless_store.components.startScreen.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.domain.plugin.model.NavBarItemSpec
 
-object NecessaryComponents {
+object StartScreenNecessaryComponents {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StartScreenTopAppBar(){
