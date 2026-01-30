@@ -14,6 +14,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
@@ -62,7 +63,8 @@ fun RootlessStoreStartScreenContainer(
     Scaffold(
         topBar = {
             when(currentDestination){
-                "PluginScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar()
+                "PluginScreen" -> PluginScreenNecessaryComponents.PluginScreenScreenTopAppBar()
+                "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar()
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
             }
         },
