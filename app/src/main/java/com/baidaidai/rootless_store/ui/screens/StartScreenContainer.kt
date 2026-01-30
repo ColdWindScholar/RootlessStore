@@ -14,7 +14,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.baidaidai.rootless_store.components.stratScreen.components.NecessaryComponents
+import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
+import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import com.baidaidai.rootless_store.domain.status.model.PluginStatus
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
