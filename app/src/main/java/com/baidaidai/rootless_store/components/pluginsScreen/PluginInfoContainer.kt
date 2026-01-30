@@ -73,7 +73,7 @@ fun PluginInfoContainer(
                     )
                 }
                 Switch(
-                    checked = (pluginManifest as PluginManifestRoom).enabled,
+                    checked = pluginManifest.enabled,
                     onCheckedChange = { onClick() }
                 )
             }
