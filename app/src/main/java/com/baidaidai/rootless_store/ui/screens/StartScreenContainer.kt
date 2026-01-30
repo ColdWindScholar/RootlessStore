@@ -47,6 +47,7 @@ fun RootlessStoreStartScreenContainer(
     )
 
     val navController = rememberNavController()
+    val currentDestination = navController.currentDestination?.route ?: "HomeScreen"
 
     // Define the operation ,which after got the file's URI
     val openDocumentLauncher = rememberLauncherForActivityResult(
