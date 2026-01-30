@@ -62,6 +62,12 @@ fun RootlessStoreStartScreenContainer(
     Scaffold(
         topBar = { NecessaryComponents.StartScreenTopAppBar() },
         bottomBar = { NecessaryComponents.StartScreenNavigationBar(navController)},
+        topBar = {
+            when(currentDestination){
+                "PluginScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar()
+                else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
+            }
+        },
         floatingActionButton = {
             NecessaryComponents.StartScreenFloatingButton{
                 openDocumentLauncher.launch(
