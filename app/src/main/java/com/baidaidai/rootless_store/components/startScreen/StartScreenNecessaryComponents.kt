@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.domain.plugin.model.NavBarItemSpec
 
@@ -49,13 +50,13 @@ object StartScreenNecessaryComponents {
                 destination = "SourcesScreen"
             )
         )
-        var currentSelected by rememberSaveable { mutableIntStateOf(0) }
+        val navBackStackEntry by navigatorController.currentBackStackEntryAsState()
+        val currentDestination = navBackStackEntry?.destination?.route ?: "HomeScreen"
         NavigationBar {
             NavigationBarRenderingList.forEachIndexed { index, spec ->
                 NavigationBarItem(
-                    selected = index == currentSelected,
+                    selected = spec.destination == currentDestination,
                     onClick = {
-                        currentSelected = index
                         navigatorController.navigate(spec.destination)
                     },
                     icon = { Icon(spec.pattern, contentDescription = spec.contentDeprecated) },
