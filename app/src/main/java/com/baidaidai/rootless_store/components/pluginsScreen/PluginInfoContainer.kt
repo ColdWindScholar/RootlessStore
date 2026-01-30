@@ -26,7 +26,7 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
-fun PluginInfosContainer(
+fun PluginInfoContainer(
     pluginManifest: PluginManifestRoom,
     modifier: Modifier = Modifier,
     onClick: ()-> Unit
