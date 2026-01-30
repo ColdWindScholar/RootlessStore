@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.stratScreen.components
+package com.baidaidai.rootless_store.components.startScreen
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

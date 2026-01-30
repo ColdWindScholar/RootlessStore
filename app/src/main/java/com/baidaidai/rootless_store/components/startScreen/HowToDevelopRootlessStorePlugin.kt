@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.stratScreen.components
+package com.baidaidai.rootless_store.components.startScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,7 +11,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
 
 @Composable
-fun RootLessStoreVersionCheckerContainer(){
+fun HowToDevelopRootlessStorePlugin(){
     val cardColors = CardDefaults.cardColors(
-        containerColor = colorScheme.primaryContainer,
-        contentColor = colorScheme.onPrimaryContainer,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
     )
     Card(
         modifier = Modifier
@@ -42,8 +41,8 @@ fun RootLessStoreVersionCheckerContainer(){
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Icon(
-                    painter = painterResource(R.drawable.terminal_24px),
-                    contentDescription = "Terminal Icon",
+                    painter = painterResource(R.drawable.outline_construction_24),
+                    contentDescription = "Develop Icon",
                     modifier = Modifier
                         .size(30.dp)
                 )
@@ -53,12 +52,12 @@ fun RootLessStoreVersionCheckerContainer(){
                 )
                 Column{
                     Text(
-                        text = "RootLessStore is Running",
+                        text = "Learn Rootless Store",
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Version: 0.0.1",
-                        style = MaterialTheme.typography.titleSmall
+                        text = "Learn how to develop RootlessStore plugins",
+                        style = MaterialTheme.typography.labelSmall
                     )
                 }
             }
