@@ -1,8 +1,7 @@
 package com.baidaidai.rootless_store.data.plugin.repository
 
 import android.content.Context
-import androidx.room.Room
-import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDataBase
+import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.repository.PluginInfoRepository
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
