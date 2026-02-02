@@ -2,9 +2,7 @@ package com.baidaidai.rootless_store.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDAO
-import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDataBase
-//import com.baidaidai.rootless_store.data.pluginInfoRepository.AppDatabase_Impl
+import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
