@@ -10,6 +10,7 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 @Database(
     entities = [
         PluginInfoEntity::class,
+        PluginSourceEntity::class
         // 其它表也一起加进来
     ],
     version = 1,
@@ -17,6 +18,7 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 )
 abstract class PluginInfoDataBase : RoomDatabase() {
     abstract fun pluginInfoDao(): PluginInfoDAO
+    abstract fun pluginSourceDao(): PluginSourceDAO
     // 其它 DAO 也在这里暴露
 }
 
