@@ -16,7 +16,7 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
     version = 1,
     exportSchema = true
 )
-abstract class PluginInfoDataBase : RoomDatabase() {
+abstract class RootlessStoreDatabase : RoomDatabase() {
     abstract fun pluginInfoDao(): PluginInfoDAO
     abstract fun pluginSourceDao(): PluginSourceDAO
     // 其它 DAO 也在这里暴露
