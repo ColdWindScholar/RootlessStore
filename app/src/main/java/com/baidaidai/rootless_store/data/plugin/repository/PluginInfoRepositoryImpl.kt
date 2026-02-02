@@ -7,6 +7,7 @@ import com.baidaidai.rootless_store.domain.plugin.repository.PluginInfoRepositor
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PluginInfoRepositoryImpl @Inject constructor(
@@ -43,7 +44,7 @@ class PluginInfoRepositoryImpl @Inject constructor(
         return pluginInfo
     }
 
-    override suspend fun getWholePluginInfo(): List<PluginManifestRoom>? {
+    override fun getWholePluginInfo(): Flow<List<PluginManifestRoom>?> {
 //      TODO("Not yet implemented")
         val pluginManifestList = pluginInfoDAO.getEntirePluginManifest()
         return pluginManifestList
