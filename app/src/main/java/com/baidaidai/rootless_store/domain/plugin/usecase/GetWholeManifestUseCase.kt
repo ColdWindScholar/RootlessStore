@@ -12,10 +12,8 @@ class GetWholePluginInfoUseCase @Inject constructor(
     operator fun invoke(): Flow<List<PluginManifestRoom>> {
         val result = repositoryImpl.getWholePluginInfo()
 
-        if (result.isNullOrEmpty()){
-            return emptyList<PluginManifestRoom>()
-        }else{
-            return result
+        return result.map { manifests ->
+            manifests.orEmpty()
         }
     }
 }
