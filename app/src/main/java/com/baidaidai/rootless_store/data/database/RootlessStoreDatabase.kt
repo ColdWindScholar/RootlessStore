@@ -2,6 +2,10 @@ package com.baidaidai.rootless_store.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDAO
+import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
+import com.baidaidai.rootless_store.data.source.database.PluginSourceDAO
+import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 
 @Database(
     entities = [
