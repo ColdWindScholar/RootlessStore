@@ -23,13 +23,13 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     private val setPluginEnabledUseCase: SetPluginEnabledUseCase
 ): ViewModel() {
 
-    private val _pluginInfoList = MutableStateFlow(emptyList<PluginManifestRoom>())  // Will change back to PluginManifestLocal feature
+//    private val _pluginInfoList = getAllPlugins()  // Will change back to PluginManifestLocal feature
     private val _fileURI = MutableStateFlow<Uri>(value = Uri.EMPTY)
     val pluginInfoList = _pluginInfoList.asStateFlow()
     val fileURI = _fileURI.asStateFlow()
 
     init {
-        getAllPlugins()
+//        getAllPlugins()
     }
 
     fun updateFileURI(uri: Uri){
@@ -39,7 +39,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     fun installPlugin(){
         viewModelScope.launch {
             installOnePluginUseCase(fileURI.value)
-            getAllPlugins()
+//            getAllPlugins()
         }
     }
     fun setPluginEnabled(
@@ -54,11 +54,11 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
         }
     }
 
-    private fun getAllPlugins() {
-        viewModelScope.launch {
-            _pluginInfoList.value = getWholePluginInfoUseCase()
-        }
-    }
+//    private fun getAllPlugins() {
+//        return viewModelScope.launch{
+//            return@launch  = getWholePluginInfoUseCase().stateIn()
+//        }.await()
+//    }
 
 
 }
