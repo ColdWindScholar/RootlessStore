@@ -4,6 +4,7 @@ import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import kotlinx.coroutines.flow.Flow
 
 interface PluginInfoRepository {
     // 以为DB为中心的Gateway
@@ -11,7 +12,7 @@ interface PluginInfoRepository {
     val appDatabase: RoomDatabase
     suspend fun getOnePluginInfo(pluginID: String): PluginManifestLocal?
 
-    suspend fun getWholePluginInfo(): List<PluginManifestRoom>?
+    fun getWholePluginInfo(): Flow<List<PluginManifestRoom>?>
 
     suspend fun insertOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
