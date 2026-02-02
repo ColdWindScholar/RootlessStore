@@ -16,14 +16,14 @@ object DataBaseHiltModule {
 
     @Provides
     @Singleton
-    fun providePluginInfoDataBase(
+    fun provideRootlessStoreDataBase(
         @ApplicationContext
         context: Context
-    ): PluginInfoDataBase{
+    ): RootlessStoreDatabase{
         return Room.databaseBuilder(
             context = context,
-            klass = PluginInfoDataBase::class.java,
-            name = "PluginInfoDataBase"
+            klass = RootlessStoreDatabase::class.java,
+            name = "RootlessStoreDataBase"
         ).build()
     }
 
