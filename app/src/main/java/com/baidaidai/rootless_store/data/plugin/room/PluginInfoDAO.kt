@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PluginInfoDAO {
@@ -27,7 +28,7 @@ interface PluginInfoDAO {
     suspend fun getOneEntirePluginInfoByPluginID(pluginID: String): PluginManifestLocal?
 
     @Query(value = "SELECT * FROM pluginInfo")
-    suspend fun getEntirePluginManifest(): List<PluginManifestRoom>
+    fun getEntirePluginManifest(): Flow<List<PluginManifestRoom>>
 
     // Delete
     @Delete
