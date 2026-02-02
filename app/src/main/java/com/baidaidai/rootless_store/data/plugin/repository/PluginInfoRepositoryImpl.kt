@@ -11,13 +11,10 @@ import javax.inject.Inject
 
 class PluginInfoRepositoryImpl @Inject constructor(
     @ApplicationContext context: Context,
+    rootlessStoreDatabase: RootlessStoreDatabase
 ): PluginInfoRepository {
 
-    override val appDatabase = Room.databaseBuilder(
-        context = context,
-        klass = PluginInfoDataBase::class.java,
-        name = "pluginInfo.db"
-    ).build()
+    override val appDatabase = rootlessStoreDatabase
 
     private val pluginInfoDAO = appDatabase.pluginInfoDao()
 
