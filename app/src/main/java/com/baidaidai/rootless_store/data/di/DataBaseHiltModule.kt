@@ -13,7 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataBaseHiltModule {
-
     @Provides
     @Singleton
     fun provideRootlessStoreDataBase(
@@ -26,13 +25,5 @@ object DataBaseHiltModule {
             name = "RootlessStoreDataBase"
         ).build()
     }
-
-    @Provides
-    fun providePluginInfoDAO(
-        pluginInfoDataBase: PluginInfoDataBase
-    ): PluginInfoDAO {
-        return pluginInfoDataBase.pluginInfoDao()
-    }
-
 
 }
