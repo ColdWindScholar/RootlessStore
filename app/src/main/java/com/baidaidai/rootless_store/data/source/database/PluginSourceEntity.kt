@@ -2,7 +2,7 @@ package com.baidaidai.rootless_store.data.source.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.baidaidai.rootless_store.domain.source.model.PluginSource
+import com.baidaidai.rootless_store.data.source.remote.dto.PluginSourceDTO
 
 @Entity(tableName = "pluginSource")
 data class PluginSourceEntity(
@@ -12,13 +12,13 @@ data class PluginSourceEntity(
     val sourceURI: String
 ){
     companion object {
-        fun fromPluginSource(
-            pluginSource: PluginSource
+        fun fromPluginSourceDTO(
+            pluginSourceDTO: PluginSourceDTO
         ): PluginSourceEntity{
             return PluginSourceEntity(
-                sourceID = pluginSource.sourceID,
-                sourceName = pluginSource.sourceName!!,
-                sourceURI = pluginSource.sourceURI
+                sourceID = pluginSourceDTO.sourceID,
+                sourceName = pluginSourceDTO.sourceName,
+                sourceURI = pluginSourceDTO.sourceURI
             )
         }
     }
