@@ -8,23 +8,12 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import javax.inject.Inject
-import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
+import io.ktor.http.path
 
-class PluginMarketAPI @Inject constructor(){
-    private val client = HttpClient(Android){
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    explicitNulls = false
-                }
-            )
-        }
-    }
+class PluginMarketAPI @Inject constructor(
+    private val ktorClient: HttpClient
+){
+    private val client = ktorClient
 
     suspend fun getPlugins(
         pageNumber: Int
