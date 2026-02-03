@@ -17,7 +17,7 @@ class RootLessStoreSourcesScreenViewModel @Inject constructor(
     getWholeSourceUseCase: GetWholeSourceUseCase,
     private val addOneSourceUseCase: AddOneSourceUseCase
 ): ViewModel(){
-    val plugins = getRemotePluginsUseCase().cachedIn(viewModelScope)
+
     val sourceList = getWholeSourceUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
