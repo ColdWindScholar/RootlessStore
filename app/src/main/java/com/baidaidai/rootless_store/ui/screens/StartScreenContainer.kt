@@ -86,6 +86,9 @@ fun RootlessStoreStartScreenContainer(
         }
     }
 
+    var alertDialogStatus by rememberSaveable{ mutableStateOf(false) }
+    var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
+
     Scaffold(
         topBar = {
             when(currentDestination){
@@ -114,31 +117,96 @@ fun RootlessStoreStartScreenContainer(
             }
         }
     ) { contentPadding->
-        NavHost(
-            navController = navController,
-            startDestination = "HomeScreen"
-        ){
-            composable(
-                route = "HomeScreen"
+        if (alertDialogStatus){
+            AlertDialog(
+                onDismissRequest = {
+                    alertDialogStatus = !alertDialogStatus
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            pluginSourcesScreenViewModel.addOneSource(sourceURI = sourceDomainContent)
+                            alertDialogStatus = !alertDialogStatus
+                        }
+                    ) {
+                        Text("Add")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = {
+                        alertDialogStatus = !alertDialogStatus
+                    }) {
+                        Text("Cancel")
+                    }
+                },
+                title = {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.material_symbols_24px),
+                                contentDescription = null
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Add Source",
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                        }
+                        Text(
+                            text = "Add a repository to update and discover plugins.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
+                text = {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        OutlinedTextField(
+                            value = sourceDomainContent,
+                            onValueChange = { newValue -> sourceDomainContent = newValue },
+                            label = { Text("Repository URL") },
+                            placeholder = { Text("https://example.com") },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                    }
+                }
+            )
+        }else{
+            NavHost(
+                navController = navController,
+                startDestination = "HomeScreen"
             ){
-                HomeScreen(
-                    contentPadding = contentPadding,
-                    rootlessStoreHosterStatus = rootlessStoreHosterStatus
-                )
-            }
-            composable(
-                route = "PluginScreen"
-            ){
-                RootlessStorePluginScreenContainer(
-                    contentPadding = contentPadding
-                )
-            }
-            composable(
-                route = "SourcesScreen"
-            ){
-                SourcesScreen(
-                    contentPadding = contentPadding
-                )
+                composable(
+                    route = "HomeScreen"
+                ){
+                    HomeScreen(
+                        contentPadding = contentPadding,
+                        rootlessStoreHosterStatus = rootlessStoreHosterStatus
+                    )
+                }
+                composable(
+                    route = "PluginScreen"
+                ){
+                    RootlessStorePluginScreenContainer(
+                        contentPadding = contentPadding
+                    )
+                }
+                composable(
+                    route = "SourcesScreen"
+                ){
+                    SourcesScreen(
+                        contentPadding = contentPadding
+                    )
+                }
             }
         }
     }
