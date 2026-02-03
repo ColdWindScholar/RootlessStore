@@ -51,7 +51,7 @@ class PluginSourceRepositoryImpl @Inject constructor(
         return pluginSourceDAO.getOnePluginSourceBySourceID(sourceID)
     }
 
-    override fun getAllPluginSources(): Flow<List<PluginSource>?> {
+    override fun getAllPluginSources(): Flow<List<PluginSourceLocal>?> {
         return pluginSourceDAO.getAllPluginSources()
     }
 
