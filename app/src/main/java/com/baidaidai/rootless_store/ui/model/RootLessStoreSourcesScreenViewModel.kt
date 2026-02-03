@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RootLessStoreSourcesScreenViewModel @Inject constructor(
-    getRemotePluginsUseCase: GetRemotePluginsUseCase,
-    getWholeSourceUseCase: GetWholeSourceUseCase
+    getWholeSourceUseCase: GetWholeSourceUseCase,
+    private val addOneSourceUseCase: AddOneSourceUseCase
 ): ViewModel(){
     val plugins = getRemotePluginsUseCase().cachedIn(viewModelScope)
     val sourceList = getWholeSourceUseCase().stateIn(
