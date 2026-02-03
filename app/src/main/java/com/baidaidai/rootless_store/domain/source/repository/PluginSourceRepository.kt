@@ -2,7 +2,8 @@ package com.baidaidai.rootless_store.domain.source.repository
 
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
-import com.baidaidai.rootless_store.domain.source.model.PluginSource
+import com.baidaidai.rootless_store.domain.source.model.PluginSourceLocal
+import com.baidaidai.rootless_store.domain.source.model.PluginSourceUser
 import kotlinx.coroutines.flow.Flow
 
 interface PluginSourceRepository {
@@ -11,7 +12,7 @@ interface PluginSourceRepository {
     val appDatabase: RoomDatabase
 
     // Create
-    suspend fun insertOnePluginSource(pluginSource: PluginSource)
+    suspend fun insertOnePluginSource(pluginSourceUser: PluginSourceUser)
 
     // Update
     suspend fun updateOnePluginSource(
@@ -23,7 +24,7 @@ interface PluginSourceRepository {
     // Read
     suspend fun getOnePluginSource(sourceID: String): PluginSourceEntity?
 
-    fun getAllPluginSources(): Flow<List<PluginSource>?>
+    fun getAllPluginSources(): Flow<List<PluginSourceLocal>?>
 
     // Delete
     suspend fun deleteOnePluginSource(pluginSourceEntity: PluginSourceEntity)
