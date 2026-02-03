@@ -17,27 +17,49 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourcesScreenViewModel
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SourcesScreen(
     contentPadding: PaddingValues,
 ){
     val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourcesScreenViewModel>()
-    val renderingList = sourcesScreenViewModel.plugins.collectAsLazyPagingItems()
+    val pluginSourceList by sourcesScreenViewModel.sourceList.collectAsState()
+
     LazyColumn(
-        modifier = Modifier
-            .padding(contentPadding)
-            .fillMaxSize()
-            .padding(vertical = 15.dp)
-            .padding(horizontal = 15.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        modifier = Modifier.padding(contentPadding)
     ) {
         items(
-            count = renderingList.itemCount
-        ){ plugin ->
-            val items = renderingList[plugin]
-            PluginInfoContainer(pluginManifest = items!!){}
+            items = pluginSourceList
+        ){ pluginSource ->
+            Column {
+                ListItem(
+                    onClick = {},
+                    supportingContent = {Text(pluginSource.sourceURI)}
+                ) {
+                    Text(pluginSource.sourceName)
+                }
+                HorizontalDivider()
+            }
         }
     }
+
+
+//    val renderingList = sourcesScreenViewModel.plugins.collectAsLazyPagingItems()
+//    LazyColumn(
+//        modifier = Modifier
+//            .padding(contentPadding)
+//            .fillMaxSize()
+//            .padding(vertical = 15.dp)
+//            .padding(horizontal = 15.dp),
+//        verticalArrangement = Arrangement.spacedBy(12.dp)
+//    ) {
+//        items(
+//            count = renderingList.itemCount
+//        ){ plugin ->
+//            val items = renderingList[plugin]
+//            PluginInfoContainer(pluginManifest = items!!){}
+//        }
+//    }
 }
 
 //@OptIn(ExperimentalMaterial3ExpressiveApi::class)
