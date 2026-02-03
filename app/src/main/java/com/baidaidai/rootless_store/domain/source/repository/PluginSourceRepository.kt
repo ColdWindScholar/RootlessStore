@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.domain.source.repository
 
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
+import com.baidaidai.rootless_store.domain.source.model.PluginSource
 
 interface PluginSourceRepository {
     // 以DB为中心的Gateway
@@ -9,7 +10,7 @@ interface PluginSourceRepository {
     val appDatabase: RoomDatabase
 
     // Create
-    suspend fun insertOnePluginSource(pluginSourceEntity: PluginSourceEntity)
+    suspend fun insertOnePluginSource(pluginSource: PluginSource)
 
     // Update
     suspend fun updateOnePluginSource(

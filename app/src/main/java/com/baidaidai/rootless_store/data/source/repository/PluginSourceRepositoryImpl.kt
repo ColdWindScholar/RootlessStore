@@ -3,6 +3,7 @@ package com.baidaidai.rootless_store.data.source.repository
 import android.content.Context
 import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
+import com.baidaidai.rootless_store.domain.source.model.PluginSource
 import com.baidaidai.rootless_store.domain.source.repository.PluginSourceRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
@@ -18,7 +19,7 @@ class PluginSourceRepositoryImpl @Inject constructor(
 
     // Create
     override suspend fun insertOnePluginSource(
-        pluginSourceEntity: PluginSourceEntity
+        pluginSource: PluginSource
     ) {
         pluginSourceDAO.insertOnePluginSource(pluginSourceEntity)
     }
