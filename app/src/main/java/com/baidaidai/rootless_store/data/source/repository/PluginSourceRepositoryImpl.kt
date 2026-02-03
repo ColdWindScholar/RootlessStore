@@ -13,7 +13,8 @@ import javax.inject.Inject
 
 class PluginSourceRepositoryImpl @Inject constructor(
     @ApplicationContext context: Context,
-    rootlessStoreDatabase: RootlessStoreDatabase
+    rootlessStoreDatabase: RootlessStoreDatabase,
+    val pluginSourceAPI: PluginSourceAPI
 ): PluginSourceRepository {
 
     override val appDatabase = rootlessStoreDatabase
