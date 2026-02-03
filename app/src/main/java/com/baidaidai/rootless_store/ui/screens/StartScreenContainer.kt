@@ -46,14 +46,15 @@ import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatu
 import com.baidaidai.rootless_store.domain.status.model.SELinuxStatus
 import com.baidaidai.rootless_store.domain.status.model.TempStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
-import com.baidaidai.rootless_store.ui.model.RootLessStoreSourcesScreenViewModel
+import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RootlessStoreStartScreenContainer(
-    pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel()
+    pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel(),
+    pluginSourcesScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
 ){
     
     val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
