@@ -90,7 +90,11 @@ fun RootlessStoreStartScreenContainer(
         topBar = {
             when(currentDestination){
                 "PluginScreen" -> PluginScreenNecessaryComponents.PluginScreenScreenTopAppBar()
-                "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar()
+                "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar(
+                    iconButtonOnClick = {
+                        alertDialogStatus = !alertDialogStatus
+                    }
+                )
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
             }
         },
