@@ -3,6 +3,7 @@ package com.baidaidai.rootless_store.domain.source.repository
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 import com.baidaidai.rootless_store.domain.source.model.PluginSource
+import kotlinx.coroutines.flow.Flow
 
 interface PluginSourceRepository {
     // 以DB为中心的Gateway
@@ -22,7 +23,7 @@ interface PluginSourceRepository {
     // Read
     suspend fun getOnePluginSource(sourceID: String): PluginSourceEntity?
 
-    suspend fun getAllPluginSources(): List<PluginSourceEntity>?
+    fun getAllPluginSources(): Flow<List<PluginSource>?>
 
     // Delete
     suspend fun deleteOnePluginSource(pluginSourceEntity: PluginSourceEntity)
