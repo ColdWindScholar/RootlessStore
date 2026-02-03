@@ -18,10 +18,11 @@ class PluginMarketAPI @Inject constructor(
     suspend fun getPlugins(
         pageNumber: Int
     ): HttpResponse {
-        return client.request("http://192.168.3.10:3000/api/v1/getAllPlugins"){
+        return client.request("http://192.168.3.10:3000"){
             method = HttpMethod.Get
             accept(ContentType.Application.Json)
             url{
+                path("/api/v1/getAllPlugins")
                 parameters.append("page", value = pageNumber.toString())
             }
         }
