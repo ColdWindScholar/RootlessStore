@@ -21,6 +21,6 @@ class RootLessStoreSourcesScreenViewModel @Inject constructor(
     val sourceList = getWholeSourceUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList<PluginSource>()
+        initialValue = emptyList()
     )
 }
