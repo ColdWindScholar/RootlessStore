@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RootLessStoreSourcesScreenViewModel @Inject constructor(
+class RootLessStoreSourceScreenViewModel @Inject constructor(
     getWholeSourceUseCase: GetWholeSourceUseCase,
     private val addOneSourceUseCase: AddOneSourceUseCase
 ): ViewModel(){

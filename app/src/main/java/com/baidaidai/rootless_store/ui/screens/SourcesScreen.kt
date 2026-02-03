@@ -21,7 +21,7 @@ import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 fun SourcesScreen(
     contentPadding: PaddingValues,
 ){
-    val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourcesScreenViewModel>()
+    val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourceScreenViewModel>()
     val pluginSourceList by sourcesScreenViewModel.sourceList.collectAsState()
 
     LazyColumn(
