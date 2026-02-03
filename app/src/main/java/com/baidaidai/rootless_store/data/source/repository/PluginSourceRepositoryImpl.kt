@@ -6,6 +6,7 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 import com.baidaidai.rootless_store.domain.source.model.PluginSource
 import com.baidaidai.rootless_store.domain.source.repository.PluginSourceRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class PluginSourceRepositoryImpl @Inject constructor(
@@ -44,7 +45,7 @@ class PluginSourceRepositoryImpl @Inject constructor(
         return pluginSourceDAO.getOnePluginSourceBySourceID(sourceID)
     }
 
-    override suspend fun getAllPluginSources(): List<PluginSourceEntity>? {
+    override fun getAllPluginSources(): Flow<List<PluginSource>?> {
         return pluginSourceDAO.getAllPluginSources()
     }
 
