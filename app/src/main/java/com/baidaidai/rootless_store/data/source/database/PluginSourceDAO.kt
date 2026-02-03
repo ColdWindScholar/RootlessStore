@@ -5,6 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.baidaidai.rootless_store.domain.source.model.PluginSource
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PluginSourceDAO {
@@ -28,7 +30,7 @@ interface PluginSourceDAO {
     suspend fun getOnePluginSourceBySourceID(sourceID: String): PluginSourceEntity?
 
     @Query(value = "SELECT * FROM pluginSource")
-    suspend fun getAllPluginSources(): List<PluginSourceEntity>?
+    fun getAllPluginSources(): Flow<List<PluginSource>?>
 
     // Delete
     @Delete
