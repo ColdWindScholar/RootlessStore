@@ -13,9 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.baidaidai.rootless_store.ui.model.RootLessStoreSourcesScreenViewModel
+import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
