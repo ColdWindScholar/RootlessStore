@@ -7,13 +7,17 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -33,7 +37,17 @@ fun SourcesScreen(
             Column {
                 ListItem(
                     onClick = {},
-                    supportingContent = {Text(pluginSource.sourceURI)}
+                    supportingContent = {Text(pluginSource.sourceURI)},
+                    trailingContent = {
+                        IconButton(
+                            onClick = {}
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.outline_arrow_forward_ios_24),
+                                contentDescription = "go to"
+                            )
+                        }
+                    }
                 ) {
                     Text(pluginSource.sourceName)
                 }
