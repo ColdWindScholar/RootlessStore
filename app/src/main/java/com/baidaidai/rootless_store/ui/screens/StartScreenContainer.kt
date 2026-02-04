@@ -180,33 +180,32 @@ fun RootlessStoreStartScreenContainer(
                     }
                 }
             )
-        }else{
-            NavHost(
-                navController = navController,
-                startDestination = "HomeScreen"
+        }
+        NavHost(
+            navController = navController,
+            startDestination = "HomeScreen"
+        ){
+            composable(
+                route = "HomeScreen"
             ){
-                composable(
-                    route = "HomeScreen"
-                ){
-                    HomeScreen(
-                        contentPadding = contentPadding,
-                        rootlessStoreHosterStatus = rootlessStoreHosterStatus
-                    )
-                }
-                composable(
-                    route = "PluginScreen"
-                ){
-                    RootlessStorePluginScreenContainer(
-                        contentPadding = contentPadding
-                    )
-                }
-                composable(
-                    route = "SourcesScreen"
-                ){
-                    SourcesScreen(
-                        contentPadding = contentPadding
-                    )
-                }
+                HomeScreen(
+                    contentPadding = contentPadding,
+                    rootlessStoreHosterStatus = rootlessStoreHosterStatus
+                )
+            }
+            composable(
+                route = "PluginScreen"
+            ){
+                RootlessStorePluginScreenContainer(
+                    contentPadding = contentPadding
+                )
+            }
+            composable(
+                route = "SourcesScreen"
+            ){
+                SourcesScreen(
+                    contentPadding = contentPadding
+                )
             }
         }
     }
