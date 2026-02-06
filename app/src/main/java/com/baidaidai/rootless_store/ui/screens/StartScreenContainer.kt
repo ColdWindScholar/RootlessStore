@@ -54,7 +54,7 @@ import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 @Composable
 fun RootlessStoreStartScreenContainer(
     pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel(),
-    pluginSourcesScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
+    sourceScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
 ){
     
     val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
@@ -125,7 +125,7 @@ fun RootlessStoreStartScreenContainer(
                 confirmButton = {
                     Button(
                         onClick = {
-                            pluginSourcesScreenViewModel.addOneSource(sourceURI = sourceDomainContent)
+                            sourceScreenViewModel.addOneSource(sourceURI = sourceDomainContent)
                             alertDialogStatus = !alertDialogStatus
                         }
                     ) {
