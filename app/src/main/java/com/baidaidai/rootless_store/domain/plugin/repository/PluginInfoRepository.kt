@@ -14,6 +14,8 @@ interface PluginInfoRepository {
 
     fun getWholePluginInfo(): Flow<List<PluginManifestRoom>?>
 
+    fun getPluginInfoCount(): Flow<Int>
+
     suspend fun insertOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
     suspend fun deleteOnePluginInfo()

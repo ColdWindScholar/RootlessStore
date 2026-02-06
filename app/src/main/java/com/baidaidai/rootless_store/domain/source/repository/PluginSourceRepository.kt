@@ -26,6 +26,8 @@ interface PluginSourceRepository {
 
     fun getAllPluginSources(): Flow<List<PluginSourceLocal>?>
 
+    fun getPluginSourcesCount(): Flow<Int>
+
     // Delete
     suspend fun deleteOnePluginSource(pluginSourceEntity: PluginSourceEntity)
 }
