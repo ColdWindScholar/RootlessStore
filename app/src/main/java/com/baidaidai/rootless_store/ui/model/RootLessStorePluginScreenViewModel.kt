@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import com.baidaidai.rootless_store.domain.plugin.usecase.GetPluginInfoCountUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.SetPluginEnabledUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +21,8 @@ import kotlin.collections.emptyList
 class RootLessStorePluginScreenViewModel @Inject constructor(
     private val getWholePluginInfoUseCase: GetWholePluginInfoUseCase,
     private val installOnePluginUseCase: InstallOnePluginUseCase,
-    private val setPluginEnabledUseCase: SetPluginEnabledUseCase
+    private val setPluginEnabledUseCase: SetPluginEnabledUseCase,
+    pluginInfoCountUseCase: GetPluginInfoCountUseCase
 ): ViewModel() {
 
 //    private val _pluginInfoList = getAllPlugins()  // Will change back to PluginManifestLocal feature
@@ -30,6 +32,13 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = emptyList<PluginManifestRoom>()
     )
+
+    val pluginInfoCount = pluginInfoCountUseCase().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = 0
+    )
+
     val fileURI = _fileURI.asStateFlow()
 
     init {
