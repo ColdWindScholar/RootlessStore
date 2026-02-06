@@ -62,6 +62,9 @@ fun RootlessStoreStartScreenContainer(
     val storageStatus by rootlessStoreStratScreenViewModel.storageStatus.collectAsState()
     val ramStatus by rootlessStoreStratScreenViewModel.ramStatus.collectAsState()
 
+    val pluginInfoCount by pluginScreenViewModel.pluginInfoCount.collectAsState()
+    val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
+
     val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
         hosterOverallStatus = HosterOverallStatus.LIMITED,
         kernelVersion = "Unknown",
@@ -92,11 +95,14 @@ fun RootlessStoreStartScreenContainer(
     Scaffold(
         topBar = {
             when(currentDestination){
-                "PluginScreen" -> PluginScreenNecessaryComponents.PluginScreenScreenTopAppBar()
+                "PluginScreen" -> PluginScreenNecessaryComponents.PluginScreenScreenTopAppBar(
+                    pluginInfoCount = pluginInfoCount
+                )
                 "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar(
                     iconButtonOnClick = {
                         alertDialogStatus = !alertDialogStatus
-                    }
+                    },
+                    sourceCount = sourceCount
                 )
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
             }
