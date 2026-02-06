@@ -55,6 +55,10 @@ class PluginSourceRepositoryImpl @Inject constructor(
         return pluginSourceDAO.getAllPluginSources()
     }
 
+    override fun getPluginSourcesCount(): Flow<Int> {
+        return pluginSourceDAO.getPluginSourcesCount()
+    }
+
     // Delete
     override suspend fun deleteOnePluginSource(
         pluginSourceEntity: PluginSourceEntity

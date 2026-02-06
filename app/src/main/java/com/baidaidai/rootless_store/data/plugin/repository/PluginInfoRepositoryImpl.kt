@@ -50,6 +50,10 @@ class PluginInfoRepositoryImpl @Inject constructor(
         return pluginManifestList
     }
 
+    override fun getPluginInfoCount(): Flow<Int> {
+        return pluginInfoDAO.getPluginInfoCount()
+    }
+
     // Delete
     override suspend fun deleteOnePluginInfo() {
         TODO("Not yet implemented")
