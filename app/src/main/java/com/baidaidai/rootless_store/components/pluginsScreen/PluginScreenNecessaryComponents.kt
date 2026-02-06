@@ -16,14 +16,15 @@ object PluginScreenNecessaryComponents {
     @Composable
     fun PluginScreenScreenTopAppBar(
         textButtonOnClick:()-> Unit = {},
-        iconButtonOnClick:()-> Unit = {}
+        iconButtonOnClick:()-> Unit = {},
+        pluginInfoCount: Int = 0
     ){
         LargeFlexibleTopAppBar(
             title = {
                 Text("Plugin")
             },
             subtitle = {
-                Text(text = "Instead 1 plugin")
+                Text(text = "Instead $pluginInfoCount plugin")
             },
             navigationIcon = {
                 TextButton(

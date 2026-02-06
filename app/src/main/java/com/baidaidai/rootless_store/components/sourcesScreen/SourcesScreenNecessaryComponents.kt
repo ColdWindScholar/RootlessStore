@@ -16,14 +16,15 @@ object SourcesScreenNecessaryComponents {
     @Composable
     fun SourcesScreenTopAppBar(
         textButtonOnClick:()-> Unit = {},
-        iconButtonOnClick:()-> Unit = {}
+        iconButtonOnClick:()-> Unit = {},
+        sourceCount: Int = 0
     ){
         LargeFlexibleTopAppBar(
             title = {
                 Text("Sources")
             },
             subtitle = {
-                Text(text = "Append 1 Repository")
+                Text(text = "Append $sourceCount Source")
             },
             navigationIcon = {
                 TextButton(
