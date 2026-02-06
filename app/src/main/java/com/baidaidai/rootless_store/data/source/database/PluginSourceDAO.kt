@@ -32,6 +32,9 @@ interface PluginSourceDAO {
     @Query(value = "SELECT * FROM pluginSource")
     fun getAllPluginSources(): Flow<List<PluginSourceLocal>?>
 
+    @Query("SELECT COUNT(*) FROM pluginSource")
+    fun getPluginSourcesCount(): Flow<Int>
+
     // Delete
     @Delete
     suspend fun deleteOnePluginSource(pluginSourceEntity: PluginSourceEntity)

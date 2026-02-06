@@ -30,6 +30,9 @@ interface PluginInfoDAO {
     @Query(value = "SELECT * FROM pluginInfo")
     fun getEntirePluginManifest(): Flow<List<PluginManifestRoom>>
 
+    @Query("SELECT COUNT(*) FROM pluginInfo")
+    fun getPluginInfoCount(): Flow<Int>
+
     // Delete
     @Delete
     suspend fun deleteOneEntirePluginInfo(pluginInfoEntity: PluginInfoEntity)
