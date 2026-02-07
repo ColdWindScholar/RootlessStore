@@ -195,8 +195,7 @@ fun RootlessStoreStartScreenContainer(
                 route = "HomeScreen"
             ){
                 HomeScreen(
-                    contentPadding = contentPadding,
-                    rootlessStoreHosterStatus = rootlessStoreHosterStatus
+                    contentPadding = contentPadding
                 )
             }
             composable(
