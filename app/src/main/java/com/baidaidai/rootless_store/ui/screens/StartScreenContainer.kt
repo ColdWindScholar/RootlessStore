@@ -209,7 +209,7 @@ fun RootlessStoreStartScreenContainer(
             composable(
                 route = "SourcesScreen"
             ){
-                SourcesScreen(
+                SourceScreen(
                     contentPadding = contentPadding
                 )
             }
