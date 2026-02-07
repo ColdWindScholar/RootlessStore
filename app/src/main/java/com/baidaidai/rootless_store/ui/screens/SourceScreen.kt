@@ -29,7 +29,7 @@ import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SourcesScreen(
+fun SourceScreen(
     contentPadding: PaddingValues,
 ){
     val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourceScreenViewModel>()
