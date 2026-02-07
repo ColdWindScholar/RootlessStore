@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RootlessStoreStratScreenViewModel @Inject constructor(
+class RootLessStoreHomeScreenViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ): ViewModel() {
 //    private var context: Context? = null
