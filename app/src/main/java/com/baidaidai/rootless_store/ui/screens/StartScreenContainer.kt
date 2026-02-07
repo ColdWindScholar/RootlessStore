@@ -32,7 +32,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -40,14 +39,8 @@ import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
-import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
-import com.baidaidai.rootless_store.domain.status.model.PluginStatus
-import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
-import com.baidaidai.rootless_store.domain.status.model.SELinuxStatus
-import com.baidaidai.rootless_store.domain.status.model.TempStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
-import com.baidaidai.rootless_store.ui.model.RootlessStoreStratScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,25 +49,8 @@ fun RootlessStoreStartScreenContainer(
     pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel(),
     sourceScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
 ){
-    
-    val rootlessStoreStratScreenViewModel: RootlessStoreStratScreenViewModel = viewModel<RootlessStoreStratScreenViewModel>()
-
-    val storageStatus by rootlessStoreStratScreenViewModel.storageStatus.collectAsState()
-    val ramStatus by rootlessStoreStratScreenViewModel.ramStatus.collectAsState()
-
     val pluginInfoCount by pluginScreenViewModel.pluginInfoCount.collectAsState()
     val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
-
-    val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
-        hosterOverallStatus = HosterOverallStatus.LIMITED,
-        kernelVersion = "Unknown",
-        selinuxStatus = SELinuxStatus.Restricted,
-        absolutePath = "/data/local/tmp/rootless_store",
-        pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = ramStatus,
-        storageStatus = storageStatus,
-        tempStatus = TempStatus.LOW
-    )
 
     val navController = rememberNavController()
     val currentDestination = navController.currentDestination?.route ?: "HomeScreen"
