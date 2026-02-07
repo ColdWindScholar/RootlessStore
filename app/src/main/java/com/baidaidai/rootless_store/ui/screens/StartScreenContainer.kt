@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
@@ -53,7 +54,8 @@ fun RootlessStoreStartScreenContainer(
     val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
 
     val navController = rememberNavController()
-    val currentDestination = navController.currentDestination?.route ?: "HomeScreen"
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination?.route ?: "HomeScreen"
 
     // Define the operation ,which after got the file's URI
     val openDocumentLauncher = rememberLauncherForActivityResult(
