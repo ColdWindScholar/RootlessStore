@@ -12,7 +12,6 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
-
+import com.baidaidai.rootless_store.ui.theme.colorscheme.SourceListItemColor
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SourceScreen(
@@ -34,41 +33,6 @@ fun SourceScreen(
 ){
     val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourceScreenViewModel>()
     val pluginSourceList by sourcesScreenViewModel.sourceList.collectAsState()
-    
-    val listItemColors = ListItemColors(
-        // Normal (variant scheme)
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
-        contentColor = MaterialTheme.colorScheme.onSurface,
-        leadingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        trailingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        overlineContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        supportingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-
-        // Disabled：不做 copy，不在这里“造颜色”
-        // 让组件在 enabled=false 时用 ContentAlpha.disabled 进行衰减
-        disabledContainerColor = MaterialTheme.colorScheme.surfaceVariant,
-        disabledContentColor = MaterialTheme.colorScheme.onSurface,
-        disabledLeadingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        disabledTrailingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        disabledOverlineContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        disabledSupportingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-
-        // Selected：用 container/onContainer（不用 copy）
-        selectedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-        selectedContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        selectedLeadingContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        selectedTrailingContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        selectedOverlineContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        selectedSupportingContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-
-        // Dragged：更像“浮起的那一行”，用 surface/onSurface（不用 copy）
-        draggedContainerColor = MaterialTheme.colorScheme.surface,
-        draggedContentColor = MaterialTheme.colorScheme.onSurface,
-        draggedLeadingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        draggedTrailingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        draggedOverlineContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        draggedSupportingContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-    )
 
     Box(
         modifier = Modifier
@@ -96,7 +60,7 @@ fun SourceScreen(
                                     )
                                 }
                             },
-                            colors = listItemColors,
+                            colors = SourceListItemColor(),
                             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
                         ) {
                             Text(pluginSource.sourceName)
