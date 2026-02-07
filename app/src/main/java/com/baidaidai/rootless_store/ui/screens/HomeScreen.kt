@@ -12,11 +12,12 @@ import com.baidaidai.rootless_store.components.startScreen.HowToDevelopRootlessS
 import com.baidaidai.rootless_store.components.startScreen.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.startScreen.RootlessStoreHosterStatusBoard
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
+import com.baidaidai.rootless_store.ui.model.RootLessStoreHomeScreenViewModel
 
 @Composable
 fun HomeScreen(
     contentPadding: PaddingValues,
-    rootlessStoreHosterStatus: RootlessStoreHosterStatus
+    homeScreenViewModel: RootLessStoreHomeScreenViewModel = hiltViewModel()
 ){
     Column(
         modifier = Modifier
