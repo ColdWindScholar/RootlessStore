@@ -188,8 +188,11 @@ fun RootlessStoreStartScreenContainer(
             composable(
                 route = "SourcesScreen"
             ){
-                SourceScreen(
-                    contentPadding = contentPadding
+                SourceScreen(contentPadding = contentPadding){ pluginSourceUri ->
+                    marketScreenViewModel.updatePluginSourceUri(pluginSourceUri)
+                    navController.navigate("MarketScreen")
+                }
+            }
                 )
             }
         }
