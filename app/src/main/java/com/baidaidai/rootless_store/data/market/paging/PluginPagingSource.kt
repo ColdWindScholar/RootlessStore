@@ -8,13 +8,18 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import io.ktor.client.call.body
 
 class PluginPagingSource (
-    private val api: PluginMarketAPI
+    private val api: PluginMarketAPI,
+    private val pluginSourceUri: String
 ) : PagingSource<Int, PluginManifestRemote>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PluginManifestRemote> {
         val page = params.key ?: 0
 
-        val resp = api.getPlugins(pageNumber = page).body<PluginPageResponseDto>()
+        val resp = api.getPlugins(
+            pageNumber = page,
+            pluginSourceUri
+        )
+            .body<PluginPageResponseDto>()
 
         val nextKey = if (resp.meta.hasMore) page + 1 else null
 

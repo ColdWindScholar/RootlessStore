@@ -13,12 +13,19 @@ import javax.inject.Inject
 class PluginMarketRepositoryImpl @Inject constructor(
     private val api: PluginMarketAPI
 ): PluginMarketRepository {
-    override fun getPlugins(): Flow<PagingData<PluginManifestRemote>> {
+    override fun getPlugins(
+        pluginSourceUri: String
+    ): Flow<PagingData<PluginManifestRemote>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
             ),
-            pagingSourceFactory = { PluginPagingSource(api = api) }
+            pagingSourceFactory = {
+                PluginPagingSource(
+                    api = api,
+                    pluginSourceUri
+                )
+            }
         ).flow
     }
 }

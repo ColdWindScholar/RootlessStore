@@ -1,7 +1,6 @@
 package com.baidaidai.rootless_store.data.market.remote.api
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.*
 import io.ktor.client.request.accept
 import io.ktor.client.request.request
 import io.ktor.client.statement.HttpResponse
@@ -16,9 +15,10 @@ class PluginMarketAPI @Inject constructor(
     private val client = ktorClient
 
     suspend fun getPlugins(
-        pageNumber: Int
+        pageNumber: Int,
+        pluginSourceUri: String
     ): HttpResponse {
-        return client.request("http://192.168.3.10:3000"){
+        return client.request(pluginSourceUri){
             method = HttpMethod.Get
             accept(ContentType.Application.Json)
             url{
