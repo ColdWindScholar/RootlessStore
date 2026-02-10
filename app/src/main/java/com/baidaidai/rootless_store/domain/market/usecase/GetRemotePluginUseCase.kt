@@ -6,11 +6,12 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetRemotePluginsUseCase @Inject constructor(
-    private val repository: PluginMarketRepositoryImpl
 class GetRemotePluginListUseCase @Inject constructor(
+    private val pluginMarketRepository: PluginMarketRepositoryImpl
 ) {
-    operator fun invoke(): Flow<PagingData<PluginManifestRemote>> {
-       return repository.getPlugins()
+    operator fun invoke(
+        pluginSourceUri: String
+    ): Flow<PagingData<PluginManifestRemote>> {
+       return pluginMarketRepository.getPlugins(pluginSourceUri)
     }
 }
