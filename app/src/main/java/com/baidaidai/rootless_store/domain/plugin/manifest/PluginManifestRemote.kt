@@ -13,4 +13,17 @@ data class PluginManifestRemote(
     override val author: String,
     override val pluginDescription: String,
     override val requiredEnvironment: HosterOverallStatus
-): PluginManifest.PluginManifestRemote
+): PluginManifest.PluginManifestRemote {
+    companion object {
+        val _testOnly_ = PluginManifestRemote(
+            installedVersion = "x.x.x",
+            pluginRenderingName = "Test Plugin",
+            pluginPackageName = "TestPlugin",
+            pluginID = "29bb10c46772264df3c0d0fade57d2eb",
+            iconURI = "content://rootless_store/plugin_icon/test",
+            author = "Rootless Store(Creater. Bai)",
+            requiredEnvironment = HosterOverallStatus.LIMITED,
+            pluginDescription = "Tested by Creater. Bai"
+        )
+    }
+}
