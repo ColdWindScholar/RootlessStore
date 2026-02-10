@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 class GetRemotePluginsUseCase @Inject constructor(
     private val repository: PluginMarketRepositoryImpl
+class GetRemotePluginListUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<PagingData<PluginManifestRemote>> {
        return repository.getPlugins()
