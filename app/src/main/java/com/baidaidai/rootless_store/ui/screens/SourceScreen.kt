@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -51,14 +50,10 @@ fun SourceScreen(
                             onClick = {},
                             supportingContent = {Text(pluginSource.sourceURI)},
                             trailingContent = {
-                                IconButton(
-                                    onClick = {}
-                                ) {
-                                    Icon(
-                                        painter = painterResource(R.drawable.outline_arrow_forward_ios_24),
-                                        contentDescription = "go to"
-                                    )
-                                }
+                                Icon(
+                                    painter = painterResource(R.drawable.outline_arrow_forward_ios_24),
+                                    contentDescription = "go to"
+                                )
                             },
                             colors = SourceListItemColor(),
                             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
