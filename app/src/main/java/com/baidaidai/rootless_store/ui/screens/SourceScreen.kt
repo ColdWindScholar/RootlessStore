@@ -29,6 +29,7 @@ import com.baidaidai.rootless_store.ui.theme.colorscheme.SourceListItemColor
 @Composable
 fun SourceScreen(
     contentPadding: PaddingValues,
+    onListItemClick:(pluginSourceUri: String)-> Unit
 ){
     val sourcesScreenViewModel = hiltViewModel<RootLessStoreSourceScreenViewModel>()
     val pluginSourceList by sourcesScreenViewModel.sourceList.collectAsState()
@@ -47,7 +48,7 @@ fun SourceScreen(
                 ){ listIndex, pluginSource ->
                     Column {
                         ListItem(
-                            onClick = {},
+                            onClick = {onListItemClick(pluginSource.sourceURI)},
                             supportingContent = {Text(pluginSource.sourceURI)},
                             trailingContent = {
                                 Icon(
