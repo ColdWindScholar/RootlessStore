@@ -193,6 +193,12 @@ fun RootlessStoreStartScreenContainer(
                     navController.navigate("MarketScreen")
                 }
             }
+            composable(
+                route = "MarketScreen"
+            ){
+                MarketScreen(
+                    contentPadding = contentPadding,
+                    marketScreenViewModel = marketScreenViewModel
                 )
             }
         }
