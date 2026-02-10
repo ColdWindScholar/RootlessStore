@@ -107,7 +107,7 @@ sealed interface PluginManifest {
     // - source: PluginSource
     interface PluginManifestLocal: PluginManifest
     interface PluginManifestRemote: PluginManifest {
-
+        val pluginURI: String
     }
     interface PluginManifestRoom: PluginManifest {
         val enabled: Boolean
