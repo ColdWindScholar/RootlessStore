@@ -27,7 +27,7 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
-fun PluginInfoContainer(
+fun PluginInfoContainerLocal(
     pluginManifest: PluginManifestRoom,
     modifier: Modifier = Modifier,
     onClick: ()-> Unit
@@ -195,5 +195,5 @@ private fun PluginInfoRow(
 @Composable
 @PreviewLightDark
 private fun _PluginInfosContainerPreview_(){
-    PluginInfoContainer(pluginManifest = PluginManifestRoom._testOnly_){}
+    PluginInfoContainerLocal(pluginManifest = PluginManifestRoom._testOnly_){}
 }
