@@ -40,6 +40,7 @@ import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
+import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
 import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
@@ -50,6 +51,7 @@ fun RootlessStoreStartScreenContainer(
     pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel(),
     sourceScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
 ){
+    val marketScreenViewModel = hiltViewModel<RootLessStoreMarketScreenViewModel>()
     val pluginInfoCount by pluginScreenViewModel.pluginInfoCount.collectAsState()
     val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
 
