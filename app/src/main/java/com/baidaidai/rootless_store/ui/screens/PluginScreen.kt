@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainer
+import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainerLocal
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,7 +30,7 @@ fun RootlessStorePluginScreenContainer(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(renderingList){
-            PluginInfoContainer(pluginManifest = it){
+            PluginInfoContainerLocal(pluginManifest = it){
                 pluginScreenViewModel.setPluginEnabled(
                     pluginID = it.pluginID,
                     pluginEnabledStatus = !it.enabled
