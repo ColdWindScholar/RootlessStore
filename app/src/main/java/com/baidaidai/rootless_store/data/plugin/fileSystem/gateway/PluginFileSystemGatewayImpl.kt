@@ -3,14 +3,19 @@ package com.baidaidai.rootless_store.data.plugin.fileSystem.gateway
 import android.content.Context
 import android.net.Uri
 import com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem.AndroidFileSystemCapability
+import com.baidaidai.rootless_store.data.plugin.remote.datasource.DownloadPluginPackage
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginFileSystemGateway
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.ktor.client.statement.bodyAsChannel
+import io.ktor.utils.io.ByteReadChannel
 import java.io.File
 import javax.inject.Inject
 
 class PluginFileSystemGatewayImpl @Inject constructor(
-    @ApplicationContext val context: Context
+    @ApplicationContext val context: Context,
+    private val downloadPluginPackage: DownloadPluginPackage
 ): PluginFileSystemGateway{
     private val defaultPluginLocation = File(context.getExternalFilesDir(null),"Plugin")
     private val androidFileSystemCapability = AndroidFileSystemCapability(context)
@@ -18,6 +23,15 @@ class PluginFileSystemGatewayImpl @Inject constructor(
     // Create
     override fun installPlugin(originFileURI: Uri) {
         _pre_intallPlugin(originFileURI)
+    }
+
+    override suspend fun installPluginFromMarket(pluginURI: String, pluginManifestRemote: PluginManifestRemote) {
+        val remotePluginContent: ByteReadChannel = downloadPluginPackage.usePluginURI(pluginURI).bodyAsChannel()
+        val pluginPackageName = pluginManifestRemote.pluginPackageName
+        _pre_intallPlugin(
+            originFileByteChannel = remotePluginContent,
+            destinationFileName = pluginPackageName
+        )
     }
 
     // Delete
@@ -37,6 +51,18 @@ class PluginFileSystemGatewayImpl @Inject constructor(
         }else{
             androidFileSystemCapability.createFileDir("Plugin")
             _pre_intallPlugin(originFileURI)
+        }
+    }
+    private fun _pre_intallPlugin(originFileByteChannel: ByteReadChannel, destination: File = defaultPluginLocation,destinationFileName: String) {
+        if (androidFileSystemCapability.confirmPluginPathExists()){
+            androidFileSystemCapability.copyFile(
+                originFileByteChannel = originFileByteChannel,
+                destination = destination,
+                destinationFileName = destinationFileName
+            )
+        }else{
+            androidFileSystemCapability.createFileDir("Plugin")
+            _pre_intallPlugin(originFileByteChannel,destination,destinationFileName)
         }
     }
 }
