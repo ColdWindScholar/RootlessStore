@@ -1,5 +1,7 @@
 package com.baidaidai.rootless_store.domain.plugin.manifest
 
+import com.baidaidai.rootless_store.domain.plugin.model.PluginSource
+import com.baidaidai.rootless_store.domain.plugin.model.PluginState
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import kotlinx.serialization.Serializable
 
@@ -26,6 +28,21 @@ data class PluginManifestRemote(
             author = "Rootless Store(Creater. Bai)",
             requiredEnvironment = HosterOverallStatus.LIMITED,
             pluginDescription = "Tested by Creater. Bai"
+        )
+    }
+    fun toManifestRoom(): PluginManifestRoom{
+        return PluginManifestRoom(
+            enabled = false,
+            state = PluginState.Great,
+            source = PluginSource.Official,
+            installedVersion = installedVersion,
+            pluginRenderingName = pluginRenderingName,
+            pluginPackageName = pluginPackageName,
+            pluginID = pluginID,
+            iconURI = iconURI,
+            author = author,
+            pluginDescription = pluginDescription,
+            requiredEnvironment = requiredEnvironment
         )
     }
 }
