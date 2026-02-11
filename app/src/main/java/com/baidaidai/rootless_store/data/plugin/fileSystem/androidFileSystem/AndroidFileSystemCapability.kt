@@ -5,6 +5,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.documentfile.provider.DocumentFile
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import io.ktor.utils.io.ByteReadChannel
+import io.ktor.utils.io.jvm.javaio.toInputStream
 import kotlinx.serialization.json.Json
 import java.io.BufferedInputStream
 import java.io.File
@@ -70,6 +72,23 @@ class AndroidFileSystemCapability(
 ////            e.printStackTrace() // 打印异常日志便于排查
 ////            false
 ////        }
+    }
+
+    fun copyFile(originFileByteChannel: ByteReadChannel, destination: File, destinationFileName: String) {
+
+        // Get file's name, always powered by readManiFestJsonContent
+
+
+        // Provide void file, for copy use
+        createOneVoidFile(destination, destinationFileName)  // needs prevent override files
+        val operationFile = File(destination,"$destinationFileName.zip")
+
+        // The core of copy operator
+        FileOutputStream(operationFile).use { out ->
+            originFileByteChannel.toInputStream().use { input ->
+                input.copyTo(out)
+            }
+        }
     }
 
     /**
