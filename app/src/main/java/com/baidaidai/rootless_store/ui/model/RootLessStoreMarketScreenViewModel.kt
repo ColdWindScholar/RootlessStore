@@ -5,17 +5,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.baidaidai.rootless_store.domain.market.usecase.GetRemotePluginListUseCase
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
+import com.baidaidai.rootless_store.domain.plugin.usecase.InstallPluginFromMarketUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class RootLessStoreMarketScreenViewModel @Inject constructor(
-    private val getRemotePluginListUseCase: GetRemotePluginListUseCase
+    private val getRemotePluginListUseCase: GetRemotePluginListUseCase,
+    private val installPluginFromMarketUseCase: InstallPluginFromMarketUseCase
 ): ViewModel() {
     private var _pluginSourceUri = MutableStateFlow<String?>(null)
 
@@ -39,6 +43,15 @@ class RootLessStoreMarketScreenViewModel @Inject constructor(
             }else{
                 old
             }
+        }
+    }
+
+    fun installPlugin(
+        pluginURI: String,
+        pluginManifestRemote: PluginManifestRemote
+    ){
+        viewModelScope.launch {
+            installPluginFromMarketUseCase(pluginURI,pluginManifestRemote)
         }
     }
 
