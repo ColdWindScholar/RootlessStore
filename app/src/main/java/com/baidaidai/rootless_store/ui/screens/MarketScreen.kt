@@ -34,7 +34,12 @@ fun MarketScreen(
             val remotePluginListContent = remotePluginList[pluginIndex]
             PluginInfoContainerRemote(
                 pluginManifest = remotePluginListContent!!
-            ) { }
+            ) {
+                marketScreenViewModel.installPlugin(
+                    pluginURI = remotePluginListContent.pluginURI,
+                    pluginManifestRemote = remotePluginListContent
+                )
+            }
         }
     }
 }
