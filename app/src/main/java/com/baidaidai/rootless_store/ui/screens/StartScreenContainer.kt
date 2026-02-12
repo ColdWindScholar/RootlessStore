@@ -198,7 +198,8 @@ fun RootlessStoreStartScreenContainer(
             ){
                 MarketScreen(
                     contentPadding = contentPadding,
-                    marketScreenViewModel = marketScreenViewModel
+                    marketScreenViewModel = marketScreenViewModel,
+                    navController = navController
                 )
             }
         }

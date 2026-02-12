@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.baidaidai.rootless_store.components.marketScreen.PluginInfoContainerRemote
 import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
@@ -14,7 +15,8 @@ import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
 @Composable
 fun MarketScreen(
     contentPadding: PaddingValues,
-    marketScreenViewModel: RootLessStoreMarketScreenViewModel
+    marketScreenViewModel: RootLessStoreMarketScreenViewModel,
+    navController: NavController
 ){
 
     val _contentPadding = PaddingValues(vertical = 15.dp)
@@ -39,6 +41,7 @@ fun MarketScreen(
                     pluginURI = remotePluginListContent.pluginURI,
                     pluginManifestRemote = remotePluginListContent
                 )
+                navController.navigate("PluginScreen")
             }
         }
     }
