@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -21,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +42,7 @@ import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
+import com.baidaidai.rootless_store.domain.source.error.SourceError
 import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
@@ -71,6 +74,14 @@ fun RootlessStoreStartScreenContainer(
 
     var alertDialogStatus by rememberSaveable{ mutableStateOf(false) }
     var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
+    var sharedEvent by rememberSaveable { mutableStateOf<SourceError?>(null) }
+
+
+    LaunchedEffect(0) {
+        sourceScreenViewModel.sourceEvent.collect { event ->
+            sharedEvent = event
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -164,6 +175,35 @@ fun RootlessStoreStartScreenContainer(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                     }
+                }
+            )
+        }
+        if (sharedEvent is SourceError){
+            AlertDialog(
+                onDismissRequest = {},
+                confirmButton = {
+                    Button(
+                        onClick = {
+                        }
+                    ) {
+                        Text("Ok")
+                    }
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(R.drawable.material_symbols_warning_24px),
+                        contentDescription = "Dialog Warning Logo"
+                    )
+                },
+                title = {
+                    Text(sharedEvent!!.errorMessage)
+                },
+                text = {
+                    Text(
+                        text = sharedEvent!!.errorCause,
+                        modifier = Modifier
+                            .heightIn(max = 300.dp)
+                    )
                 }
             )
         }
