@@ -4,7 +4,6 @@ import android.content.Context
 import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 import com.baidaidai.rootless_store.data.source.gateway.PluginSourceGatewayImpl
-import com.baidaidai.rootless_store.domain.source.error.ConnectionError
 import com.baidaidai.rootless_store.domain.source.error.SourceError
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceLocal
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceUser
@@ -35,18 +34,10 @@ class PluginSourceRepositoryImpl @Inject constructor(
 
             return null
         }catch (error: Throwable){
-            return when(error){
-                is java.net.ConnectException -> {
-                    ConnectionError(
-                        errorCause = error.cause.toString(),
-                        errorMessage = error.message.toString()
-                    )
-                }
-
-                else -> {
-                    null
-                }
-            }
+            return SourceError(
+                errorCause = error.cause.toString(),
+                errorMessage = error.message.toString()
+            )
         }
     }
 
