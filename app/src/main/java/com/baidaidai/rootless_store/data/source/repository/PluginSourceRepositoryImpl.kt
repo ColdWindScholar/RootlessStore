@@ -26,11 +26,28 @@ class PluginSourceRepositoryImpl @Inject constructor(
     // Create
     override suspend fun insertOnePluginSource(
         pluginSourceUser: PluginSourceUser
-        val pluginSourceDTO = pluginSourceGatewayImpl.getPluginSourceMetaInfo(pluginSourceUser.sourceURI)
-        val newPluginSourceEntity = PluginSourceEntity.fromPluginSourceDTO(pluginSourceDTO)
     ): SourceError? {
+        try{
+            val pluginSourceDTO = pluginSourceGatewayImpl.getPluginSourceMetaInfo(pluginSourceUser.sourceURI)
+            val newPluginSourceEntity = PluginSourceEntity.fromPluginSourceDTO(pluginSourceDTO)
 
-        pluginSourceDAO.insertOnePluginSource(newPluginSourceEntity)
+            pluginSourceDAO.insertOnePluginSource(newPluginSourceEntity)
+
+            return null
+        }catch (error: Throwable){
+            return when(error){
+                is java.net.ConnectException -> {
+                    ConnectionError(
+                        errorCause = error.cause.toString(),
+                        errorMessage = error.message.toString()
+                    )
+                }
+
+                else -> {
+                    null
+                }
+            }
+        }
     }
 
     // Update
