@@ -1,6 +1,7 @@
 package com.baidaidai.rootless_store.domain.source.usecase
 
 import com.baidaidai.rootless_store.data.source.repository.PluginSourceRepositoryImpl
+import com.baidaidai.rootless_store.domain.source.error.SourceError
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceUser
 import javax.inject.Inject
 
@@ -9,8 +10,8 @@ class AddOneSourceUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         sourceURI: String
-    ){
+    ): SourceError?{
         val pluginSourceUser = PluginSourceUser(sourceURI = sourceURI)
-        pluginSourceRepositoryImpl.insertOnePluginSource(pluginSourceUser)
+        return pluginSourceRepositoryImpl.insertOnePluginSource(pluginSourceUser)
     }
 }

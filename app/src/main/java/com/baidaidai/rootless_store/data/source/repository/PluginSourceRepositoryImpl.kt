@@ -4,6 +4,8 @@ import android.content.Context
 import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 import com.baidaidai.rootless_store.data.source.gateway.PluginSourceGatewayImpl
+import com.baidaidai.rootless_store.domain.source.error.ConnectionError
+import com.baidaidai.rootless_store.domain.source.error.SourceError
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceLocal
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceUser
 import com.baidaidai.rootless_store.domain.source.repository.PluginSourceRepository
@@ -24,9 +26,9 @@ class PluginSourceRepositoryImpl @Inject constructor(
     // Create
     override suspend fun insertOnePluginSource(
         pluginSourceUser: PluginSourceUser
-    ) {
         val pluginSourceDTO = pluginSourceGatewayImpl.getPluginSourceMetaInfo(pluginSourceUser.sourceURI)
         val newPluginSourceEntity = PluginSourceEntity.fromPluginSourceDTO(pluginSourceDTO)
+    ): SourceError? {
 
         pluginSourceDAO.insertOnePluginSource(newPluginSourceEntity)
     }

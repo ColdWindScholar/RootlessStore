@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.domain.source.repository
 
 import androidx.room.RoomDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
+import com.baidaidai.rootless_store.domain.source.error.SourceError
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceLocal
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceUser
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +13,7 @@ interface PluginSourceRepository {
     val appDatabase: RoomDatabase
 
     // Create
-    suspend fun insertOnePluginSource(pluginSourceUser: PluginSourceUser)
+    suspend fun insertOnePluginSource(pluginSourceUser: PluginSourceUser): SourceError?
 
     // Update
     suspend fun updateOnePluginSource(
