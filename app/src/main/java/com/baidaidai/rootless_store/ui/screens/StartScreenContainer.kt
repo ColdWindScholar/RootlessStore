@@ -184,6 +184,7 @@ fun RootlessStoreStartScreenContainer(
                 confirmButton = {
                     Button(
                         onClick = {
+                            sourceScreenViewModel.onOkButtonClick()
                         }
                     ) {
                         Text("Ok")

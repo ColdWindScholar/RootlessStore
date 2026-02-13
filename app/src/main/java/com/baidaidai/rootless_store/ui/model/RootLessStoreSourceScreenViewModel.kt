@@ -40,7 +40,6 @@ class RootLessStoreSourceScreenViewModel @Inject constructor(
         sourceURI: String
     ){
         viewModelScope.launch {
-            addOneSourceUseCase(sourceURI)
             val result = addOneSourceUseCase(sourceURI)
 
             if(result is SourceError){
@@ -52,6 +51,9 @@ class RootLessStoreSourceScreenViewModel @Inject constructor(
             }
         }
     }
+    fun onOkButtonClick(){
+        viewModelScope.launch {
+            _sourceEvent.emit(null)
         }
     }
 }
