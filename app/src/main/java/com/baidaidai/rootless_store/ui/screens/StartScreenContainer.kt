@@ -94,7 +94,10 @@ fun RootlessStoreStartScreenContainer(
         topBar = {
             when(currentDestination){
                 "PluginScreen" -> PluginScreenNecessaryComponents.PluginScreenScreenTopAppBar(
-                    pluginInfoCount = pluginInfoCount
+                    pluginInfoCount = pluginInfoCount,
+                    textButtonOnClick = {
+                        pluginScreenViewModel.changeBadgeShowStatus()
+                    }
                 )
                 "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar(
                     iconButtonOnClick = {
@@ -233,7 +236,8 @@ fun RootlessStoreStartScreenContainer(
                 route = "PluginScreen"
             ){
                 RootlessStorePluginScreenContainer(
-                    contentPadding = contentPadding
+                    contentPadding = contentPadding,
+                    pluginScreenViewModel = pluginScreenViewModel
                 )
             }
             composable(
