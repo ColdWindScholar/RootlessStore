@@ -3,14 +3,17 @@ package com.baidaidai.rootless_store.ui.model
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.baidaidai.rootless_store.domain.plugin.error.PluginError
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetPluginInfoCountUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.SetPluginEnabledUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -27,6 +30,10 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
 
 //    private val _pluginInfoList = getAllPlugins()  // Will change back to PluginManifestLocal feature
     private val _fileURI = MutableStateFlow<Uri>(value = Uri.EMPTY)
+
+    private val _pluginEvent = MutableSharedFlow<PluginError?>()
+    val pluginEvent = _pluginEvent.asSharedFlow()
+
     val pluginInfoList = getWholePluginInfoUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -41,18 +48,18 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
 
     val fileURI = _fileURI.asStateFlow()
 
-    init {
-//        getAllPlugins()
-    }
-
     fun updateFileURI(uri: Uri){
         _fileURI.value = uri
     }
 
     fun installPlugin(){
         viewModelScope.launch {
-            installOnePluginUseCase(fileURI.value)
-//            getAllPlugins()
+            val result = installOnePluginUseCase(fileURI.value)
+            if (result is PluginError){
+                _pluginEvent.emit(result)
+            }else{
+                _pluginEvent.emit(null)
+            }
         }
     }
     fun setPluginEnabled(
