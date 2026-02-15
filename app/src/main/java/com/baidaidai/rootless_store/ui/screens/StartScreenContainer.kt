@@ -42,7 +42,7 @@ import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
-import com.baidaidai.rootless_store.domain.source.error.SourceError
+import com.baidaidai.rootless_store.domain.error.RootlessStoreError
 import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
@@ -74,7 +74,7 @@ fun RootlessStoreStartScreenContainer(
 
     var alertDialogStatus by rememberSaveable{ mutableStateOf(false) }
     var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
-    var sharedEvent by rememberSaveable { mutableStateOf<SourceError?>(null) }
+    var sharedEvent by rememberSaveable { mutableStateOf<RootlessStoreError?>(null) }
 
 
     LaunchedEffect(0) {
@@ -178,7 +178,7 @@ fun RootlessStoreStartScreenContainer(
                 }
             )
         }
-        if (sharedEvent is SourceError){
+        if (sharedEvent is RootlessStoreError){
             AlertDialog(
                 onDismissRequest = {},
                 confirmButton = {
