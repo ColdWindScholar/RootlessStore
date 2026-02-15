@@ -55,8 +55,8 @@ class PluginInfoRepositoryImpl @Inject constructor(
     }
 
     // Delete
-    override suspend fun deleteOnePluginInfo() {
-        TODO("Not yet implemented")
+    override suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity) {
+        pluginInfoDAO.deleteOnePluginInfo(pluginInfoEntity)
     }
 
 }
