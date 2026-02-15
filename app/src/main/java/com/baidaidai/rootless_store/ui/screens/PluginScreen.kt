@@ -13,14 +13,15 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainerLocal
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun RootlessStorePluginScreenContainer(
-    contentPadding: PaddingValues
+    contentPadding: PaddingValues,
+    pluginScreenViewModel: RootLessStorePluginScreenViewModel
 ){
-    val pluginScreenViewModel = hiltViewModel<RootLessStorePluginScreenViewModel>()
     val renderingList by pluginScreenViewModel.pluginInfoList.collectAsState()
+    val badgeShowState by pluginScreenViewModel.badgeShowState.collectAsState()
+
     LazyColumn(
         modifier = Modifier
             .padding(contentPadding)
