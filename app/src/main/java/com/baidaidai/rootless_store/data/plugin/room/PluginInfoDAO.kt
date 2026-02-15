@@ -35,7 +35,7 @@ interface PluginInfoDAO {
 
     // Delete
     @Delete
-    suspend fun deleteOneEntirePluginInfo(pluginInfoEntity: PluginInfoEntity)
+    suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
     /**
      * Other methods, such as update、disable、configuration change,
