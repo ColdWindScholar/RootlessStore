@@ -33,12 +33,19 @@ fun RootlessStorePluginScreenContainer(
         )
     ) {
         items(renderingList){
-            PluginInfoContainerLocal(pluginManifest = it){
-                pluginScreenViewModel.setPluginEnabled(
-                    pluginID = it.pluginID,
-                    pluginEnabledStatus = !it.enabled
-                )
-            }
+            PluginInfoContainerLocal(
+                pluginManifest = it,
+                onSwitchClick = {
+                    pluginScreenViewModel.setPluginEnabled(
+                        pluginID = it.pluginID,
+                        pluginEnabledStatus = !it.enabled
+                    )
+                },
+                onBadgeClick = {
+                    pluginScreenViewModel.uninstallPlugin(it)
+                },
+                badgeShowState = badgeShowState
+            )
         }
     }
 }
