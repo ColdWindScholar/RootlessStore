@@ -1,7 +1,8 @@
 package com.baidaidai.rootless_store.domain.plugin.error
 
-sealed interface PluginError {
-    val errorMessage: String
+import com.baidaidai.rootless_store.domain.error.RootlessStoreError
 
-    interface ManifestError: PluginError
-}
+data class PluginError(
+    override val errorMessage: String,
+    override val errorCause: String
+): RootlessStoreError
