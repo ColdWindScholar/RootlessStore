@@ -140,6 +140,13 @@ class AndroidFileSystemCapability(
         return manifest
     }
 
+    fun deleteOneFile(pluginPackageName: String): Boolean{
+        val base = context.getExternalFilesDir(null)
+        val targetFile = File(base,"Plugin/${pluginPackageName}.zip")
+
+        return targetFile.delete()
+    }
+
     private fun confirmPathExists(path: String): Boolean{
         Log.d("confirmPathExists",File(context.getExternalFilesDir(null),path.toString()).exists().toString())
         return File(context.getExternalFilesDir(null),path.toString()).exists()
