@@ -82,6 +82,11 @@ fun RootlessStoreStartScreenContainer(
             sharedEvent = event
         }
     }
+    LaunchedEffect(1) {
+        pluginScreenViewModel.pluginEvent.collect{ event ->
+            sharedEvent = event
+        }
+    }
 
     Scaffold(
         topBar = {
