@@ -4,15 +4,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -23,139 +26,95 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
 fun PluginInfoContainerLocal(
+    badgeShowState: Boolean = true,
     pluginManifest: PluginManifestRoom,
     modifier: Modifier = Modifier,
-    onClick: ()-> Unit
+    onSwitchClick: ()-> Unit,
+    onBadgeClick:()-> Unit
 ){
-    Card(
-        modifier = modifier
-            .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
-    ){
-        Column(
-            modifier = Modifier
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(
-                    painter = painterResource(R.drawable.outline_extension_24),
-                    contentDescription = "Plugin Icon",
+    BadgedBox(
+        badge = {
+            if (badgeShowState){
+                Badge(
                     modifier = Modifier
-                        .size(24.dp)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .width(12.dp)
-                )
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
+                        .size(16.dp)
                 ){
-                    Text(
-                        text = pluginManifest.pluginRenderingName,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Text(
-                        text = "Version: ${pluginManifest.installedVersion}",
-                        style = MaterialTheme.typography.labelMedium
-                    )
+                    IconButton(
+                        onClick = { onBadgeClick() }
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.outline_close_24),
+                            contentDescription = "delete button",
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    }
                 }
-                Switch(
-                    checked = pluginManifest.enabled,
-                    onCheckedChange = { onClick() }
-                )
-            }
-            HorizontalDivider()
-            Column(
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                PluginInfoRow(label = "Author", value = pluginManifest.author)
-                PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
-                PluginInfoRow(label = "State", value = pluginManifest.state.toString())
-                PluginInfoRow(
-                    label = "Required",
-                    value = pluginManifest.requiredEnvironment.toString()
-                )
             }
         }
-    }
-}
-
-@Composable
-fun PluginInfoContainer(
-    pluginManifest: PluginManifestRemote,
-    modifier: Modifier = Modifier,
-    onClick: ()-> Unit
-){
-    Card(
-        modifier = modifier
-            .fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer
-        )
-    ){
-        Column(
-            modifier = Modifier
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Icon(
-                    painter = painterResource(R.drawable.outline_extension_24),
-                    contentDescription = "Plugin Icon",
-                    modifier = Modifier
-                        .size(24.dp)
-                )
-                Spacer(
-                    modifier = Modifier
-                        .width(12.dp)
-                )
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                ){
-                    Text(
-                        text = pluginManifest.pluginRenderingName,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    Text(
-                        text = "Version: ${pluginManifest.installedVersion}",
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
-                Button(
-                    onClick = onClick
-                ){
-                    Text("Install")
-                }
-            }
-            HorizontalDivider()
+    ) {
+        Card(
+            modifier = modifier
+                .fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainer
+            )
+        ){
             Column(
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                modifier = Modifier
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                PluginInfoRow(label = "Author", value = pluginManifest.author)
-                PluginInfoRow(
-                    label = "Required",
-                    value = pluginManifest.requiredEnvironment.toString()
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Icon(
+                        painter = painterResource(R.drawable.outline_extension_24),
+                        contentDescription = "Plugin Icon",
+                        modifier = Modifier
+                            .size(24.dp)
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .width(12.dp)
+                    )
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ){
+                        Text(
+                            text = pluginManifest.pluginRenderingName,
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                        Text(
+                            text = "Version: ${pluginManifest.installedVersion}",
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
+                    Switch(
+                        checked = pluginManifest.enabled,
+                        onCheckedChange = { onSwitchClick() }
+                    )
+                }
+                HorizontalDivider()
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    PluginInfoRow(label = "Author", value = pluginManifest.author)
+                    PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
+                    PluginInfoRow(label = "State", value = pluginManifest.state.toString())
+                    PluginInfoRow(
+                        label = "Required",
+                        value = pluginManifest.requiredEnvironment.toString()
+                    )
+                }
             }
         }
     }
@@ -195,5 +154,5 @@ private fun PluginInfoRow(
 @Composable
 @PreviewLightDark
 private fun _PluginInfosContainerPreview_(){
-    PluginInfoContainerLocal(pluginManifest = PluginManifestRoom._testOnly_){}
+    PluginInfoContainerLocal(pluginManifest = PluginManifestRoom._testOnly_, onSwitchClick = {}){}
 }
