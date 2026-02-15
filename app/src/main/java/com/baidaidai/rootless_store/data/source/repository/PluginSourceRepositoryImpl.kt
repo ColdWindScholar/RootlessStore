@@ -1,6 +1,7 @@
 package com.baidaidai.rootless_store.data.source.repository
 
 import android.content.Context
+import com.baidaidai.rootless_store.core.util.OutOfStringLike
 import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 import com.baidaidai.rootless_store.data.source.gateway.PluginSourceGatewayImpl
@@ -35,8 +36,8 @@ class PluginSourceRepositoryImpl @Inject constructor(
             return null
         }catch (error: Throwable){
             return SourceError(
-                errorCause = error.cause.toString(),
-                errorMessage = error.message.toString()
+                errorMessage = error.message.toString(),
+                errorCause = error.stackTrace.OutOfStringLike()
             )
         }
     }
