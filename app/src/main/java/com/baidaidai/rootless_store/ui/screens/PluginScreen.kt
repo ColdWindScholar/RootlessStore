@@ -25,10 +25,12 @@ fun RootlessStorePluginScreenContainer(
     LazyColumn(
         modifier = Modifier
             .padding(contentPadding)
-            .fillMaxSize()
-            .padding(vertical = 15.dp)
-            .padding(horizontal = 15.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = PaddingValues(
+            vertical = 15.dp,
+            horizontal = 15.dp
+        )
     ) {
         items(renderingList){
             PluginInfoContainerLocal(pluginManifest = it){
