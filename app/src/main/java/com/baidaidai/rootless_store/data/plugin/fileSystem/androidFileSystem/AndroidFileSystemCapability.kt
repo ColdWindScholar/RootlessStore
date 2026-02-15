@@ -152,10 +152,7 @@ class AndroidFileSystemCapability(
         return File(context.getExternalFilesDir(null),path.toString()).exists()
     }
 
-    /**
-     * This is private method, only converse json(String) intro PluginMainFest
-     *
-     * The method is original logic, only return solid pluginPackageName
-     */
+
+
 
 }
