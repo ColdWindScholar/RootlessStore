@@ -35,8 +35,10 @@ class PluginFileSystemGatewayImpl @Inject constructor(
     }
 
     // Delete
-    override fun uninstallPlugin() {
-        TODO("")
+    override fun uninstallPlugin(
+        pluginPackageName: String  // Should use pluginManifest<Room/Local>
+    ) {
+        androidFileSystemCapability.deleteOneFile(pluginPackageName)
     }
 
     override fun readPluginManifest(originFileURI: Uri): PluginManifestLocal {
