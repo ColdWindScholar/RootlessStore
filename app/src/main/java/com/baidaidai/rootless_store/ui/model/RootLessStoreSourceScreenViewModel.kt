@@ -43,9 +43,7 @@ class RootLessStoreSourceScreenViewModel @Inject constructor(
             val result = addOneSourceUseCase(sourceURI)
 
             if(result is SourceError){
-                _sourceEvent.emit(
-                    result
-                )
+                _sourceEvent.emit(result)
             }else{
                 _sourceEvent.emit(null)
             }
