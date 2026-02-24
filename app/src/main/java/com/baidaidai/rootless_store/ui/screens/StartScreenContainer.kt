@@ -103,6 +103,9 @@ fun RootlessStoreStartScreenContainer(
                     iconButtonOnClick = {
                         alertDialogStatus = !alertDialogStatus
                     },
+                    textButtonOnClick = {
+                        sourceScreenViewModel.changeDeleterShowStatus()
+                    },
                     sourceCount = sourceCount
                 )
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
@@ -243,7 +246,10 @@ fun RootlessStoreStartScreenContainer(
             composable(
                 route = "SourcesScreen"
             ){
-                SourceScreen(contentPadding = contentPadding){ pluginSourceUri ->
+                SourceScreen(
+                    contentPadding = contentPadding,
+                    sourceScreenViewModel = sourceScreenViewModel
+                ){ pluginSourceUri ->
                     marketScreenViewModel.updatePluginSourceUri(pluginSourceUri)
                     navController.navigate("MarketScreen")
                 }
