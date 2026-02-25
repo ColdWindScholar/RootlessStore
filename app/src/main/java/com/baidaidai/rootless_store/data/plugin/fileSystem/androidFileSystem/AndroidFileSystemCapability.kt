@@ -219,11 +219,22 @@ class AndroidFileSystemCapability(
         return manifest
     }
 
+    @Deprecated(
+        message = "Recommended to use deleteDirectoryByPackageName method, instead of the deleteOneFile method",
+        replaceWith = ReplaceWith("deleteDirectoryByPackageName(pluginPackageName)")
+    )
     fun deleteOneFile(pluginPackageName: String): Boolean{
         val base = context.getExternalFilesDir(null)
         val targetFile = File(base,"Plugin/${pluginPackageName}.zip")
 
         return targetFile.delete()
+    }
+
+    fun deleteDirectoryByPackageName(pluginPackageName: String): Boolean {
+        val pluginRootDirectory = context.getExternalFilesDir(null)
+        val targetFile = File(pluginRootDirectory,"Plugin/${pluginPackageName}")
+
+        return targetFile.deleteRecursively()
     }
 
     private fun confirmPathExists(path: String): Boolean{
