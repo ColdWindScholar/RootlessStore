@@ -41,6 +41,10 @@ class AndroidFileSystemCapability(
      *
      * So, We use "oldFile.InputStream->newFile.OutputStream"
      */
+    @Deprecated(
+        message = "Recommended to use unZipFromFile method, instead of the copyFile method",
+        replaceWith = ReplaceWith("unzipFromFile(originFileURI, pluginRootDirectory, directoryName)")
+    )
     fun copyFile(originFileURI: Uri, destination: File, destinationFileName: String? = null) {
 
         // Get file's name, always powered by readManiFestJsonContent
@@ -74,6 +78,10 @@ class AndroidFileSystemCapability(
 ////        }
     }
 
+    @Deprecated(
+        message = "Recommended to use unZipFromURI method, instead of the copyFile method",
+        replaceWith = ReplaceWith("unZipFromURI(originFileByteChannel, pluginRootDirectory, directoryName)")
+    )
     fun copyFile(originFileByteChannel: ByteReadChannel, destination: File, destinationFileName: String) {
 
         // Get file's name, always powered by readManiFestJsonContent
@@ -90,6 +98,82 @@ class AndroidFileSystemCapability(
             }
         }
     }
+
+    fun unzipFromFile(originFileURI: Uri, pluginRootDirectory: File, directoryName: String? = null) {
+
+        // Get file's name, always powered by readManiFestJsonContent
+        val directoryName = when {
+
+            !directoryName.isNullOrBlank() -> {
+                directoryName.trim()
+
+            }  // 只有destinationFilName显式指定，否则不走
+
+            else -> {
+                readRawPluginManifest(originFileURI).let { json ->
+                    readManifestJsonContent(json).pluginPackageName
+                }.trim()
+            }
+
+        }
+
+        // Create Void Directory
+        val createdFileDirectory = createVoidFileDirectory(pluginRootDirectory, directoryName)
+
+        // Open IO Stream
+        context.contentResolver.openInputStream(originFileURI).use{ fis ->
+            // Unzip from File Input Stream
+            ZipInputStream(BufferedInputStream(fis)).use { zis ->
+                var entry = zis.nextEntry
+                while (entry != null) {
+                    val outFile = File(createdFileDirectory, entry.name)
+
+                    if (entry.isDirectory) {
+                        outFile.mkdirs()
+                    } else {
+                        outFile.parentFile?.mkdirs()
+                        FileOutputStream(outFile).use { out ->
+                            zis.copyTo(out)
+                        }
+                    }
+
+                    zis.closeEntry()
+                    entry = zis.nextEntry
+                }
+            }
+
+        }
+    }
+
+    fun unZipFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
+
+        // Provide void file, for copy use
+        createVoidFileDirectory(pluginRootDirectory, directoryName)  // needs prevent override files
+        val operationFile = File(pluginRootDirectory,directoryName)
+
+        // The core of copy operator
+        originFileByteChannel.toInputStream().use { input ->
+            ZipInputStream(BufferedInputStream(input)).use { zis ->
+                var entry = zis.nextEntry
+                while (entry != null) {
+                    val outFile = File(operationFile, entry.name)
+
+                    if (entry.isDirectory) {
+                        outFile.mkdirs()
+                    } else {
+                        outFile.parentFile?.mkdirs()
+                        FileOutputStream(outFile).use { out ->
+                            zis.copyTo(out)
+                        }
+                    }
+
+                    zis.closeEntry()
+                    entry = zis.nextEntry
+                }
+            }
+        }
+    }
+
 
     /**
      *  This is original logic
