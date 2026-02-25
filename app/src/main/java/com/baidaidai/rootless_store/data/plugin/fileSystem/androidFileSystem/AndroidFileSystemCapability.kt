@@ -31,6 +31,10 @@ class AndroidFileSystemCapability(
         return result
     }
 
+    fun createVoidFileDirectory(pluginRootDirectory: File,directoryName: String): File {
+        return File(pluginRootDirectory,directoryName) // 创建文件夹
+    }
+
     fun getFileNames(originalFileUri: Uri): String{
         val name = DocumentFile.fromSingleUri(context, originalFileUri)!!.name
         return name!!
@@ -41,6 +45,10 @@ class AndroidFileSystemCapability(
      *
      * So, We use "oldFile.InputStream->newFile.OutputStream"
      */
+    @Deprecated(
+        message = "Recommended to use unZipFromFile method, instead of the copyFile method",
+        replaceWith = ReplaceWith("unzipFromFile(originFileURI, pluginRootDirectory, directoryName)")
+    )
     fun copyFile(originFileURI: Uri, destination: File, destinationFileName: String? = null) {
 
         // Get file's name, always powered by readManiFestJsonContent
@@ -63,17 +71,12 @@ class AndroidFileSystemCapability(
                 input!!.copyTo(output)
             }
         }
-
-////        return try {
-////            // use的目的是自动关闭流
-////            Log.d("copyFile","Finally")
-////            true
-////        } catch (e: Throwable) {
-////            e.printStackTrace() // 打印异常日志便于排查
-////            false
-////        }
     }
 
+    @Deprecated(
+        message = "Recommended to use unZipFromURI method, instead of the copyFile method",
+        replaceWith = ReplaceWith("unZipFromURI(originFileByteChannel, pluginRootDirectory, directoryName)")
+    )
     fun copyFile(originFileByteChannel: ByteReadChannel, destination: File, destinationFileName: String) {
 
         // Get file's name, always powered by readManiFestJsonContent
@@ -90,6 +93,82 @@ class AndroidFileSystemCapability(
             }
         }
     }
+
+    fun unzipFromFile(originFileURI: Uri, pluginRootDirectory: File, directoryName: String? = null) {
+
+        // Get file's name, always powered by readManiFestJsonContent
+        val directoryName = when {
+
+            !directoryName.isNullOrBlank() -> {
+                directoryName.trim()
+
+            }  // 只有destinationFilName显式指定，否则不走
+
+            else -> {
+                readRawPluginManifest(originFileURI).let { json ->
+                    readManifestJsonContent(json).pluginPackageName
+                }.trim()
+            }
+
+        }
+
+        // Create Void Directory
+        val createdFileDirectory = createVoidFileDirectory(pluginRootDirectory, directoryName)
+
+        // Open IO Stream
+        context.contentResolver.openInputStream(originFileURI).use{ fis ->
+            // Unzip from File Input Stream
+            ZipInputStream(BufferedInputStream(fis)).use { zis ->
+                var entry = zis.nextEntry
+                while (entry != null) {
+                    val outFile = File(createdFileDirectory, entry.name)
+
+                    if (entry.isDirectory) {
+                        outFile.mkdirs()
+                    } else {
+                        outFile.parentFile?.mkdirs()
+                        FileOutputStream(outFile).use { out ->
+                            zis.copyTo(out)
+                        }
+                    }
+
+                    zis.closeEntry()
+                    entry = zis.nextEntry
+                }
+            }
+
+        }
+    }
+
+    fun unZipFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
+
+        // Provide void file, for copy use
+        createVoidFileDirectory(pluginRootDirectory, directoryName)  // needs prevent override files
+        val operationFile = File(pluginRootDirectory,directoryName)
+
+        // The core of copy operator
+        originFileByteChannel.toInputStream().use { input ->
+            ZipInputStream(BufferedInputStream(input)).use { zis ->
+                var entry = zis.nextEntry
+                while (entry != null) {
+                    val outFile = File(operationFile, entry.name)
+
+                    if (entry.isDirectory) {
+                        outFile.mkdirs()
+                    } else {
+                        outFile.parentFile?.mkdirs()
+                        FileOutputStream(outFile).use { out ->
+                            zis.copyTo(out)
+                        }
+                    }
+
+                    zis.closeEntry()
+                    entry = zis.nextEntry
+                }
+            }
+        }
+    }
+
 
     /**
      *  This is original logic
@@ -140,11 +219,22 @@ class AndroidFileSystemCapability(
         return manifest
     }
 
+    @Deprecated(
+        message = "Recommended to use deleteDirectoryByPackageName method, instead of the deleteOneFile method",
+        replaceWith = ReplaceWith("deleteDirectoryByPackageName(pluginPackageName)")
+    )
     fun deleteOneFile(pluginPackageName: String): Boolean{
         val base = context.getExternalFilesDir(null)
         val targetFile = File(base,"Plugin/${pluginPackageName}.zip")
 
         return targetFile.delete()
+    }
+
+    fun deleteDirectoryByPackageName(pluginPackageName: String): Boolean {
+        val pluginRootDirectory = context.getExternalFilesDir(null)
+        val targetFile = File(pluginRootDirectory,"Plugin/${pluginPackageName}")
+
+        return targetFile.deleteRecursively()
     }
 
     private fun confirmPathExists(path: String): Boolean{
