@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.startScreen
+package com.baidaidai.rootless_store.components.homeScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
