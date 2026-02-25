@@ -71,15 +71,6 @@ class AndroidFileSystemCapability(
                 input!!.copyTo(output)
             }
         }
-
-////        return try {
-////            // use的目的是自动关闭流
-////            Log.d("copyFile","Finally")
-////            true
-////        } catch (e: Throwable) {
-////            e.printStackTrace() // 打印异常日志便于排查
-////            false
-////        }
     }
 
     @Deprecated(
