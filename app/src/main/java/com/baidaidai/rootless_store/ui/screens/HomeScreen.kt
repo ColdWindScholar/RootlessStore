@@ -11,9 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.baidaidai.rootless_store.components.startScreen.HowToDevelopRootlessStorePlugin
-import com.baidaidai.rootless_store.components.startScreen.RootLessStoreVersionCheckerContainer
-import com.baidaidai.rootless_store.components.startScreen.RootlessStoreHosterStatusBoard
+import com.baidaidai.rootless_store.components.homeScreen.HowToDevelopRootlessStorePlugin
+import com.baidaidai.rootless_store.components.homeScreen.RootLessStoreVersionCheckerContainer
+import com.baidaidai.rootless_store.components.homeScreen.RootlessStoreHosterStatusBoard
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import com.baidaidai.rootless_store.domain.status.model.PluginStatus
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus

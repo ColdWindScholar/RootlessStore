@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.startScreen
+package com.baidaidai.rootless_store.components.homeScreen
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
