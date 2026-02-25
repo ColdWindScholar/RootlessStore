@@ -38,7 +38,7 @@ class PluginFileSystemGatewayImpl @Inject constructor(
     override fun uninstallPlugin(
         pluginPackageName: String  // Should use pluginManifest<Room/Local>
     ) {
-        androidFileSystemCapability.deleteOneFile(pluginPackageName)
+        androidFileSystemCapability.deleteDirectoryByPackageName(pluginPackageName)
     }
 
     override fun readPluginManifest(originFileURI: Uri): PluginManifestLocal {
@@ -49,7 +49,10 @@ class PluginFileSystemGatewayImpl @Inject constructor(
 
     private fun _pre_intallPlugin(originFileURI: Uri, destination: File = defaultPluginLocation) {
         if (androidFileSystemCapability.confirmPluginPathExists()){
-            androidFileSystemCapability.copyFile(originFileURI,destination)
+            androidFileSystemCapability.unzipFromFile(
+                originFileURI = originFileURI,
+                pluginRootDirectory = destination
+            )
         }else{
             androidFileSystemCapability.createFileDir("Plugin")
             _pre_intallPlugin(originFileURI)
@@ -57,10 +60,10 @@ class PluginFileSystemGatewayImpl @Inject constructor(
     }
     private fun _pre_intallPlugin(originFileByteChannel: ByteReadChannel, destination: File = defaultPluginLocation,destinationFileName: String) {
         if (androidFileSystemCapability.confirmPluginPathExists()){
-            androidFileSystemCapability.copyFile(
+            androidFileSystemCapability.unZipFromURI(
                 originFileByteChannel = originFileByteChannel,
-                destination = destination,
-                destinationFileName = destinationFileName
+                pluginRootDirectory = destination,
+                directoryName = destinationFileName
             )
         }else{
             androidFileSystemCapability.createFileDir("Plugin")
