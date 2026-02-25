@@ -31,6 +31,10 @@ class AndroidFileSystemCapability(
         return result
     }
 
+    fun createVoidFileDirectory(pluginRootDirectory: File,directoryName: String): File {
+        return File(pluginRootDirectory,directoryName) // 创建文件夹
+    }
+
     fun getFileNames(originalFileUri: Uri): String{
         val name = DocumentFile.fromSingleUri(context, originalFileUri)!!.name
         return name!!
