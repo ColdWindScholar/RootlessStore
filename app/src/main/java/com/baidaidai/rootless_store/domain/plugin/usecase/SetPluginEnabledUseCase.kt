@@ -1,7 +1,5 @@
 package com.baidaidai.rootless_store.domain.plugin.usecase
 
-import android.util.Log
-import com.baidaidai.rootless_store.domain.plugin.repository.PluginInfoRepository
 import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
 import javax.inject.Inject
 
