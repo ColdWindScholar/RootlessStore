@@ -57,4 +57,26 @@ class PluginCoreRepositoryImpl @Inject constructor(
         pluginInfoDAO.deleteOnePluginInfo(pluginInfoEntity)
     }
 
+    // Operator
+    override suspend fun installOnePlugin(
+        uri: Uri,
+    ): PluginError?{
+        try {
+            val pluginManiFest = pluginCoreGatewayImpl.parsePluginManifest(uri).toManifestRoom()
+            val pluginInfoEntity = PluginInfoEntity.fromManifest(pluginManiFest)
+
+            pluginCoreGatewayImpl.installPluginFromLocal(uri)
+            insertOnePluginInfo(pluginInfoEntity)
+
+            return null
+        }catch (error: Throwable){
+            val errorStack  = error.stackTrace.OutOfStringLike()
+
+            return PluginError(
+                errorMessage = error.message!!,
+                errorCause = errorStack
+            )
+        }
+    }
+
 }
