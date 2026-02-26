@@ -1,7 +1,7 @@
 package com.baidaidai.rootless_store.domain.plugin.usecase
 
 import com.baidaidai.rootless_store.data.plugin.fileSystem.gateway.PluginFileSystemGatewayImpl
-import com.baidaidai.rootless_store.data.plugin.repository.PluginInfoRepositoryImpl
+import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginFileSystemGateway
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class InstallPluginFromMarketUseCase @Inject constructor(
     private val pluginFileSystemGateway: PluginFileSystemGatewayImpl,
-    private val pluginInfoRepositoryImpl: PluginInfoRepositoryImpl
+    private val pluginCoreRepositoryImpl: PluginCoreRepositoryImpl
 ) {
     suspend operator fun invoke(
         pluginURI: String,
@@ -20,6 +20,6 @@ class InstallPluginFromMarketUseCase @Inject constructor(
 
         pluginFileSystemGateway.installPluginFromMarket(pluginURI,pluginManifestRemote)
 
-        pluginInfoRepositoryImpl.insertOnePluginInfo(pluginInfoEntity)
+        pluginCoreRepositoryImpl.insertOnePluginInfo(pluginInfoEntity)
     }
 }

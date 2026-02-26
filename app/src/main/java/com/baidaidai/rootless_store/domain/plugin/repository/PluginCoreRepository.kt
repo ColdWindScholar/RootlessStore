@@ -6,8 +6,8 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import kotlinx.coroutines.flow.Flow
 
-interface PluginInfoRepository {
     // 以为DB为中心的Gateway
+interface PluginCoreRepository {
 
     val appDatabase: RoomDatabase
     suspend fun getOnePluginInfo(pluginID: String): PluginManifestLocal?

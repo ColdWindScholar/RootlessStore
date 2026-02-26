@@ -10,10 +10,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class PluginInfoRepositoryImpl @Inject constructor(
     @ApplicationContext context: Context,
     rootlessStoreDatabase: RootlessStoreDatabase
-): PluginInfoRepository {
+class PluginCoreRepositoryImpl @Inject constructor(
+): PluginCoreRepository {
 
     override val appDatabase = rootlessStoreDatabase
 

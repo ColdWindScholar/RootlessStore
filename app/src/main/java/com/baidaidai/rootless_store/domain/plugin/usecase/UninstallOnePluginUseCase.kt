@@ -1,14 +1,14 @@
 package com.baidaidai.rootless_store.domain.plugin.usecase
 
 import com.baidaidai.rootless_store.data.plugin.fileSystem.gateway.PluginFileSystemGatewayImpl
-import com.baidaidai.rootless_store.data.plugin.repository.PluginInfoRepositoryImpl
+import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import javax.inject.Inject
 
 class UninstallOnePluginUseCase @Inject constructor(
-    private val repositoryImpl: PluginInfoRepositoryImpl,
     private val pluginFileSystemGateway: PluginFileSystemGatewayImpl,
+    private val repositoryImpl: PluginCoreRepositoryImpl,
 ) {
     suspend operator fun invoke(
         pluginManifestRoom: PluginManifestRoom
