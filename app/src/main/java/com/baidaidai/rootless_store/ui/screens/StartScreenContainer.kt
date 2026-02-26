@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,6 +14,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -61,6 +64,10 @@ fun RootlessStoreStartScreenContainer(
     var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
     var sharedEvent by rememberSaveable { mutableStateOf<RootlessStoreError?>(null) }
 
+    val scrollBehavior = when(currentDestination){
+        "PluginScreen" -> TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+        else -> TopAppBarDefaults.enterAlwaysScrollBehavior()
+    }
 
     LaunchedEffect(0) {
         sourceScreenViewModel.sourceEvent.collect { event ->
@@ -80,7 +87,8 @@ fun RootlessStoreStartScreenContainer(
                     pluginInfoCount = pluginInfoCount,
                     textButtonOnClick = {
                         pluginScreenViewModel.changeBadgeShowStatus()
-                    }
+                    },
+                    scrollBehavior = scrollBehavior
                 )
                 "SourcesScreen" -> SourcesScreenNecessaryComponents.SourcesScreenTopAppBar(
                     iconButtonOnClick = {
@@ -91,7 +99,7 @@ fun RootlessStoreStartScreenContainer(
                     },
                     sourceCount = sourceCount
                 )
-                else -> StartScreenNecessaryComponents.StartScreenTopAppBar()
+                else -> StartScreenNecessaryComponents.StartScreenTopAppBar(scrollBehavior)
             }
         },
         bottomBar = { StartScreenNecessaryComponents.StartScreenNavigationBar(navController)},
@@ -108,7 +116,11 @@ fun RootlessStoreStartScreenContainer(
                 }
                 else -> {}
             }
-        }
+        },
+        modifier = Modifier
+            .nestedScroll(
+                connection = scrollBehavior.nestedScrollConnection
+            )
     ) { contentPadding->
         if (alertDialogStatus){
             StartScreenRepositoryDialog(
