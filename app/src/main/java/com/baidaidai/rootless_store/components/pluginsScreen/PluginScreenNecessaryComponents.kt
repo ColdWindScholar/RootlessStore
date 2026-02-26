@@ -7,6 +7,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeFlexibleTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import com.baidaidai.rootless_store.R
@@ -17,7 +18,8 @@ object PluginScreenNecessaryComponents {
     fun PluginScreenScreenTopAppBar(
         textButtonOnClick:()-> Unit = {},
         iconButtonOnClick:()-> Unit = {},
-        pluginInfoCount: Int = 0
+        pluginInfoCount: Int = 0,
+        scrollBehavior: TopAppBarScrollBehavior
     ){
         LargeFlexibleTopAppBar(
             title = {
@@ -42,7 +44,8 @@ object PluginScreenNecessaryComponents {
                         contentDescription = "Filter"
                     )
                 }
-            }
+            },
+            scrollBehavior = scrollBehavior
         )
     }
 }
