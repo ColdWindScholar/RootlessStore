@@ -36,10 +36,12 @@ fun RootlessStoreStartScreenContainer(
     pluginScreenViewModel: RootLessStorePluginScreenViewModel = hiltViewModel(),
     sourceScreenViewModel: RootLessStoreSourceScreenViewModel = hiltViewModel()
 ){
+    // VM & VM Data
     val marketScreenViewModel = hiltViewModel<RootLessStoreMarketScreenViewModel>()
     val pluginInfoCount by pluginScreenViewModel.pluginInfoCount.collectAsState()
     val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
 
+    // Navigation
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination?.route ?: "HomeScreen"
@@ -54,6 +56,7 @@ fun RootlessStoreStartScreenContainer(
         }
     }
 
+    // Local Data
     var alertDialogStatus by rememberSaveable{ mutableStateOf(false) }
     var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
     var sharedEvent by rememberSaveable { mutableStateOf<RootlessStoreError?>(null) }
