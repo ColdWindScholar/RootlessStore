@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem.AndroidFileSystemCapability
 import com.baidaidai.rootless_store.data.plugin.remote.datasource.DownloadPluginPackage
-import com.baidaidai.rootless_store.domain.plugin.gateway.PluginFileSystemGateway
+import com.baidaidai.rootless_store.domain.plugin.gateway.PluginCoreGateway
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -13,12 +13,12 @@ import io.ktor.utils.io.ByteReadChannel
 import java.io.File
 import javax.inject.Inject
 
-class PluginFileSystemGatewayImpl @Inject constructor(
+class PluginCoreGatewayImpl @Inject constructor(
     @ApplicationContext val context: Context,
     private val downloadPluginPackage: DownloadPluginPackage
-): PluginFileSystemGateway{
     private val defaultPluginLocation = File(context.getExternalFilesDir(null),"Plugin")
     private val androidFileSystemCapability = AndroidFileSystemCapability(context)
+): PluginCoreGateway {
 
     // Create
     override fun installPlugin(originFileURI: Uri) {
