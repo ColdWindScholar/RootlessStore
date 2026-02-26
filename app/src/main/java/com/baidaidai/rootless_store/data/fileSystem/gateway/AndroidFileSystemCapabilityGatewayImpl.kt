@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem
+package com.baidaidai.rootless_store.data.fileSystem.gateway
 
 import android.content.Context
 import android.net.Uri
@@ -13,7 +13,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.zip.ZipInputStream
 
-class AndroidFileSystemCapability(
+class AndroidFileSystemCapabilityGatewayImpl(
     val context: Context
 ){
     fun confirmPluginPathExists(): Boolean{
@@ -22,17 +22,17 @@ class AndroidFileSystemCapability(
 
     fun createFileDir(path: String){
         if (!confirmPathExists(path)){
-            File(context.getExternalFilesDir(null),path).mkdirs()
+            File(context.getExternalFilesDir(null), path).mkdirs()
         }
     }
 
-    fun createOneVoidFile(destination: File,fileName: String): Boolean{
-        val result = File(destination,"$fileName.zip").createNewFile()  // 创建了文件，而非单纯路径
+    fun createOneVoidFile(destination: File, fileName: String): Boolean{
+        val result = File(destination, "$fileName.zip").createNewFile()  // 创建了文件，而非单纯路径
         return result
     }
 
-    fun createVoidFileDirectory(pluginRootDirectory: File,directoryName: String): File {
-        return File(pluginRootDirectory,directoryName) // 创建文件夹
+    fun createVoidFileDirectory(pluginRootDirectory: File, directoryName: String): File {
+        return File(pluginRootDirectory, directoryName) // 创建文件夹
     }
 
     fun getFileNames(originalFileUri: Uri): String{
@@ -63,7 +63,7 @@ class AndroidFileSystemCapability(
 
         // Provide void file, for copy use
         createOneVoidFile(destination,fileName)  // needs prevent override files
-        val operationFile = File(destination,"$fileName.zip")
+        val operationFile = File(destination, "$fileName.zip")
 
         // The core of copy operator
         context.contentResolver.openInputStream(originFileURI).use { input ->
@@ -84,7 +84,7 @@ class AndroidFileSystemCapability(
 
         // Provide void file, for copy use
         createOneVoidFile(destination, destinationFileName)  // needs prevent override files
-        val operationFile = File(destination,"$destinationFileName.zip")
+        val operationFile = File(destination, "$destinationFileName.zip")
 
         // The core of copy operator
         FileOutputStream(operationFile).use { out ->
@@ -144,7 +144,7 @@ class AndroidFileSystemCapability(
 
         // Provide void file, for copy use
         createVoidFileDirectory(pluginRootDirectory, directoryName)  // needs prevent override files
-        val operationFile = File(pluginRootDirectory,directoryName)
+        val operationFile = File(pluginRootDirectory, directoryName)
 
         // The core of copy operator
         originFileByteChannel.toInputStream().use { input ->
@@ -210,12 +210,12 @@ class AndroidFileSystemCapability(
         }
     }
 
-    fun readManifestJsonContent(jsonContent: String): PluginManifestLocal{
+    fun readManifestJsonContent(jsonContent: String): PluginManifestLocal {
         val json = Json {
             ignoreUnknownKeys = true // JSON 多字段也不炸
             isLenient = true
         }
-        val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.serializer(),jsonContent)
+        val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
         return manifest
     }
 
@@ -225,21 +225,22 @@ class AndroidFileSystemCapability(
     )
     fun deleteOneFile(pluginPackageName: String): Boolean{
         val base = context.getExternalFilesDir(null)
-        val targetFile = File(base,"Plugin/${pluginPackageName}.zip")
+        val targetFile = File(base, "Plugin/${pluginPackageName}.zip")
 
         return targetFile.delete()
     }
 
     fun deleteDirectoryByPackageName(pluginPackageName: String): Boolean {
         val pluginRootDirectory = context.getExternalFilesDir(null)
-        val targetFile = File(pluginRootDirectory,"Plugin/${pluginPackageName}")
+        val targetFile = File(pluginRootDirectory, "Plugin/${pluginPackageName}")
 
         return targetFile.deleteRecursively()
     }
 
     private fun confirmPathExists(path: String): Boolean{
-        Log.d("confirmPathExists",File(context.getExternalFilesDir(null),path.toString()).exists().toString())
-        return File(context.getExternalFilesDir(null),path.toString()).exists()
+        Log.d("confirmPathExists",
+            File(context.getExternalFilesDir(null), path.toString()).exists().toString())
+        return File(context.getExternalFilesDir(null), path.toString()).exists()
     }
 
 
