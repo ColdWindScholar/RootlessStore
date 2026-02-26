@@ -1,8 +1,8 @@
-package com.baidaidai.rootless_store.data.plugin.fileSystem.gateway
+package com.baidaidai.rootless_store.data.plugin.gateway
 
 import android.content.Context
 import android.net.Uri
-import com.baidaidai.rootless_store.data.plugin.fileSystem.androidFileSystem.AndroidFileSystemCapability
+import com.baidaidai.rootless_store.data.fileSystem.gateway.AndroidFileSystemCapabilityGatewayImpl
 import com.baidaidai.rootless_store.data.plugin.remote.datasource.DownloadPluginPackage
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginCoreGateway
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
@@ -21,7 +21,7 @@ class PluginCoreGatewayImpl @Inject constructor(
 ): PluginCoreGateway {
 
     // Create
-    override fun installPlugin(originFileURI: Uri) {
+    override fun installPluginFromLocal(originFileURI: Uri) {
         _pre_intallPlugin(originFileURI)
     }
 
@@ -38,35 +38,35 @@ class PluginCoreGatewayImpl @Inject constructor(
     override fun uninstallPlugin(
         pluginPackageName: String  // Should use pluginManifest<Room/Local>
     ) {
-        androidFileSystemCapability.deleteDirectoryByPackageName(pluginPackageName)
+        androidFileSystemCapabilityGatewayImpl.deleteDirectoryByPackageName(pluginPackageName)
     }
 
-    override fun readPluginManifest(originFileURI: Uri): PluginManifestLocal {
-        return androidFileSystemCapability.readRawPluginManifest(uri = originFileURI).let {
-            androidFileSystemCapability.readManifestJsonContent(it)
+    internal fun parsePluginManifest(originFileURI: Uri): PluginManifestLocal {
+        return androidFileSystemCapabilityGatewayImpl.readRawPluginManifest(uri = originFileURI).let {
+            androidFileSystemCapabilityGatewayImpl.readManifestJsonContent(it)
         }
     }
 
     private fun _pre_intallPlugin(originFileURI: Uri, destination: File = defaultPluginLocation) {
-        if (androidFileSystemCapability.confirmPluginPathExists()){
-            androidFileSystemCapability.unzipFromFile(
+        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
+            androidFileSystemCapabilityGatewayImpl.unzipFromFile(
                 originFileURI = originFileURI,
                 pluginRootDirectory = destination
             )
         }else{
-            androidFileSystemCapability.createFileDir("Plugin")
+            androidFileSystemCapabilityGatewayImpl.createFileDir("Plugin")
             _pre_intallPlugin(originFileURI)
         }
     }
-    private fun _pre_intallPlugin(originFileByteChannel: ByteReadChannel, destination: File = defaultPluginLocation,destinationFileName: String) {
-        if (androidFileSystemCapability.confirmPluginPathExists()){
-            androidFileSystemCapability.unZipFromURI(
+    private fun _pre_intallPlugin(originFileByteChannel: ByteReadChannel, destination: File = defaultPluginLocation, destinationFileName: String) {
+        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
+            androidFileSystemCapabilityGatewayImpl.unZipFromURI(
                 originFileByteChannel = originFileByteChannel,
                 pluginRootDirectory = destination,
                 directoryName = destinationFileName
             )
         }else{
-            androidFileSystemCapability.createFileDir("Plugin")
+            androidFileSystemCapabilityGatewayImpl.createFileDir("Plugin")
             _pre_intallPlugin(originFileByteChannel,destination,destinationFileName)
         }
     }
