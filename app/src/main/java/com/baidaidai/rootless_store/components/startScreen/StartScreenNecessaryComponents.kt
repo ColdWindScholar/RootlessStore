@@ -7,6 +7,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
@@ -18,11 +19,14 @@ import com.baidaidai.rootless_store.domain.plugin.model.NavBarItemSpec
 object StartScreenNecessaryComponents {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun StartScreenTopAppBar(){
+    fun StartScreenTopAppBar(
+        scrollBehavior: TopAppBarScrollBehavior
+    ){
         TopAppBar(
             title = {
                 Text("Rootless Store")
-            }
+            },
+            scrollBehavior = scrollBehavior
         )
     }
 
