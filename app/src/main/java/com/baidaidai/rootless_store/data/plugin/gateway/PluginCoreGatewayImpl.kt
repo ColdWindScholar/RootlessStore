@@ -16,9 +16,9 @@ import javax.inject.Inject
 class PluginCoreGatewayImpl @Inject constructor(
     @ApplicationContext val context: Context,
     private val downloadPluginPackage: DownloadPluginPackage
-    private val defaultPluginLocation = File(context.getExternalFilesDir(null),"Plugin")
-    private val androidFileSystemCapability = AndroidFileSystemCapability(context)
 ): PluginCoreGateway {
+    private val defaultPluginLocation = File(context.getExternalFilesDir(null), "Plugin")
+    private val androidFileSystemCapabilityGatewayImpl = AndroidFileSystemCapabilityGatewayImpl(context)
 
     // Create
     override fun installPluginFromLocal(originFileURI: Uri) {
