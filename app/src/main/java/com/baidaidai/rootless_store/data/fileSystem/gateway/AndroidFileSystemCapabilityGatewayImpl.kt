@@ -3,7 +3,7 @@ package com.baidaidai.rootless_store.data.fileSystem.gateway
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import androidx.documentfile.provider.DocumentFile
+import dagger.hilt.android.qualifiers.ApplicationContext
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.jvm.javaio.toInputStream
@@ -12,9 +12,10 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.zip.ZipInputStream
+import javax.inject.Inject
 
-class AndroidFileSystemCapabilityGatewayImpl(
-    val context: Context
+class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
+    @ApplicationContext val context: Context
 ){
 
     // Search FS Operator
