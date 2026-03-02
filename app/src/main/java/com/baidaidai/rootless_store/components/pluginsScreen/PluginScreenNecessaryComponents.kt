@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.components.pluginsScreen
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeFlexibleTopAppBar
@@ -47,5 +48,19 @@ object PluginScreenNecessaryComponents {
             },
             scrollBehavior = scrollBehavior
         )
+    }
+
+    @Composable
+    fun PluginScreenFloatingButton(
+        onClick:()-> Unit
+    ){
+        FloatingActionButton(
+            onClick = onClick
+        ) {
+            Icon(
+                painter = painterResource(R.drawable.outline_box_add_24),
+                contentDescription = "Install"
+            )
+        }
     }
 }

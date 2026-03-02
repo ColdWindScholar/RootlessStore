@@ -106,12 +106,17 @@ fun RootlessStoreStartScreenContainer(
         floatingActionButton = {
             when(currentDestination){
                 "PluginScreen" -> {
-                    StartScreenNecessaryComponents.StartScreenFloatingButton{
+                    PluginScreenNecessaryComponents.PluginScreenFloatingButton{
                         openDocumentLauncher.launch(
                             arrayOf(
                                 "application/zip",
                             )
                         )
+                    }
+                }
+                "HomeScreen" -> {
+                    StartScreenNecessaryComponents.StartScreenFloatingButton {
+                        navController.navigate("ShellScreen")
                     }
                 }
                 else -> {}
