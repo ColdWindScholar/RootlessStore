@@ -78,8 +78,8 @@ object StartScreenNecessaryComponents {
             onClick = onClick
         ) {
             Icon(
-                painter = painterResource(R.drawable.outline_box_add_24),
-                contentDescription = "Install"
+                painter = painterResource(R.drawable.terminal_24px),
+                contentDescription = "Terminal"
             )
         }
     }

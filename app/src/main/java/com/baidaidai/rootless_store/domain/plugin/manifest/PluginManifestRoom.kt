@@ -15,7 +15,8 @@ data class PluginManifestRoom(
     override val iconURI: String?,
     override val author: String,
     override val pluginDescription: String,
-    override val requiredEnvironment: HosterOverallStatus
+    override val requiredEnvironment: HosterOverallStatus,
+    override val entryPoint: String
 ): PluginManifest.PluginManifestRoom{
     companion object {
         val _testOnly_ = PluginManifestRoom(
@@ -30,6 +31,7 @@ data class PluginManifestRoom(
             enabled = false,
             state = PluginState.PermissionProblems,
             source = PluginSource.Local,
+            entryPoint = "./index.sh"
         )
     }
 }

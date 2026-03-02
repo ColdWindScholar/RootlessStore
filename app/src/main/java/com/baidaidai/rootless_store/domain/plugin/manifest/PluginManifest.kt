@@ -101,6 +101,8 @@ sealed interface PluginManifest {
      */
     val requiredEnvironment: HosterOverallStatus
 
+    val entryPoint: String
+
     // Runtime state such as `enabled`, `state`, `source` should NOT belong here:
     // - enabled: Boolean
     // - state: PluginState

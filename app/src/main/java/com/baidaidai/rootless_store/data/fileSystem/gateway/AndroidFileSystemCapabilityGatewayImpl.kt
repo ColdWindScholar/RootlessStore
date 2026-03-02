@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import io.ktor.utils.io.ByteReadChannel
 import io.ktor.utils.io.jvm.javaio.toInputStream
 import kotlinx.serialization.json.Json
@@ -17,6 +18,17 @@ import javax.inject.Inject
 class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     @ApplicationContext val context: Context
 ){
+
+    // Default FS Operator
+    fun getDefaultPluginDirectoryPath(): String{
+        return File(context.getExternalFilesDir(null), "Plugin").path
+    }
+    fun getPluginEntryPoint(pluginManifestRoom: PluginManifestRoom): String{
+        val defaultPluginDirectoryPath = getDefaultPluginDirectoryPath()
+        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        val pluginEntryPoint = pluginManifestRoom.entryPoint
+        return "$defaultPluginDirectoryPath/$pluginPackageName/$pluginEntryPoint"
+    }
 
     // Search FS Operator
     fun confirmPluginPathExists(): Boolean{

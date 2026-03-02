@@ -28,6 +28,7 @@ import com.baidaidai.rootless_store.components.startScreen.StartScreenErrorDialo
 import com.baidaidai.rootless_store.components.startScreen.StartScreenRepositoryDialog
 import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
 import com.baidaidai.rootless_store.domain.error.RootlessStoreError
+import com.baidaidai.rootless_store.ui.model.RootLessStoreExecuteScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
@@ -41,6 +42,7 @@ fun RootlessStoreStartScreenContainer(
 ){
     // VM & VM Data
     val marketScreenViewModel = hiltViewModel<RootLessStoreMarketScreenViewModel>()
+    val executeScreenViewModel = hiltViewModel<RootLessStoreExecuteScreenViewModel>()
     val pluginInfoCount by pluginScreenViewModel.pluginInfoCount.collectAsState()
     val sourceCount by sourceScreenViewModel.sourceCount.collectAsState()
 
@@ -106,12 +108,17 @@ fun RootlessStoreStartScreenContainer(
         floatingActionButton = {
             when(currentDestination){
                 "PluginScreen" -> {
-                    StartScreenNecessaryComponents.StartScreenFloatingButton{
+                    PluginScreenNecessaryComponents.PluginScreenFloatingButton{
                         openDocumentLauncher.launch(
                             arrayOf(
                                 "application/zip",
                             )
                         )
+                    }
+                }
+                "HomeScreen" -> {
+                    StartScreenNecessaryComponents.StartScreenFloatingButton {
+                        navController.navigate("ShellScreen")
                     }
                 }
                 else -> {}
@@ -157,7 +164,9 @@ fun RootlessStoreStartScreenContainer(
             ){
                 RootlessStorePluginScreenContainer(
                     contentPadding = contentPadding,
-                    pluginScreenViewModel = pluginScreenViewModel
+                    navController = navController,
+                    pluginScreenViewModel = pluginScreenViewModel,
+                    executeScreenViewModel = executeScreenViewModel
                 )
             }
             composable(
@@ -178,6 +187,19 @@ fun RootlessStoreStartScreenContainer(
                     contentPadding = contentPadding,
                     marketScreenViewModel = marketScreenViewModel,
                     navController = navController
+                )
+            }
+            composable(
+                route = "ShellScreen"
+            ){
+                ShellScreen(contentPaddingValues = contentPadding)
+            }
+            composable(
+                route = "ExecuteScreen"
+            ){
+                ExecuteScreen(
+                    contentPaddingValues = contentPadding,
+                    executeScreenViewModel = executeScreenViewModel
                 )
             }
         }
