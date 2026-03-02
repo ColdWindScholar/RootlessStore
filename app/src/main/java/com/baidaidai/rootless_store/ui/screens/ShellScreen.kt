@@ -41,7 +41,7 @@ private fun runShell(
 }
 
 @Composable
-fun GreetingScreen(
+fun ShellScreen(
     contentPaddingValues: PaddingValues
 ){
     var value by remember { mutableStateOf("") }
@@ -157,6 +157,6 @@ fun GreetingScreen(
 @PreviewLightDark
 private fun GreetingScreenPreview(){
     Scaffold() { contentPadding->
-        GreetingScreen(contentPaddingValues = contentPadding)
+        ShellScreen(contentPaddingValues = contentPadding)
     }
 }
