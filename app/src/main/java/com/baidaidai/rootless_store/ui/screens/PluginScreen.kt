@@ -13,11 +13,15 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainerLocal
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
+import com.baidaidai.rootless_store.ui.model.RootLessStoreExecuteScreenViewModel
 
 @Composable
 fun RootlessStorePluginScreenContainer(
     contentPadding: PaddingValues,
-    pluginScreenViewModel: RootLessStorePluginScreenViewModel
+    navController: NavController,
+    pluginScreenViewModel: RootLessStorePluginScreenViewModel,
+    executeScreenViewModel: RootLessStoreExecuteScreenViewModel
 ){
     val renderingList by pluginScreenViewModel.pluginInfoList.collectAsState()
     val badgeShowState by pluginScreenViewModel.badgeShowState.collectAsState()
@@ -40,6 +44,10 @@ fun RootlessStorePluginScreenContainer(
                         pluginID = it.pluginID,
                         pluginEnabledStatus = !it.enabled
                     )
+
+                    navController.navigate("ExecuteScreen")
+
+                    executeScreenViewModel.executeOnePlugin(it)
                 },
                 onBadgeClick = {
                     pluginScreenViewModel.uninstallPlugin(it)
