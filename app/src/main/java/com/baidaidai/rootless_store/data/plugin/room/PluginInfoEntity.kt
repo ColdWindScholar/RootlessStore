@@ -32,6 +32,7 @@ data class PluginInfoEntity(
     val requiredEnvironment: HosterOverallStatus,
     val state: PluginState,
     val source: PluginSource,
+    val entryPoint: String
 ){
     companion object {
 
@@ -59,7 +60,8 @@ data class PluginInfoEntity(
                 enabled = false,
                 requiredEnvironment = manifest.requiredEnvironment,
                 state = manifest.state,
-                source = manifest.source
+                source = manifest.source,
+                entryPoint = manifest.entryPoint
             )
     }
 }

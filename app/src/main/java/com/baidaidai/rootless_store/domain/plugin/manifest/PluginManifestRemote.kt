@@ -15,7 +15,8 @@ data class PluginManifestRemote(
     override val author: String,
     override val pluginDescription: String,
     override val requiredEnvironment: HosterOverallStatus,
-    override val pluginURI: String
+    override val pluginURI: String,
+    override val entryPoint: String
 ): PluginManifest.PluginManifestRemote {
     companion object {
         val _testOnly_ = PluginManifestRemote(
@@ -27,7 +28,8 @@ data class PluginManifestRemote(
             iconURI = "content://rootless_store/plugin_icon/test",
             author = "Rootless Store(Creater. Bai)",
             requiredEnvironment = HosterOverallStatus.LIMITED,
-            pluginDescription = "Tested by Creater. Bai"
+            pluginDescription = "Tested by Creater. Bai",
+            entryPoint = "./index.sh"
         )
     }
     fun toManifestRoom(): PluginManifestRoom{
@@ -42,7 +44,8 @@ data class PluginManifestRemote(
             iconURI = iconURI,
             author = author,
             pluginDescription = pluginDescription,
-            requiredEnvironment = requiredEnvironment
+            requiredEnvironment = requiredEnvironment,
+            entryPoint = entryPoint
         )
     }
 }

@@ -29,7 +29,8 @@ data class PluginManifestLocal(
     override val iconURI: String?,
     override val author: String,
     override val pluginDescription: String,
-    override val requiredEnvironment: HosterOverallStatus
+    override val requiredEnvironment: HosterOverallStatus,
+    override val entryPoint: String
 ): PluginManifest.PluginManifestLocal{
     companion object {
         val _testOnly_ = PluginManifestLocal(
@@ -40,7 +41,8 @@ data class PluginManifestLocal(
             iconURI = "content://rootless_store/plugin_icon/test",
             author = "Rootless Store(Creater. Bai)",
             requiredEnvironment = HosterOverallStatus.LIMITED,
-            pluginDescription = "Tested by Creater. Bai"
+            pluginDescription = "Tested by Creater. Bai",
+            entryPoint = "./index.sh"
         )
     }
     fun toManifestRoom(): PluginManifestRoom{
@@ -55,7 +57,8 @@ data class PluginManifestLocal(
             iconURI = iconURI,
             author = author,
             pluginDescription = pluginDescription,
-            requiredEnvironment = requiredEnvironment
+            requiredEnvironment = requiredEnvironment,
+            entryPoint = entryPoint
         )
     }
 }
