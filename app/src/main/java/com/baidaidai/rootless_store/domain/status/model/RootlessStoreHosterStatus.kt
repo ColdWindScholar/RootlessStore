@@ -6,7 +6,7 @@ data class RootlessStoreHosterStatus(
     val selinuxStatus: SELinuxStatus,
     val absolutePath: String,
     val pluginStatus: PluginStatus,
-    val ramStatus: RAMStatus,
+    val memoryStatus: MemoryStatus,
     val storageStatus: StorageStatus,
     val tempStatus: TempStatus,
 )

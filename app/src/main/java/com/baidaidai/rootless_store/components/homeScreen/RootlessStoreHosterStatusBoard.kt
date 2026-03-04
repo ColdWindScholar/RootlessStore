@@ -73,8 +73,8 @@ fun RootlessStoreHosterStatusBoard(
                 )
                 HosterStatusProgressRow(
                     label = "RAM",
-                    currentValue = hosterStatus.ramStatus.usedRAM,
-                    maxValue = hosterStatus.ramStatus.totalRAM
+                    currentValue = hosterStatus.memoryStatus.usedMemory,
+                    maxValue = hosterStatus.memoryStatus.totalMemory
                 )
                 HosterStatusProgressRow(
                     label = "Storage",

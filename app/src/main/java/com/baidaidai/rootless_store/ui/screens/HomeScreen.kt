@@ -27,7 +27,7 @@ fun HomeScreen(
     homeScreenViewModel: RootLessStoreHomeScreenViewModel = hiltViewModel()
 ){
     val storageStatus by homeScreenViewModel.storageStatus.collectAsState()
-    val ramStatus by homeScreenViewModel.ramStatus.collectAsState()
+    val memoryStatus by homeScreenViewModel.memoryStatus.collectAsState()
 
     val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
         hosterOverallStatus = HosterOverallStatus.LIMITED,
@@ -35,7 +35,7 @@ fun HomeScreen(
         selinuxStatus = SELinuxStatus.Restricted,
         absolutePath = "/data/local/tmp/rootless_store",
         pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = ramStatus,
+        memoryStatus = memoryStatus,
         storageStatus = storageStatus,
         tempStatus = TempStatus.LOW
     )
