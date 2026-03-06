@@ -17,7 +17,7 @@ fun HosterStatusRow(label: String, value: String) {
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier
                 .weight(0.35f)
         )
