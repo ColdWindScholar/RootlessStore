@@ -14,6 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.baidaidai.rootless_store.components.homeScreen.HowToDevelopRootlessStorePlugin
 import com.baidaidai.rootless_store.components.homeScreen.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.homeScreen.RootlessStoreHosterStatusBoard
+import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
+import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStoreHomeScreenViewModel
 
 @Composable
@@ -21,7 +23,25 @@ fun HomeScreen(
     contentPadding: PaddingValues,
     homeScreenViewModel: RootLessStoreHomeScreenViewModel = hiltViewModel()
 ){
-    val rootlessStoreHosterStatus by homeScreenViewModel.rootlessStoreHosterStatus.collectAsState()
+    val memoryStatus by homeScreenViewModel.memoryStatus.collectAsState()
+    val storageStatus by homeScreenViewModel.storageStatus.collectAsState()
+    val pluginStatus by homeScreenViewModel.pluginStatus.collectAsState()
+    val temperatureStatus by homeScreenViewModel.temperatureStatus.collectAsState()
+    val seLinuxStatus by homeScreenViewModel.seLinuxStatus.collectAsState()
+    val kernelStatus by homeScreenViewModel.kernelStatus.collectAsState()
+    val androidAndAPIStatus by homeScreenViewModel.androidAndAPIStatus.collectAsState()
+
+    val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
+        hosterOverallStatus = HosterOverallStatus.LIMITED,
+        osAndAPIVersion = androidAndAPIStatus,
+        kernelVersion = kernelStatus,
+        selinuxStatus = seLinuxStatus,
+        pluginStatus = pluginStatus,
+        memoryStatus = memoryStatus,
+        storageStatus = storageStatus,
+        tempStatus = temperatureStatus
+    )
+
 
     Column(
         modifier = Modifier
