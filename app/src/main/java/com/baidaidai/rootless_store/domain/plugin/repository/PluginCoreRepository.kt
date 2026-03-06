@@ -15,6 +15,8 @@ interface PluginCoreRepository {
     suspend fun getOnePluginInfo(pluginID: String): PluginManifestLocal?
     fun getWholePluginInfo(): Flow<List<PluginManifestRoom>?>
     fun getPluginInfoCount(): Flow<Int>
+    suspend fun getTotalPluginCount(): Int
+    suspend fun getEnabledPluginCount(): Int
 
     // Update
     suspend fun enablePluginByID(pluginID: String)
