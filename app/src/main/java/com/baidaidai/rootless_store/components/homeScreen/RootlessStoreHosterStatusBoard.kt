@@ -72,7 +72,7 @@ fun RootlessStoreHosterStatusBoard(
                     "${hosterStatus.pluginStatus.enabledCount}/${hosterStatus.pluginStatus.totalCount}"
                 )
                 HosterStatusProgressRow(
-                    label = "RAM",
+                    label = "Memory",
                     currentValue = hosterStatus.memoryStatus.usedMemory,
                     maxValue = hosterStatus.memoryStatus.totalMemory
                 )
