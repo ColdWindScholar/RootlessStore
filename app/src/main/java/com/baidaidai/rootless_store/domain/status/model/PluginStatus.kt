@@ -1,6 +1,6 @@
 package com.baidaidai.rootless_store.domain.status.model
 
 data class PluginStatus(
-    val activeCount: Int,
+    val enabledCount: Int,
     val totalCount: Int
 )
