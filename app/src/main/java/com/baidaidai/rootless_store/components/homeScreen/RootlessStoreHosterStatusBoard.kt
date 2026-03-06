@@ -57,19 +57,19 @@ fun RootlessStoreHosterStatusBoard(
                 )
             }
             Text(
-                text = "Overall: ${hosterStatus.hosterOverallStatus}",
+                text = "Overall: ${hosterStatus.hosterOverallStatus ?: "null"}",
                 style = MaterialTheme.typography.bodyMedium
             )
             HorizontalDivider()
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                HosterStatusRow("Kernel", hosterStatus.kernelVersion)
+                HosterStatusRow("Version", "${hosterStatus.osAndAPIVersion?.androidVersion} (${hosterStatus.osAndAPIVersion?.apiVersion})")
+                HosterStatusRow("Kernel", hosterStatus.kernelVersion ?: "null")
                 HosterStatusRow("SELinux", hosterStatus.selinuxStatus.toString())
-                HosterStatusRow("Path", hosterStatus.absolutePath)
                 HosterStatusRow(
                     "Plugins",
-                    "${hosterStatus.pluginStatus.activeCount}/${hosterStatus.pluginStatus.totalCount}"
+                    "${hosterStatus.pluginStatus.enabledCount}/${hosterStatus.pluginStatus.totalCount}"
                 )
                 HosterStatusProgressRow(
                     label = "RAM",
@@ -81,7 +81,7 @@ fun RootlessStoreHosterStatusBoard(
                     currentValue = hosterStatus.storageStatus.usedStorage,
                     maxValue = hosterStatus.storageStatus.totalStorage
                 )
-                HosterStatusRow("Temp", hosterStatus.tempStatus.toString())
+                HosterStatusRow("Temp", hosterStatus.tempStatus?.toString() ?: "null")
             }
         }
     }
