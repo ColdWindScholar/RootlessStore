@@ -7,6 +7,14 @@ class KernelStatusDataSource @Inject constructor(
 
 ) {
     fun getDeviceKernel(): String{
-        return Shell.cmd("uname -r").exec().out.joinToString().substringBefore("-")
+        val process = ProcessBuilder("sh", "-c", "uname -r")
+            .redirectErrorStream(true)
+            .start()
+
+        val output = process.inputStream.bufferedReader().use { it.readText() }
+
+        process.waitFor()
+
+        return output.trim().substringBefore("-")
     }
 }
