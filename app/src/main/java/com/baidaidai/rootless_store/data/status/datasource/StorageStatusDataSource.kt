@@ -2,9 +2,11 @@ package com.baidaidai.rootless_store.data.status.datasource
 
 import android.content.Context
 import android.os.StatFs
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class StorageInfoReader(
-    private val appContext: Context
+class StorageStatusDataSource @Inject constructor(
+    @ApplicationContext appContext: Context
 ){
     private val statFS = StatFs(appContext.dataDir.absolutePath)
     fun getUsedStorage(): Double{

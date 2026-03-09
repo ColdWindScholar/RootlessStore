@@ -1,96 +1,74 @@
 package com.baidaidai.rootless_store.ui.model
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.baidaidai.rootless_store.data.status.gateway.RAMStatusGatewayImpl
-import com.baidaidai.rootless_store.data.status.gateway.StorageStatusGatewayImpl
-import com.baidaidai.rootless_store.domain.status.model.RAMStatus
+import com.baidaidai.rootless_store.domain.status.model.MemoryStatus
+import com.baidaidai.rootless_store.domain.status.model.PluginStatus
 import com.baidaidai.rootless_store.domain.status.model.StorageStatus
+import com.baidaidai.rootless_store.domain.status.model.TempStatus
+import com.baidaidai.rootless_store.domain.status.usecase.GetAndroidAndAPIStatusUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetKernelStatusUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetMemoryStatusUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetPluginStatusUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetSELinuxUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetStorageStatusUseCase
+import com.baidaidai.rootless_store.domain.status.usecase.GetTemperatureStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class RootLessStoreHomeScreenViewModel @Inject constructor(
-    @ApplicationContext private val context: Context
-): ViewModel() {
-//    private var context: Context? = null
+    getMemoryStatusUseCase: GetMemoryStatusUseCase,
+    getStorageStatusUseCase: GetStorageStatusUseCase,
+    getPluginStatusUseCase: GetPluginStatusUseCase,
+    getTemperatureStatusUseCase: GetTemperatureStatusUseCase,
+    getSELinuxUseCase: GetSELinuxUseCase,
+    getKernelStatusUseCase: GetKernelStatusUseCase,
+    getAndroidAndAPIStatusUseCase: GetAndroidAndAPIStatusUseCase
+) : ViewModel() {
 
-    private val _storageStatus: MutableStateFlow<StorageStatus> = MutableStateFlow(getStorageStatus())
-    private val _ramStatus: MutableStateFlow<RAMStatus> = MutableStateFlow(getRAMStatus())
-    val storageStatus: StateFlow<StorageStatus> = _storageStatus.asStateFlow()
-    val ramStatus: StateFlow<RAMStatus> = _ramStatus.asStateFlow()
+    val memoryStatus: StateFlow<MemoryStatus> =
+        getMemoryStatusUseCase().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(1000),
+            initialValue = MemoryStatus()
+        )
 
-    init {
-        keepRamReaderRunning()
-    }
+    val storageStatus: StateFlow<StorageStatus> =
+        getStorageStatusUseCase().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(1000),
+            initialValue = StorageStatus()
+        )
 
-//    fun prepareViewModel(
-//        context: Context? = null
-//    ){
-//        if (context != null){
-//            this.context = context
-//            _upgradeThe_storageStatus()
-//            _upgradeThe_RAMStatus()
-//            keepRamReaderRunning()
-//        }
-//    }
+    val pluginStatus: StateFlow<PluginStatus> =
+        getPluginStatusUseCase().stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(1000),
+            initialValue = PluginStatus()
+        )
 
-    private fun getStorageStatus(): StorageStatus{
-        return StorageStatusGatewayImpl(this.context).getStorageStatus()
-//        if (this.context != null){
-//            return
-//        }else{
-//            return StorageStatus(
-//                totalStorage = 128.0,
-//                usedStorage = 100.0
-//            )
-//        }
-    }
-    private fun getRAMStatus(): RAMStatus{
+    val temperatureStatus: StateFlow<TempStatus?> =
+        getTemperatureStatusUseCase()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(1000),
+                initialValue = TempStatus.ERROR
+            )
 
-        return RAMStatusGatewayImpl(this.context).getRAMStatus()
-//        if (this.context != null){
-//        }else{
-//            return RAMStatus(
-//                totalRAM = 24.0,
-//                usedRAM = 0.0
-//            )
-//        }
-    }
-    private fun _upgradeThe_storageStatus(){
-        this._storageStatus.update {
-            getStorageStatus()
-        }
-    }
-    private fun _upgradeThe_RAMStatus(){
-        this._ramStatus.update {
-            getRAMStatus()
-        }
-    }
+    private val _seLinuxStatus = MutableStateFlow(getSELinuxUseCase())
+    val seLinuxStatus = _seLinuxStatus.asStateFlow()
 
-    object dbOperator{
-        private fun _appendPluginInformationsIntroDatabase(){
+    private val _kernelStatus = MutableStateFlow(getKernelStatusUseCase())
+    val kernelStatus = _kernelStatus.asStateFlow()
 
-        }
-    }
+    private val _androidAndAPIStatus = MutableStateFlow(getAndroidAndAPIStatusUseCase())
+    val androidAndAPIStatus = _androidAndAPIStatus.asStateFlow()
 
-    private fun keepRamReaderRunning(){
-        viewModelScope.launch {
-            while (true){
-                _upgradeThe_RAMStatus()
-                delay(1000)
-                Log.d("RAM_Status","updated, current:${getRAMStatus().usedRAM}, total${getRAMStatus().totalRAM}, precentage:${(getRAMStatus().usedRAM / getRAMStatus().totalRAM*100).toFloat()}")
-            }
-        }
-    }
 
 }

@@ -33,6 +33,12 @@ interface PluginInfoDAO {
     @Query("SELECT COUNT(*) FROM pluginInfo")
     fun getPluginInfoCount(): Flow<Int>
 
+    @Query("SELECT COUNT(*) FROM pluginInfo")
+    suspend fun getTotalPluginCount(): Int
+
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE enabled = 1")
+    suspend fun getEnabledPluginCount(): Int
+
     // Delete
     @Delete
     suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity)

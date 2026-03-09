@@ -26,7 +26,7 @@ fun HosterStatusProgressRow(label: String, currentValue: Double,maxValue: Double
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier
                 .weight(0.35f)
         )

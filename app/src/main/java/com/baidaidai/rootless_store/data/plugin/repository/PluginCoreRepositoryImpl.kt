@@ -52,6 +52,14 @@ class PluginCoreRepositoryImpl @Inject constructor(
         return pluginInfoDAO.getPluginInfoCount()
     }
 
+    override suspend fun getTotalPluginCount(): Int {
+        return pluginInfoDAO.getTotalPluginCount()
+    }
+
+    override suspend fun getEnabledPluginCount(): Int {
+        return pluginInfoDAO.getEnabledPluginCount()
+    }
+
     // Delete
     override suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity) {
         pluginInfoDAO.deleteOnePluginInfo(pluginInfoEntity)

@@ -15,10 +15,7 @@ import com.baidaidai.rootless_store.components.homeScreen.HowToDevelopRootlessSt
 import com.baidaidai.rootless_store.components.homeScreen.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.homeScreen.RootlessStoreHosterStatusBoard
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
-import com.baidaidai.rootless_store.domain.status.model.PluginStatus
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
-import com.baidaidai.rootless_store.domain.status.model.SELinuxStatus
-import com.baidaidai.rootless_store.domain.status.model.TempStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStoreHomeScreenViewModel
 
 @Composable
@@ -26,19 +23,25 @@ fun HomeScreen(
     contentPadding: PaddingValues,
     homeScreenViewModel: RootLessStoreHomeScreenViewModel = hiltViewModel()
 ){
+    val memoryStatus by homeScreenViewModel.memoryStatus.collectAsState()
     val storageStatus by homeScreenViewModel.storageStatus.collectAsState()
-    val ramStatus by homeScreenViewModel.ramStatus.collectAsState()
+    val pluginStatus by homeScreenViewModel.pluginStatus.collectAsState()
+    val temperatureStatus by homeScreenViewModel.temperatureStatus.collectAsState()
+    val seLinuxStatus by homeScreenViewModel.seLinuxStatus.collectAsState()
+    val kernelStatus by homeScreenViewModel.kernelStatus.collectAsState()
+    val androidAndAPIStatus by homeScreenViewModel.androidAndAPIStatus.collectAsState()
 
     val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
         hosterOverallStatus = HosterOverallStatus.LIMITED,
-        kernelVersion = "Unknown",
-        selinuxStatus = SELinuxStatus.Restricted,
-        absolutePath = "/data/local/tmp/rootless_store",
-        pluginStatus = PluginStatus(activeCount = 0, totalCount = 0),
-        ramStatus = ramStatus,
+        osAndAPIVersion = androidAndAPIStatus,
+        kernelVersion = kernelStatus,
+        selinuxStatus = seLinuxStatus,
+        pluginStatus = pluginStatus,
+        memoryStatus = memoryStatus,
         storageStatus = storageStatus,
-        tempStatus = TempStatus.LOW
+        tempStatus = temperatureStatus
     )
+
 
     Column(
         modifier = Modifier
