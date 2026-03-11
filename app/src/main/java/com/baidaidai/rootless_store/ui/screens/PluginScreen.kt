@@ -52,6 +52,11 @@ fun RootlessStorePluginScreenContainer(
                 onBadgeClick = {
                     pluginScreenViewModel.uninstallPlugin(it)
                 },
+                onCardClick = {
+                    if (it.enabled){
+                        navController.navigate("ExecuteScreen")
+                    }
+                },
                 badgeShowState = badgeShowState
             )
         }

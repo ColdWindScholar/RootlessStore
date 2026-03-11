@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.components.pluginsScreen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,7 +36,8 @@ fun PluginInfoContainerLocal(
     pluginManifest: PluginManifestRoom,
     modifier: Modifier = Modifier,
     onSwitchClick: ()-> Unit,
-    onBadgeClick:()-> Unit
+    onBadgeClick:()-> Unit,
+    onCardClick:()-> Unit,
 ){
     BadgedBox(
         badge = {
@@ -59,7 +62,13 @@ fun PluginInfoContainerLocal(
     ) {
         Card(
             modifier = modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = null,
+                    indication = ripple(),
+                    onClick = onCardClick
+                )
+            ,
             elevation = CardDefaults.cardElevation(),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainer
@@ -154,5 +163,9 @@ private fun PluginInfoRow(
 @Composable
 @PreviewLightDark
 private fun _PluginInfosContainerPreview_(){
-    PluginInfoContainerLocal(pluginManifest = PluginManifestRoom._testOnly_, onSwitchClick = {}){}
+    PluginInfoContainerLocal(
+        pluginManifest = PluginManifestRoom._testOnly_,
+        onSwitchClick = {},
+        onBadgeClick = {}
+    ){}
 }
