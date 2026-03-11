@@ -2,6 +2,8 @@ package com.baidaidai.rootless_store.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.baidaidai.rootless_store.data.execute.database.PluginExecuteStatusDAO
+import com.baidaidai.rootless_store.data.execute.database.PluginExecuteStatusEntry
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoDAO
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.data.source.database.PluginSourceDAO
@@ -10,7 +12,8 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 @Database(
     entities = [
         PluginInfoEntity::class,
-        PluginSourceEntity::class
+        PluginSourceEntity::class,
+        PluginExecuteStatusEntry::class
         // 其它表也一起加进来
     ],
     version = 1,
@@ -19,6 +22,7 @@ import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
 abstract class RootlessStoreDatabase : RoomDatabase() {
     abstract fun pluginInfoDao(): PluginInfoDAO
     abstract fun pluginSourceDao(): PluginSourceDAO
+    abstract fun pluginExecuteStatusDao(): PluginExecuteStatusDAO
     // 其它 DAO 也在这里暴露
 }
 

@@ -18,41 +18,61 @@ import javax.inject.Inject
 class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     @ApplicationContext val context: Context
 ){
+    private companion object {
+        private const val PLUGIN_DIR_NAME = "Plugin"
+        private const val PLUGIN_MANIFEST_FILE_NAME = "PluginManifest.json"
+    }
+
+    private fun getInternalPluginRootDirectory(): File {
+        return File(context.filesDir, PLUGIN_DIR_NAME)
+    }
+    private fun ensureInternalPluginRootDirectory(): File {
+        return getInternalPluginRootDirectory().apply { mkdirs() }
+    }
 
     // Default FS Operator
     fun getDefaultPluginDirectoryPath(): String{
-        return File(context.getExternalFilesDir(null), "Plugin").path
-    }
+        return getInternalPluginRootDirectory().path
+    } // /File/Plugin
     fun getPluginEntryPoint(pluginManifestRoom: PluginManifestRoom): String{
         val defaultPluginDirectoryPath = getDefaultPluginDirectoryPath()
         val pluginPackageName = pluginManifestRoom.pluginPackageName
         val pluginEntryPoint = pluginManifestRoom.entryPoint
         return "$defaultPluginDirectoryPath/$pluginPackageName/$pluginEntryPoint"
-    }
+    }  // /File/Plugin/PLUGIN/entry
+    fun getPluginPackageDirectory(pluginManifestRoom: PluginManifestRoom): String {
+        val defaultPluginDirectoryPath = getDefaultPluginDirectoryPath()
+        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        return "$defaultPluginDirectoryPath/$pluginPackageName"
+    }  // /File/Plugin/PLUGIN
 
     // Search FS Operator
     fun confirmPluginPathExists(): Boolean{
-        return confirmPathExists("Plugin")
-    }
+        return confirmPathExists(PLUGIN_DIR_NAME)
+    }  // /File/Plugin?
     private fun confirmPathExists(path: String): Boolean{
-        Log.d("confirmPathExists",
-            File(context.getExternalFilesDir(null), path.toString()).exists().toString())
-        return File(context.getExternalFilesDir(null), path.toString()).exists()
-    }
+        val targetFile = File(context.filesDir, path)
+        Log.d("confirmPathExists", targetFile.exists().toString())
+        return targetFile.exists()
+    }  // /File/?
 
     // Create FS Operator
     fun createFileDir(path: String){
         if (!confirmPathExists(path)){
-            File(context.getExternalFilesDir(null), path).mkdirs()
+            File(context.filesDir, path).mkdirs()
         }
-    }
+    }  // /File
+    @Deprecated(
+        message = "Not Longer Recommended",
+        replaceWith = ReplaceWith("createVoidFileDirectory(pluginRootDirectory, directoryName)")
+    )
     fun createOneVoidFile(destination: File, fileName: String): Boolean{
         val result = File(destination, "$fileName.zip").createNewFile()  // 创建了文件，而非单纯路径
         return result
     }
     fun createVoidFileDirectory(pluginRootDirectory: File, directoryName: String): File {
         return File(pluginRootDirectory, directoryName) // 创建文件夹
-    }
+    }  // /File/Plugin/PLUGIN
 
     // Deprecated FS Operator
     @Deprecated(
@@ -72,8 +92,9 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         }
 
         // Provide void file, for copy use
-        createOneVoidFile(destination,fileName)  // needs prevent override files
-        val operationFile = File(destination, "$fileName.zip")
+        val internalDestination = ensureInternalPluginRootDirectory()
+        createOneVoidFile(internalDestination,fileName)  // needs prevent override files
+        val operationFile = File(internalDestination, "$fileName.zip")
 
         // The core of copy operator
         context.contentResolver.openInputStream(originFileURI).use { input ->
@@ -92,8 +113,9 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
 
         // Provide void file, for copy use
-        createOneVoidFile(destination, destinationFileName)  // needs prevent override files
-        val operationFile = File(destination, "$destinationFileName.zip")
+        val internalDestination = ensureInternalPluginRootDirectory()
+        createOneVoidFile(internalDestination, destinationFileName)  // needs prevent override files
+        val operationFile = File(internalDestination, "$destinationFileName.zip")
 
         // The core of copy operator
         FileOutputStream(operationFile).use { out ->
@@ -104,6 +126,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     }
 
     // Un-Zip FS Operator
+    @Suppress("UNUSED_PARAMETER")
     fun unzipFromFile(originFileURI: Uri, pluginRootDirectory: File, directoryName: String? = null) {
 
         // Get file's name, always powered by readManiFestJsonContent
@@ -123,7 +146,10 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         }
 
         // Create Void Directory
-        val createdFileDirectory = createVoidFileDirectory(pluginRootDirectory, directoryName)
+        val internalPluginRootDirectory = ensureInternalPluginRootDirectory()
+        val createdFileDirectory = createVoidFileDirectory(internalPluginRootDirectory, directoryName).apply {
+            mkdirs()
+        }
 
         // Open IO Stream
         context.contentResolver.openInputStream(originFileURI).use{ fis ->
@@ -149,11 +175,15 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
         }
     }
+    @Suppress("UNUSED_PARAMETER")
     fun unZipFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
 
         // Provide void file, for copy use
-        createVoidFileDirectory(pluginRootDirectory, directoryName)  // needs prevent override files
-        val operationFile = File(pluginRootDirectory, directoryName)
+        val internalPluginRootDirectory = ensureInternalPluginRootDirectory()
+        createVoidFileDirectory(internalPluginRootDirectory, directoryName)  // needs prevent override files
+        val operationFile = File(internalPluginRootDirectory, directoryName).apply {
+            mkdirs()
+        }
 
         // The core of copy operator
         originFileByteChannel.toInputStream().use { input ->
@@ -194,7 +224,8 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
                 while (zipEntry != null) {
                     val entryPath = zipEntry.name                       // 可能是 "a/b/PluginManifest.json"
                     val fileNameOnly = entryPath.substringAfterLast('/') // 取最后一级文件名
-                    val isTarget = !zipEntry.isDirectory && fileNameOnly.equals("PluginManifest.json", ignoreCase = true)
+                    val isTarget = !zipEntry.isDirectory &&
+                        fileNameOnly.equals(PLUGIN_MANIFEST_FILE_NAME, ignoreCase = true)
 
                     if (isTarget) {
                         // 读取当前 entry 的内容（这里用 readBytes，适合 manifest 这种小文件）
@@ -213,7 +244,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
                 return ""
             }
         }
-    }
+    }  // Get JSON File
     fun readManifestJsonContent(jsonContent: String): PluginManifestLocal {
         val json = Json {
             ignoreUnknownKeys = true // JSON 多字段也不炸
@@ -221,7 +252,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         }
         val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
         return manifest
-    }
+    }  // Convert JSON to PluginManifestLocal
 
     // Delete FS Operator
     @Deprecated(
@@ -229,15 +260,22 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         replaceWith = ReplaceWith("deleteDirectoryByPackageName(pluginPackageName)")
     )
     fun deleteOneFile(pluginPackageName: String): Boolean{
-        val base = context.getExternalFilesDir(null)
-        val targetFile = File(base, "Plugin/${pluginPackageName}.zip")
+        val targetFile = File(getInternalPluginRootDirectory(), "${pluginPackageName}.zip")
 
         return targetFile.delete()
     }
     fun deleteDirectoryByPackageName(pluginPackageName: String): Boolean {
-        val pluginRootDirectory = context.getExternalFilesDir(null)
-        val targetFile = File(pluginRootDirectory, "Plugin/${pluginPackageName}")
+        val targetFile = File(getInternalPluginRootDirectory(), pluginPackageName)
 
         return targetFile.deleteRecursively()
+    }
+
+    // Chmod FS Operator
+    fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom): Boolean{
+        val pluginRootDirectory = getInternalPluginRootDirectory()
+        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        val pluginEntryPoint = pluginManifestRoom.entryPoint
+        val _child = "$pluginPackageName/$pluginEntryPoint"
+        return File(pluginRootDirectory,_child).setExecutable(true)
     }
 }

@@ -74,6 +74,7 @@ class PluginCoreRepositoryImpl @Inject constructor(
             val pluginInfoEntity = PluginInfoEntity.fromManifest(pluginManiFest)
 
             pluginCoreGatewayImpl.installPluginFromLocal(uri)
+            pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManiFest)
             insertOnePluginInfo(pluginInfoEntity)
 
             return null
