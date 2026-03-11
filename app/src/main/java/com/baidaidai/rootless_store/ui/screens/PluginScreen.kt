@@ -49,7 +49,7 @@ fun RootlessStorePluginScreenContainer(
                         navController.navigate("ExecuteScreen")
                         executeScreenViewModel.executeOnePlugin(it)
                     }else{
-                        pluginScreenViewModel.abortPluginProcess(it)
+                        executeScreenViewModel.abortPluginProcess(it)
                     }
                 },
                 onBadgeClick = {

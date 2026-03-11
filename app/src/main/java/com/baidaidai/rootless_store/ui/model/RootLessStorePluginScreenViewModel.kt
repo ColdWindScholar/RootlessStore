@@ -88,12 +88,6 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
         }
     }
 
-    fun abortPluginProcess(pluginManifestRoom: PluginManifestRoom) {
-        viewModelScope.launch{
-            abortPluginProcessUseCase(pluginManifestRoom)
-        }
-    }
-
     fun changeBadgeShowStatus(){
         _badgeShowState.update { !it }
     }
