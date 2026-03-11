@@ -7,6 +7,7 @@ import com.baidaidai.rootless_store.domain.plugin.error.PluginError
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import com.baidaidai.rootless_store.domain.plugin.usecase.AbortPluginProcessUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.UninstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetPluginInfoCountUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.SetPluginEnabledUseCase
@@ -28,6 +29,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     private val installOnePluginUseCase: InstallOnePluginUseCase,
     private val setPluginEnabledUseCase: SetPluginEnabledUseCase,
     private val uninstallOnePluginUseCase: UninstallOnePluginUseCase,
+    private val abortPluginProcessUseCase: AbortPluginProcessUseCase,
     pluginInfoCountUseCase: GetPluginInfoCountUseCase
 ): ViewModel() {
 
@@ -83,6 +85,12 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
                 pluginID = pluginID,
                 pluginEnabledStatus = pluginEnabledStatus
             )
+        }
+    }
+
+    fun abortPluginProcess(pluginManifestRoom: PluginManifestRoom) {
+        viewModelScope.launch{
+            abortPluginProcessUseCase(pluginManifestRoom)
         }
     }
 
