@@ -7,6 +7,7 @@ import com.baidaidai.rootless_store.data.plugin.remote.datasource.DownloadPlugin
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginCoreGateway
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.utils.io.ByteReadChannel
@@ -32,6 +33,11 @@ class PluginCoreGatewayImpl @Inject constructor(
             originFileByteChannel = remotePluginContent,
             destinationFileName = pluginPackageName
         )
+    }
+
+    // Update
+    fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom){
+        androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom)
     }
 
     // Delete
