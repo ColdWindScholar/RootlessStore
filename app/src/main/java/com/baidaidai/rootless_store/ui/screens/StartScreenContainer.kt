@@ -26,7 +26,7 @@ import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessa
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.StartScreenErrorDialog
 import com.baidaidai.rootless_store.components.startScreen.StartScreenRepositoryDialog
-import com.baidaidai.rootless_store.components.startScreen.components.StartScreenNecessaryComponents
+import com.baidaidai.rootless_store.components.startScreen.StartScreenNecessaryComponents
 import com.baidaidai.rootless_store.domain.error.RootlessStoreError
 import com.baidaidai.rootless_store.ui.model.RootLessStoreExecuteScreenViewModel
 import com.baidaidai.rootless_store.ui.model.RootLessStoreMarketScreenViewModel

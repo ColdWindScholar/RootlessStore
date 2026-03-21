@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.startScreen.components
+package com.baidaidai.rootless_store.components.startScreen
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -39,19 +39,28 @@ object StartScreenNecessaryComponents {
                 number = 0,
                 pattern = painterResource(R.drawable.outline_home_24),
                 contentDeprecated = "Home",
-                destination = "HomeScreen"
+                compatibleDestinationList = listOf(
+                    "HomeScreen",
+                    "ShellScreen"
+                )
             ),
             NavBarItemSpec(
                 number = 1,
                 pattern = painterResource(R.drawable.outline_extension_24),
                 contentDeprecated = "Plugin",
-                destination = "PluginScreen"
+                compatibleDestinationList = listOf(
+                    "PluginScreen",
+                    "ExecuteScreen"
+                )
             ),
             NavBarItemSpec(
                 number = 2,
                 pattern = painterResource(R.drawable.outline_list_alt_24),
                 contentDeprecated = "Sources",
-                destination = "SourcesScreen"
+                compatibleDestinationList = listOf(
+                    "SourcesScreen",
+                    "MarketScreen"
+                )
             )
         )
         val navBackStackEntry by navigatorController.currentBackStackEntryAsState()
@@ -59,9 +68,9 @@ object StartScreenNecessaryComponents {
         NavigationBar {
             NavigationBarRenderingList.forEachIndexed { index, spec ->
                 NavigationBarItem(
-                    selected = spec.destination == currentDestination,
+                    selected = currentDestination in spec.compatibleDestinationList,
                     onClick = {
-                        navigatorController.navigate(spec.destination)
+                        navigatorController.navigate(spec.compatibleDestinationList.first())
                     },
                     icon = { Icon(spec.pattern, contentDescription = spec.contentDeprecated) },
                     label = { Text(spec.contentDeprecated) }

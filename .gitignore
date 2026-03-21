@@ -4,6 +4,7 @@
 
 ## Gradle
 .gradle
+.gradle-local
 
 ## macOS
 .DS_Store

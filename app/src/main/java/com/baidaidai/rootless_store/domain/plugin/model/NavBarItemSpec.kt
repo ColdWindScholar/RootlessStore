@@ -6,5 +6,5 @@ data class NavBarItemSpec(
     val number: Int,
     val pattern: Painter,
     val contentDeprecated: String,
-    val destination: String
+    val compatibleDestinationList: List<String>
 )

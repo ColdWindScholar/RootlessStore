@@ -53,7 +53,7 @@ fun HomeScreen(
         RootLessStoreVersionCheckerContainer()
         Spacer(
             modifier = Modifier
-                .height(20.dp)
+                .height(12.dp)
         )
 
         /* Hoster Status */
@@ -62,7 +62,7 @@ fun HomeScreen(
         )
         Spacer(
             modifier = Modifier
-                .height(20.dp)
+                .height(12.dp)
         )
 
         /* How to Make Plugin */
