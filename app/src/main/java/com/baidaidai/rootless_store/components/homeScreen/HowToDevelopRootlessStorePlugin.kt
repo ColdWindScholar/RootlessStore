@@ -22,8 +22,8 @@ import com.baidaidai.rootless_store.R
 @Composable
 fun HowToDevelopRootlessStorePlugin(){
     val cardColors = CardDefaults.cardColors(
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = MaterialTheme.colorScheme.onSurface,
     )
     Card(
         modifier = Modifier
