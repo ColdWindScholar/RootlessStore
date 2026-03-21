@@ -7,23 +7,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -34,7 +33,6 @@ import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 fun PluginInfoContainerLocal(
     badgeShowState: Boolean = true,
     pluginManifest: PluginManifestRoom,
-    modifier: Modifier = Modifier,
     onSwitchClick: ()-> Unit,
     onBadgeClick:()-> Unit,
     onCardClick:()-> Unit,
@@ -60,28 +58,22 @@ fun PluginInfoContainerLocal(
             }
         }
     ) {
-        Card(
-            modifier = modifier
-                .fillMaxWidth()
-                .clickable(
-                    interactionSource = null,
-                    indication = ripple(),
-                    onClick = onCardClick
-                )
+        Column(
+            modifier = Modifier
+                .clip(MaterialTheme.shapes.large)
+                .clickable{ onCardClick() }
             ,
-            elevation = CardDefaults.cardElevation(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainer
-            )
-        ){
-            Column(
+        ) {
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainer,
                 modifier = Modifier
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
+                    .clip(MaterialTheme.shapes.extraSmall)
+            ){
                 Row(
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(24.dp)
+                    ,
                     verticalAlignment = Alignment.CenterVertically
                 ){
                     Icon(
@@ -112,9 +104,20 @@ fun PluginInfoContainerLocal(
                         onCheckedChange = { onSwitchClick() }
                     )
                 }
-                HorizontalDivider()
+            }
+            Spacer(
+                modifier = Modifier
+                    .height(2.dp)
+            )
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                modifier = Modifier
+                    .clip(MaterialTheme.shapes.extraSmall)
+            ){
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                    modifier = Modifier
+                        .padding(24.dp)
                 ) {
                     PluginInfoRow(label = "Author", value = pluginManifest.author)
                     PluginInfoRow(label = "Source", value = pluginManifest.source.toString())
@@ -147,7 +150,7 @@ private fun PluginInfoRow(
     ){
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.titleSmall,
             modifier = Modifier
                 .weight(0.35f)
         )
