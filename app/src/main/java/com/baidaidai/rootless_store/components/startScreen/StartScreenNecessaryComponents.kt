@@ -1,4 +1,4 @@
-package com.baidaidai.rootless_store.components.startScreen.components
+package com.baidaidai.rootless_store.components.startScreen
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
