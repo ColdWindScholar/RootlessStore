@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun HosterStatusProgressRow(label: String, currentValue: Double,maxValue: Double){
@@ -21,7 +23,9 @@ fun HosterStatusProgressRow(label: String, currentValue: Double,maxValue: Double
     var currentValuePercentage = (currentValueProgress * 100).toInt()
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(30.dp)
+        ,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
