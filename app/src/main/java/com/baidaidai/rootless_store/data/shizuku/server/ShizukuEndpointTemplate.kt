@@ -1,0 +1,31 @@
+package com.baidaidai.rootless_store.data.shizuku.server
+
+import IShellCallback
+import android.util.Log
+
+internal class ShizukuEndpointTemplate : IShellService.Stub() {
+
+    override fun exec(pluginExecuteEntryPoint: String,pluginPackageDirectory: String,callback: IShellCallback){
+        ProcessBuilder("run-as","com.baidaidai.rootless_store","sh","-c","cd $pluginPackageDirectory ;echo PID:$$; exec $pluginExecuteEntryPoint")
+            .redirectErrorStream(true)
+            .start()
+            .inputStream
+            .bufferedReader()
+            .useLines{ line ->
+                line.forEach {
+                    callback.onExecute("- $it")
+                }
+            }
+    }
+
+    override fun kill(progressPid: Int): Boolean {
+
+        val process = ProcessBuilder(
+            "run-as","com.baidaidai.rootless_store","sh","-c","kill ${progressPid.toString()}"
+        )
+            .redirectErrorStream(true)
+            .start()
+            .waitFor()
+        return process == 0
+    }
+}
