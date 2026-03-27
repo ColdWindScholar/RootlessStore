@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.data.status.repository
 
 import com.baidaidai.rootless_store.data.status.gateway.StoreStatusGatewayImpl
 import com.baidaidai.rootless_store.domain.status.model.AndroidAndAPIStatus
+import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import com.baidaidai.rootless_store.domain.status.model.MemoryStatus
 import com.baidaidai.rootless_store.domain.status.model.SELinuxStatus
 import com.baidaidai.rootless_store.domain.status.model.StorageStatus
@@ -24,4 +25,6 @@ class StoreStatusRepositoryImpl @Inject constructor(
     fun getTemperatureStatus(): Flow<TempStatus> = storeStatusGatewayImpl.getTemperatureStatus()
 
     fun getAndroidAndAPIStatus(): AndroidAndAPIStatus = storeStatusGatewayImpl.getAndroidAndAPIStatus()
+
+    fun getOverallStatus(): HosterOverallStatus = storeStatusGatewayImpl.getHosterOverallStatus()
 }

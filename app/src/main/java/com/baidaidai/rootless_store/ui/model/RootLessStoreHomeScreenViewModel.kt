@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.ui.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.baidaidai.rootless_store.data.status.repository.GetOverallStatusUseCase
 import com.baidaidai.rootless_store.domain.status.model.MemoryStatus
 import com.baidaidai.rootless_store.domain.status.model.PluginStatus
 import com.baidaidai.rootless_store.domain.status.model.StorageStatus
@@ -29,7 +30,8 @@ class RootLessStoreHomeScreenViewModel @Inject constructor(
     getTemperatureStatusUseCase: GetTemperatureStatusUseCase,
     getSELinuxUseCase: GetSELinuxUseCase,
     getKernelStatusUseCase: GetKernelStatusUseCase,
-    getAndroidAndAPIStatusUseCase: GetAndroidAndAPIStatusUseCase
+    getAndroidAndAPIStatusUseCase: GetAndroidAndAPIStatusUseCase,
+    getOverallStatusUseCase: GetOverallStatusUseCase
 ) : ViewModel() {
 
     val memoryStatus: StateFlow<MemoryStatus> =
@@ -69,6 +71,9 @@ class RootLessStoreHomeScreenViewModel @Inject constructor(
 
     private val _androidAndAPIStatus = MutableStateFlow(getAndroidAndAPIStatusUseCase())
     val androidAndAPIStatus = _androidAndAPIStatus.asStateFlow()
+
+    private val _overallStatus = MutableStateFlow(getOverallStatusUseCase())
+    val overallStatus = _overallStatus.asStateFlow()
 
 
 }

@@ -1,6 +1,6 @@
 package com.baidaidai.rootless_store.domain.status.usecase
 
-import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
+import com.baidaidai.rootless_store.data.status.repository.GetOverallStatusUseCase
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -13,7 +13,8 @@ class GetRootlessStoreHosterStatusUseCase @Inject constructor(
     private val getSELinuxUseCase: GetSELinuxUseCase,
     private val getKernelStatusUseCase: GetKernelStatusUseCase,
     private val getTemperatureStatusUseCase: GetTemperatureStatusUseCase,
-    private val getAndroidAndAPIStatusUseCase: GetAndroidAndAPIStatusUseCase
+    private val getAndroidAndAPIStatusUseCase: GetAndroidAndAPIStatusUseCase,
+    private val getOverallStatusUseCase: GetOverallStatusUseCase
 ) {
     operator fun invoke(): Flow<RootlessStoreHosterStatus> = combine(
         getMemoryStatusUseCase(),
@@ -22,7 +23,7 @@ class GetRootlessStoreHosterStatusUseCase @Inject constructor(
         getTemperatureStatusUseCase()
     ) { memoryStatus, storageStatus, pluginStatus, temperatureStatus ->
         RootlessStoreHosterStatus(
-            hosterOverallStatus = HosterOverallStatus.LIMITED,
+            hosterOverallStatus = getOverallStatusUseCase(),
             kernelVersion = getKernelStatusUseCase(),
             selinuxStatus = getSELinuxUseCase(),
             pluginStatus = pluginStatus,
