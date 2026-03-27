@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.domain.error.RootlessStoreError
 import com.baidaidai.rootless_store.ui.model.RootLessStoreSourceScreenViewModel
+import com.baidaidai.rootless_store.ui.model.RootlessStoreShizukuAdbScreenViewModel
 
 @Composable
 fun StartScreenErrorDialog(
@@ -26,6 +27,43 @@ fun StartScreenErrorDialog(
             Button(
                 onClick = {
                     sourceScreenViewModel.onOkButtonClick()
+                }
+            ) {
+                Text("Ok")
+            }
+        },
+        icon = {
+            Icon(
+                painter = painterResource(R.drawable.material_symbols_warning_24px),
+                contentDescription = "Dialog Warning Logo"
+            )
+        },
+        title = {
+            Text(sharedEvent!!.errorMessage)
+        },
+        text = {
+            Text(
+                text = sharedEvent!!.errorCause,
+                modifier = Modifier
+                    .heightIn(max = 300.dp)
+                    .verticalScroll(
+                        state = rememberScrollState()
+                    )
+            )
+        }
+    )
+}
+@Composable
+fun StartScreenErrorDialog(
+    shizukuAdbScreenViewModel: RootlessStoreShizukuAdbScreenViewModel,
+    sharedEvent: RootlessStoreError?
+){
+    AlertDialog(
+        onDismissRequest = {},
+        confirmButton = {
+            Button(
+                onClick = {
+                    shizukuAdbScreenViewModel.onOkButtonClick()
                 }
             ) {
                 Text("Ok")
