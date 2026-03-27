@@ -37,9 +37,36 @@ class PluginExecuteRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    fun executeOnePluginByShizuku(
+        pluginManifestRoom: PluginManifestRoom
+    ): Flow<String> {
+        var pidSaved = false
+        val pluginExecuteEntryPoint = androidFileSystemCapabilityGatewayImpl.getPluginEntryPoint(pluginManifestRoom)
+        val pluginPackageDirectory = androidFileSystemCapabilityGatewayImpl.getPluginPackageDirectory(pluginManifestRoom)
+        return pluginExecuteGatewayImpl.executePluginEntryPointByShizuku(pluginExecuteEntryPoint,pluginPackageDirectory).onEach {line ->
+            if (!pidSaved) {
+                val pid = parsePid(line)
+                if (pid != null) {
+                    pidSaved = true
+                    val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
+                    val pluginExecuteStatusEntry = PluginExecuteStatusEntry.fromPluginManifest(pluginManifestRoom,pid)
+                    pluginExecuteStatusDao.insertOnePluginExecuteStatus(pluginExecuteStatusEntry) // 写 DAO
+                }
+            }
+        }
+    }
+
+
     suspend fun abortPluginProcess(pluginManifestRoom: PluginManifestRoom){
         val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
         val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.pluginID)
         pluginExecuteGatewayImpl.abortPluginProcess(pidSaved)
+    }
+
+    suspend fun abortPluginProcessByShizuku(pluginManifestRoom: PluginManifestRoom){
+        val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
+        val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.pluginID)
+        pluginExecuteGatewayImpl.abortPluginProcessByShizuku(pidSaved)
     }
 }

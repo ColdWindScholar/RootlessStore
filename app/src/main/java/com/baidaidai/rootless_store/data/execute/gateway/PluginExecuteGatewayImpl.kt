@@ -1,5 +1,8 @@
 package com.baidaidai.rootless_store.data.execute.gateway
 
+import android.util.Log
+import com.baidaidai.rootless_store.data.shizuku.repository.ShizukuAdbRepositoryImpl
+import com.baidaidai.rootless_store.data.shizuku.server.ShizukuEndpointCallback
 import com.topjohnwu.superuser.CallbackList
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PluginExecuteGatewayImpl @Inject constructor(
+    private val shizukuAdbRepositoryImpl: ShizukuAdbRepositoryImpl,
 ) {
 
     internal fun createCallbackList(
@@ -49,11 +53,43 @@ class PluginExecuteGatewayImpl @Inject constructor(
     }
         .flowOn(Dispatchers.IO)
 
+    fun executePluginEntryPointByShizuku(pluginExecuteEntryPoint: String,pluginPackageDirectory: String): Flow<String> =
+
+        callbackFlow {
+            launch(Dispatchers.IO) {
+                val callback = ShizukuEndpointCallback { session ->
+                    trySend(session.toString())
+                }
+
+                Log.d("exam",(shizukuAdbRepositoryImpl.getShizukuEndpoint()==null).toString())
+
+                shizukuAdbRepositoryImpl.getShizukuEndpoint()
+                    ?.exec(
+                        pluginExecuteEntryPoint,
+                        pluginPackageDirectory,
+                        callback
+                    )
+            }
+            awaitClose {  }
+        }
+
     fun abortPluginProcess(pluginProcessPID: Int?){
         if (pluginProcessPID != null){
             ProcessBuilder(
                 rootEnvironmentSwitch(), "-c", "kill $pluginProcessPID"
             ).start()
+        }
+    }
+
+    fun abortPluginProcessByShizuku(pluginProcessPID: Int?){
+        if (pluginProcessPID != null){
+            Log.d("exam","shizuku ${shizukuAdbRepositoryImpl.getShizukuEndpoint() == null}")
+            Log.d("pid","$pluginProcessPID")
+
+            val result = shizukuAdbRepositoryImpl.getShizukuEndpoint()
+                ?.kill(pluginProcessPID)
+
+            Log.d("kill pid result",result.toString())
         }
     }
 }
