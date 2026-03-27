@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class HosterOverallStatus{
-    LIMITED,ADB,ROOTD
+    LIMITED,PERMISSIVE,ADB,ROOTD
 }

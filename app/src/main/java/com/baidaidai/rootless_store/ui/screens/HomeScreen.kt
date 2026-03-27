@@ -14,13 +14,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.baidaidai.rootless_store.components.homeScreen.HowToDevelopRootlessStorePlugin
 import com.baidaidai.rootless_store.components.homeScreen.RootLessStoreVersionCheckerContainer
 import com.baidaidai.rootless_store.components.homeScreen.RootlessStoreHosterStatusBoard
-import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatus
 import com.baidaidai.rootless_store.ui.model.RootLessStoreHomeScreenViewModel
 
 @Composable
 fun HomeScreen(
     contentPadding: PaddingValues,
+    onChipClick:()-> Unit,
     homeScreenViewModel: RootLessStoreHomeScreenViewModel = hiltViewModel()
 ){
     val memoryStatus by homeScreenViewModel.memoryStatus.collectAsState()
@@ -30,9 +30,10 @@ fun HomeScreen(
     val seLinuxStatus by homeScreenViewModel.seLinuxStatus.collectAsState()
     val kernelStatus by homeScreenViewModel.kernelStatus.collectAsState()
     val androidAndAPIStatus by homeScreenViewModel.androidAndAPIStatus.collectAsState()
+    val hosterOverallStatus by homeScreenViewModel.overallStatus.collectAsState()
 
     val rootlessStoreHosterStatus = RootlessStoreHosterStatus(
-        hosterOverallStatus = HosterOverallStatus.LIMITED,
+        hosterOverallStatus = hosterOverallStatus,
         osAndAPIVersion = androidAndAPIStatus,
         kernelVersion = kernelStatus,
         selinuxStatus = seLinuxStatus,
@@ -58,7 +59,8 @@ fun HomeScreen(
 
         /* Hoster Status */
         RootlessStoreHosterStatusBoard(
-            hosterStatus = rootlessStoreHosterStatus
+            hosterStatus = rootlessStoreHosterStatus,
+            onChipClick = onChipClick
         )
         Spacer(
             modifier = Modifier

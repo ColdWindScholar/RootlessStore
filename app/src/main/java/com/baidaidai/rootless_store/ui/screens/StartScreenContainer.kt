@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.ui.screens
 
+import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,12 +17,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.baidaidai.rootless_store.ShizukuActivity
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.StartScreenErrorDialog
@@ -65,6 +68,7 @@ fun RootlessStoreStartScreenContainer(
     var alertDialogStatus by rememberSaveable{ mutableStateOf(false) }
     var sourceDomainContent by rememberSaveable{ mutableStateOf("") }
     var sharedEvent by rememberSaveable { mutableStateOf<RootlessStoreError?>(null) }
+    val context = LocalContext.current
 
     val scrollBehavior = when(currentDestination){
         "PluginScreen" -> TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -156,7 +160,10 @@ fun RootlessStoreStartScreenContainer(
                 route = "HomeScreen"
             ){
                 HomeScreen(
-                    contentPadding = contentPadding
+                    contentPadding = contentPadding,
+                    onChipClick = {
+                        context.startActivity(Intent(context, ShizukuActivity::class.java))
+                    }
                 )
             }
             composable(

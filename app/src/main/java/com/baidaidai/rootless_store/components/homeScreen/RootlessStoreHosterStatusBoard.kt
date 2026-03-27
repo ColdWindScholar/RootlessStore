@@ -30,7 +30,8 @@ import com.baidaidai.rootless_store.domain.status.model.RootlessStoreHosterStatu
 
 @Composable
 fun RootlessStoreHosterStatusBoard(
-    hosterStatus: RootlessStoreHosterStatus
+    hosterStatus: RootlessStoreHosterStatus,
+    onChipClick:()-> Unit
 ){
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -81,11 +82,13 @@ fun RootlessStoreHosterStatusBoard(
                             .height(4.dp)
                     )
                     AssistChip(
-                        enabled = false,
-                        onClick = {},
+                        enabled = true,
+                        onClick = onChipClick,
                         label = {
                             Text(
-                                text = "Overall: ${hosterStatus.hosterOverallStatus ?: "null"}"
+                                text = "Overall: ${hosterStatus.hosterOverallStatus ?: "null"}",
+                                maxLines = 1,
+                                softWrap = false
                             )
                         },
                         colors = ChipColors(
@@ -98,6 +101,7 @@ fun RootlessStoreHosterStatusBoard(
                             disabledLeadingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                             disabledTrailingIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                         ),
+                        border = null,
                         modifier = Modifier
                             .scale(0.95f)
                     )
