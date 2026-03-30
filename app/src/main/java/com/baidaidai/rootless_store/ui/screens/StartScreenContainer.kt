@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.baidaidai.rootless_store.ShizukuActivity
+import com.baidaidai.rootless_store.components.executeScreen.executeScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.pluginsScreen.PluginScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.sourcesScreen.SourcesScreenNecessaryComponents
 import com.baidaidai.rootless_store.components.startScreen.StartScreenErrorDialog
@@ -104,6 +105,9 @@ fun RootlessStoreStartScreenContainer(
                         sourceScreenViewModel.changeDeleterShowStatus()
                     },
                     sourceCount = sourceCount
+                )
+                "ExecuteScreen" -> executeScreenNecessaryComponents.ExecuteScreenTopAppBar(
+                    scrollBehavior = scrollBehavior
                 )
                 else -> StartScreenNecessaryComponents.StartScreenTopAppBar(scrollBehavior)
             }

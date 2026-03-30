@@ -50,8 +50,8 @@ fun HowToDevelopRootlessStorePlugin(){
                         .clip(CircleShape)
                         .background(color = MaterialTheme.colorScheme.secondaryFixed)
                         .size(40.dp)
-                        .padding(6.dp),
-                    tint = MaterialTheme.colorScheme.onSecondary
+                        .padding(7.dp),
+                    tint = MaterialTheme.colorScheme.onSecondaryFixed
                 )
                 Spacer(
                     modifier = Modifier
