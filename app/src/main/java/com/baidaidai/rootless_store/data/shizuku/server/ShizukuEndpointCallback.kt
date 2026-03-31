@@ -1,9 +1,14 @@
 package com.baidaidai.rootless_store.data.shizuku.server
 
 class ShizukuEndpointCallback(
-    private val onExecuteCallback:(String?)-> Unit
+    private val onExecuteCallback:(session:String?)-> Unit,
+    private val onErrorCallback: (error:String?)-> Unit
 ):IShellCallback.Stub() {
     override fun onExecute(session: String?) {
         onExecuteCallback(session)
+    }
+
+    override fun onError(error: String?) {
+        onErrorCallback(error)
     }
 }

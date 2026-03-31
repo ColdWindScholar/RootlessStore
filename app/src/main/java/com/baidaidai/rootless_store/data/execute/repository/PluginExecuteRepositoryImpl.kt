@@ -4,6 +4,7 @@ import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.execute.database.PluginExecuteStatusEntry
 import com.baidaidai.rootless_store.data.execute.gateway.PluginExecuteGatewayImpl
 import com.baidaidai.rootless_store.data.fileSystem.gateway.AndroidFileSystemCapabilityGatewayImpl
+import com.baidaidai.rootless_store.domain.execute.model.ExecuteResult
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
@@ -21,13 +22,14 @@ class PluginExecuteRepositoryImpl @Inject constructor(
 
     fun executeOnePlugin(
         pluginManifestRoom: PluginManifestRoom
-    ): Flow<String> {
+    ): Flow<ExecuteResult> {
         var pidSaved = false
         val pluginExecuteEntryPoint = androidFileSystemCapabilityGatewayImpl.getPluginEntryPoint(pluginManifestRoom)
         val pluginPackageDirectory = androidFileSystemCapabilityGatewayImpl.getPluginPackageDirectory(pluginManifestRoom)
-        return pluginExecuteGatewayImpl.executePluginEntryPoint(pluginExecuteEntryPoint,pluginPackageDirectory).onEach {line ->
+        return pluginExecuteGatewayImpl.executePluginEntryPoint(pluginExecuteEntryPoint,pluginPackageDirectory).onEach { ExecuteResult ->
             if (!pidSaved) {
-                val pid = parsePid(line)
+                val content = ExecuteResult.content
+                val pid = parsePid(content)
                 if (pid != null) {
                     pidSaved = true
                     val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
@@ -40,13 +42,14 @@ class PluginExecuteRepositoryImpl @Inject constructor(
 
     fun executeOnePluginByShizuku(
         pluginManifestRoom: PluginManifestRoom
-    ): Flow<String> {
+    ): Flow<ExecuteResult> {
         var pidSaved = false
         val pluginExecuteEntryPoint = androidFileSystemCapabilityGatewayImpl.getPluginEntryPoint(pluginManifestRoom)
         val pluginPackageDirectory = androidFileSystemCapabilityGatewayImpl.getPluginPackageDirectory(pluginManifestRoom)
-        return pluginExecuteGatewayImpl.executePluginEntryPointByShizuku(pluginExecuteEntryPoint,pluginPackageDirectory).onEach {line ->
+        return pluginExecuteGatewayImpl.executePluginEntryPointByShizuku(pluginExecuteEntryPoint,pluginPackageDirectory).onEach { ExecuteResult ->
             if (!pidSaved) {
-                val pid = parsePid(line)
+                val content = ExecuteResult.content
+                val pid = parsePid(content)
                 if (pid != null) {
                     pidSaved = true
                     val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
