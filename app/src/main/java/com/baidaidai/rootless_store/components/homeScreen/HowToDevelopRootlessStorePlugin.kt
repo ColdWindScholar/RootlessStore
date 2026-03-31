@@ -1,6 +1,9 @@
 package com.baidaidai.rootless_store.components.homeScreen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,19 +21,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat.startActivity
 import com.baidaidai.rootless_store.R
+import androidx.core.net.toUri
 
 @Composable
 fun HowToDevelopRootlessStorePlugin(){
+    val context = LocalContext.current
     val cardColors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         contentColor = MaterialTheme.colorScheme.onSurface,
     )
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable(
+                enabled = true,
+                onClick = {
+                    val url = "https://baidaidai-gfwd-origin.github.io/rootless_store-wiki/plugin-development"
+                    val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+                    context.startActivity(intent)
+                }
+            )
+        ,
         elevation = CardDefaults.cardElevation(),
         colors = cardColors
     ){
