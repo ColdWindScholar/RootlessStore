@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.domain.execute.usecase
 
 import com.baidaidai.rootless_store.data.execute.repository.PluginExecuteRepositoryImpl
 import com.baidaidai.rootless_store.data.status.repository.StoreStatusRepositoryImpl
+import com.baidaidai.rootless_store.domain.execute.model.ExecuteResult
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import com.baidaidai.rootless_store.domain.status.model.HosterOverallStatus
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +14,7 @@ class ExecuteOnePluginUseCase @Inject constructor(
 ) {
     operator fun invoke(
         pluginManifestRoom: PluginManifestRoom
-    ): Flow<String> = if (storeStatusRepositoryImpl.getOverallStatus() == HosterOverallStatus.ADB) {
+    ): Flow<ExecuteResult> = if (storeStatusRepositoryImpl.getOverallStatus() == HosterOverallStatus.ADB) {
             pluginExecuteRepositoryImpl.executeOnePluginByShizuku(pluginManifestRoom)
         }else{
             pluginExecuteRepositoryImpl.executeOnePlugin(pluginManifestRoom)

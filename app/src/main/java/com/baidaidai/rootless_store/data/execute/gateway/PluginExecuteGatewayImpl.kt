@@ -3,6 +3,8 @@ package com.baidaidai.rootless_store.data.execute.gateway
 import android.util.Log
 import com.baidaidai.rootless_store.data.shizuku.repository.ShizukuAdbRepositoryImpl
 import com.baidaidai.rootless_store.data.shizuku.server.ShizukuEndpointCallback
+import com.baidaidai.rootless_store.domain.execute.model.ExecuteResult
+import com.baidaidai.rootless_store.domain.execute.model.ResultTag
 import com.topjohnwu.superuser.CallbackList
 import com.topjohnwu.superuser.Shell
 import kotlinx.coroutines.Dispatchers
@@ -33,17 +35,30 @@ class PluginExecuteGatewayImpl @Inject constructor(
             "sh"
         }
     }
-    fun executePluginEntryPoint(pluginExecuteEntryPoint: String,pluginPackageDirectory: String): Flow<String> = callbackFlow {
+    fun executePluginEntryPoint(pluginExecuteEntryPoint: String,pluginPackageDirectory: String): Flow<ExecuteResult> = callbackFlow {
         val process = ProcessBuilder(
             rootEnvironmentSwitch(), "-c", "cd $pluginPackageDirectory ;echo PID:$$; exec $pluginExecuteEntryPoint"
-        )
-            .redirectErrorStream(true) // stderr 合并到 stdout
-            .start()
+        ).start()
 
         launch(Dispatchers.IO) {
             process.inputStream.bufferedReader().useLines { lines ->
-                lines.forEach { line ->
-                    send("- $line")
+                lines.forEach { result ->
+                    send(
+                        ExecuteResult(
+                            resulTag = ResultTag.Normal,
+                            content = "- ${result.toString()}"
+                        )
+                    )
+                }
+            }
+            process.errorStream.bufferedReader().useLines { lines ->
+                lines.forEach { error ->
+                    send(
+                        ExecuteResult(
+                            resulTag = ResultTag.Normal,
+                            content = "- ${error.toString()}"
+                        )
+                    )
                 }
             }
         }
@@ -53,13 +68,28 @@ class PluginExecuteGatewayImpl @Inject constructor(
     }
         .flowOn(Dispatchers.IO)
 
-    fun executePluginEntryPointByShizuku(pluginExecuteEntryPoint: String,pluginPackageDirectory: String): Flow<String> =
+    fun executePluginEntryPointByShizuku(pluginExecuteEntryPoint: String,pluginPackageDirectory: String): Flow<ExecuteResult> =
 
         callbackFlow {
             launch(Dispatchers.IO) {
-                val callback = ShizukuEndpointCallback { session ->
-                    trySend(session.toString())
-                }
+                val callback = ShizukuEndpointCallback(
+                    onExecuteCallback = { session ->
+                        trySend(
+                            ExecuteResult(
+                                resulTag = ResultTag.Normal,
+                                content = "- ${session.toString()}"
+                            )
+                        )
+                    },
+                    onErrorCallback = { error ->
+                        trySend(
+                            ExecuteResult(
+                                resulTag = ResultTag.RedLine,
+                                content = "- ${error.toString()}"
+                            )
+                        )
+                    }
+                )
 
                 Log.d("exam",(shizukuAdbRepositoryImpl.getShizukuEndpoint()==null).toString())
 

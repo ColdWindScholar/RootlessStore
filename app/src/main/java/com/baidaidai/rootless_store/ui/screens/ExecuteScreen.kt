@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.baidaidai.rootless_store.domain.execute.model.ResultTag
 import com.baidaidai.rootless_store.ui.model.RootLessStoreExecuteScreenViewModel
 
 @Composable
@@ -28,11 +30,22 @@ fun ExecuteScreen(
             horizontal = 15.dp
         )
     ) {
-        itemsIndexed(executeLog){ index,content ->
-            Text(
-                text = content,
-                style = MaterialTheme.typography.bodySmall
-            )
+        itemsIndexed(executeLog){ ListIndex, ListContent ->
+            when(ListContent.resulTag){
+                ResultTag.Normal -> {
+                    Text(
+                        text = ListContent.content,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+                ResultTag.RedLine -> {
+                    Text(
+                        text = ListContent.content,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = Color.Red
+                    )
+                }
+            }
         }
     }
 }

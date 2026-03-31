@@ -2,6 +2,7 @@ package com.baidaidai.rootless_store.ui.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.baidaidai.rootless_store.domain.execute.model.ExecuteResult
 import com.baidaidai.rootless_store.domain.execute.usecase.ExecuteOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import com.baidaidai.rootless_store.domain.plugin.usecase.AbortPluginProcessUseCase
@@ -17,7 +18,7 @@ class RootLessStoreExecuteScreenViewModel @Inject constructor(
     private val abortPluginProcessUseCase: AbortPluginProcessUseCase,
 ): ViewModel() {
 
-    private val _executeLog = MutableStateFlow<List<String>>(emptyList())
+    private val _executeLog = MutableStateFlow<List<ExecuteResult>>(emptyList())
     val executeLog = _executeLog.asStateFlow()
 
     fun executeOnePlugin(pluginManifestRoom: PluginManifestRoom){

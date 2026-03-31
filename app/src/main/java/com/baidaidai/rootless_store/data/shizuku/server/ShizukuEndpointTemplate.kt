@@ -6,14 +6,23 @@ import android.util.Log
 internal class ShizukuEndpointTemplate : IShellService.Stub() {
 
     override fun exec(pluginExecuteEntryPoint: String,pluginPackageDirectory: String,callback: IShellCallback){
-        ProcessBuilder("run-as","com.baidaidai.rootless_store","sh","-c","cd $pluginPackageDirectory ;echo PID:$$; exec $pluginExecuteEntryPoint")
-            .redirectErrorStream(true)
-            .start()
+        val process = ProcessBuilder("run-as","com.baidaidai.rootless_store","sh","-c","cd $pluginPackageDirectory ;echo PID:$$; exec $pluginExecuteEntryPoint").start()
+
+        process
             .inputStream
             .bufferedReader()
             .useLines{ line ->
                 line.forEach {
-                    callback.onExecute("- $it")
+                    callback.onExecute(it)
+                }
+            }
+
+        process
+            .errorStream
+            .bufferedReader()
+            .useLines{ line ->
+                line.forEach {
+                    callback.onError(it)
                 }
             }
     }
