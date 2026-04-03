@@ -11,7 +11,7 @@ class AddOneSourceUseCase @Inject constructor(
     suspend operator fun invoke(
         sourceURI: String
     ): SourceError?{
-        val pluginSourceUser = PluginSourceUser(sourceURI = sourceURI)
+        val pluginSourceUser = PluginSourceUser(sourceRemoteEndpoint = sourceURI)
         return pluginSourceRepositoryImpl.insertOnePluginSource(pluginSourceUser)
     }
 }

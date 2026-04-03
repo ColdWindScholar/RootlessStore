@@ -8,6 +8,7 @@ import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.error.PluginError
 import com.baidaidai.rootless_store.domain.plugin.repository.PluginCoreRepository
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -76,6 +77,28 @@ class PluginCoreRepositoryImpl @Inject constructor(
             pluginCoreGatewayImpl.installPluginFromLocal(uri)
             pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManiFest)
             insertOnePluginInfo(pluginInfoEntity)
+
+            return null
+        }catch (error: Throwable){
+            val errorStack  = error.stackTrace.OutOfStringLike()
+
+            return PluginError(
+                errorMessage = error.message!!,
+                errorCause = errorStack
+            )
+        }
+    }
+
+    override suspend fun installOnePluginFromMarket(
+        pluginURI: String,
+        pluginManifestRemote: PluginManifestRemote
+    ): PluginError? {
+        try {
+            val pluginInfoEntity = PluginInfoEntity.fromManifest(pluginManifestRemote.toManifestRoom())
+
+            pluginCoreGatewayImpl.installPluginFromMarket(pluginURI,pluginManifestRemote)
+            pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom = pluginManifestRemote.toManifestRoom())
+            insertOnePluginInfo(pluginInfoEntity = pluginInfoEntity)
 
             return null
         }catch (error: Throwable){

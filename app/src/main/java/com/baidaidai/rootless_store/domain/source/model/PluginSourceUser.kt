@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PluginSourceUser(
-    override val sourceURI: String
+    override val sourceRemoteEndpoint: String
 ): PluginSource.PluginSourceUser

@@ -6,6 +6,7 @@ import io.ktor.client.request.request
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
+import io.ktor.http.appendPathSegments
 import javax.inject.Inject
 import io.ktor.http.path
 
@@ -22,7 +23,7 @@ class PluginMarketAPI @Inject constructor(
             method = HttpMethod.Get
             accept(ContentType.Application.Json)
             url{
-                path("/api/v1/getAllPlugins")
+                appendPathSegments("plugin", "getAllPlugins")
                 parameters.append("page", value = pageNumber.toString())
             }
         }

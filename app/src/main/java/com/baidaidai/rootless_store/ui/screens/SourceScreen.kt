@@ -47,7 +47,7 @@ fun SourceScreen(
                             pluginSourceLocal = pluginSource,
                             sourceScreenViewModel
                         ) {
-                            onListItemClick(pluginSource.sourceURI)
+                            onListItemClick(pluginSource.sourceRemoteEndpoint)
                         }
                         if (listIndex!=pluginSourceList.size-1){
                             Spacer(modifier = Modifier.height(2.dp))

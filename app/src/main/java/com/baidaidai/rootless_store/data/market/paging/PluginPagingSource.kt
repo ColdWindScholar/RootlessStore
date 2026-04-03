@@ -3,7 +3,7 @@ package com.baidaidai.rootless_store.data.market.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.baidaidai.rootless_store.data.market.remote.api.PluginMarketAPI
-import com.baidaidai.rootless_store.data.market.remote.dto.PluginPageResponseDto
+import com.baidaidai.rootless_store.data.market.remote.dto.PluginPageResponseDTO
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import io.ktor.client.call.body
 
@@ -12,6 +12,7 @@ class PluginPagingSource (
     private val pluginSourceUri: String
 ) : PagingSource<Int, PluginManifestRemote>() {
 
+    // Core Suspend Method for Paging fetching Data
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PluginManifestRemote> {
         val page = params.key ?: 0
 
@@ -19,7 +20,7 @@ class PluginPagingSource (
             pageNumber = page,
             pluginSourceUri
         )
-            .body<PluginPageResponseDto>()
+            .body<PluginPageResponseDTO>()
 
         val nextKey = if (resp.meta.hasMore) page + 1 else null
 

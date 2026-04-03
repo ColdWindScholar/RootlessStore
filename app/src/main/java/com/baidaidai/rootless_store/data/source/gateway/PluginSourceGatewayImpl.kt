@@ -10,9 +10,9 @@ class PluginSourceGatewayImpl @Inject constructor(
     private val pluginSourceAPI: PluginSourceAPI
 ): PluginSourceGateway  {
 
-    override suspend fun getPluginSourceMetaInfo(pluginSourceURI: String): PluginSourceDTO {
-        val ktorResponse = pluginSourceAPI.getPluginSourceMetaInfo(pluginSourceURI = pluginSourceURI)
-        val metaData = ktorResponse.body<PluginSourceDTO>()
+    override suspend fun getPluginSourceMetaInfo(sourceRemoteEndpoint: String): PluginSourceDTO {
+        val ktorResponse = pluginSourceAPI.getPluginSourceMetaInfo(sourceRemoteEndpoint)
+        val metaData = ktorResponse.body<PluginSourceDTO>()  // Convert JSON to DTO
         return metaData
     }
 

@@ -1,6 +1,7 @@
 package com.baidaidai.rootless_store.data.source.repository
 
 import android.content.Context
+import android.util.Log
 import com.baidaidai.rootless_store.core.util.OutOfStringLike
 import com.baidaidai.rootless_store.data.database.RootlessStoreDatabase
 import com.baidaidai.rootless_store.data.source.database.PluginSourceEntity
@@ -28,7 +29,7 @@ class PluginSourceRepositoryImpl @Inject constructor(
         pluginSourceUser: PluginSourceUser
     ): SourceError? {
         try{
-            val pluginSourceDTO = pluginSourceGatewayImpl.getPluginSourceMetaInfo(pluginSourceUser.sourceURI)
+            val pluginSourceDTO = pluginSourceGatewayImpl.getPluginSourceMetaInfo(pluginSourceUser.sourceRemoteEndpoint)
             val newPluginSourceEntity = PluginSourceEntity.fromPluginSourceDTO(pluginSourceDTO)
 
             pluginSourceDAO.insertOnePluginSource(newPluginSourceEntity)
@@ -46,12 +47,12 @@ class PluginSourceRepositoryImpl @Inject constructor(
     override suspend fun updateOnePluginSource(
         sourceID: String,
         sourceName: String,
-        sourceURI: String
+        sourceRemoteEndpoint: String
     ) {
         pluginSourceDAO.updateOnePluginSource(
             sourceID = sourceID,
             sourceName = sourceName,
-            sourceURI = sourceURI
+            sourceRemoteEndpoint = sourceRemoteEndpoint
         )
     }
 
