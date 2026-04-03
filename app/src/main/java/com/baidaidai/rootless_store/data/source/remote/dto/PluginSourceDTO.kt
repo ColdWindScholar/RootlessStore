@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class PluginSourceDTO(
     override val sourceID: String,
     override val sourceName: String,
-    override val sourceURI: String
+    override val sourceRemoteEndpoint: String,
 ): PluginSource.PluginSourceDTO
