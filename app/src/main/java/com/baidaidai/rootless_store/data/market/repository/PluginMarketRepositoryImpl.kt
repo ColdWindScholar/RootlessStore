@@ -17,9 +17,12 @@ class PluginMarketRepositoryImpl @Inject constructor(
         pluginSourceUri: String
     ): Flow<PagingData<PluginManifestRemote>> {
         return Pager(
+            // Rule of Paging
             config = PagingConfig(
                 pageSize = 10,
             ),
+
+            // Core & Action of Paging
             pagingSourceFactory = {
                 PluginPagingSource(
                     api = api,
