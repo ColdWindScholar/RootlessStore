@@ -20,10 +20,10 @@ interface PluginSourceDAO {
 
     // Update
     @Query(
-        "UPDATE pluginSource SET sourceName = :sourceName, sourceURI = :sourceURI " +
+        "UPDATE pluginSource SET sourceName = :sourceName, sourceRemoteEndpoint = :sourceRemoteEndpoint " +
             "WHERE sourceID = :sourceID"
     )
-    suspend fun updateOnePluginSource(sourceID: String, sourceName: String, sourceURI: String)
+    suspend fun updateOnePluginSource(sourceID: String, sourceName: String, sourceRemoteEndpoint: String)
 
     // Read
     @Query("SELECT * FROM pluginSource WHERE sourceID = :sourceID LIMIT 1")

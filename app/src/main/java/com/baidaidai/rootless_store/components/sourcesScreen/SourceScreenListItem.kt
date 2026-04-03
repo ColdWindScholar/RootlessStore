@@ -30,10 +30,10 @@ fun SourceScreenListItem(
 ){
     ListItem(
         onClick = {
-            onListItemClick(pluginSourceLocal.sourceURI)
+            onListItemClick(pluginSourceLocal.sourceRemoteEndpoint)
         },
         supportingContent = {
-            Text(pluginSourceLocal.sourceURI)
+            Text(pluginSourceLocal.sourceRemoteEndpoint)
         },
         trailingContent = {
             Icon(

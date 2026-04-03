@@ -19,7 +19,7 @@ interface PluginSourceRepository {
     suspend fun updateOnePluginSource(
         sourceID: String,
         sourceName: String,
-        sourceURI: String
+        sourceRemoteEndpoint: String
     )
 
     // Read

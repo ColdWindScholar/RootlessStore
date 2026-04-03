@@ -4,6 +4,6 @@ import com.baidaidai.rootless_store.data.source.remote.dto.PluginSourceDTO
 
 interface PluginSourceGateway {
     suspend fun getPluginSourceMetaInfo(
-        pluginSourceURI: String
+        sourceRemoteEndpoint: String
     ): PluginSourceDTO
 }
