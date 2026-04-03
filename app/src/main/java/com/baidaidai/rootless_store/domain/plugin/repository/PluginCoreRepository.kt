@@ -4,6 +4,7 @@ import android.net.Uri
 import com.baidaidai.rootless_store.data.plugin.room.PluginInfoEntity
 import com.baidaidai.rootless_store.domain.plugin.error.PluginError
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import kotlinx.coroutines.flow.Flow
 
@@ -27,4 +28,5 @@ interface PluginCoreRepository {
 
     // Operator
     suspend fun installOnePlugin(uri: Uri): PluginError?
+    suspend fun installOnePluginFromMarket(pluginURI: String, pluginManifestRemote: PluginManifestRemote): PluginError?
 }
