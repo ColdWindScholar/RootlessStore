@@ -2,6 +2,7 @@
 
 一个开源的、面向安卓生态的 Rootless 插件管理与运行平台
 
+## 项目预览
 <p>
     <img src="/asset/picture/HomeScreen.png" width="32%" />
     <img src="/asset/picture/PluginScreen.png" width="32%" />
