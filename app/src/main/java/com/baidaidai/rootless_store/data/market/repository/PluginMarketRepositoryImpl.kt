@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.baidaidai.rootless_store.data.market.paging.PluginPagingSource
 import com.baidaidai.rootless_store.data.market.remote.api.PluginMarketAPI
+import com.baidaidai.rootless_store.domain.market.error.MarketError
 import com.baidaidai.rootless_store.domain.market.repository.PluginMarketRepository
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,8 @@ class PluginMarketRepositoryImpl @Inject constructor(
     private val api: PluginMarketAPI
 ): PluginMarketRepository {
     override fun getPlugins(
-        pluginSourceUri: String
+        pluginSourceUri: String,
+        onError: suspend (MarketError)-> Unit
     ): Flow<PagingData<PluginManifestRemote>> {
         return Pager(
             // Rule of Paging
@@ -26,7 +28,8 @@ class PluginMarketRepositoryImpl @Inject constructor(
             pagingSourceFactory = {
                 PluginPagingSource(
                     api = api,
-                    pluginSourceUri
+                    pluginSourceUri,
+                    onError = onError
                 )
             }
         ).flow

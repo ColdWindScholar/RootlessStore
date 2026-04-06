@@ -86,6 +86,12 @@ fun RootlessStoreStartScreenContainer(
             sharedEvent = event
         }
     }
+    LaunchedEffect(2) {
+        marketScreenViewModel.marketEvent.collect{ event ->
+            sharedEvent = event
+        }
+    }
+
 
     Scaffold(
         topBar = {
@@ -137,6 +143,8 @@ fun RootlessStoreStartScreenContainer(
                 connection = scrollBehavior.nestedScrollConnection
             )
     ) { contentPadding->
+
+        // Source Adding Dialog
         if (alertDialogStatus){
             StartScreenRepositoryDialog(
                 sourceDomainContent,
@@ -153,6 +161,8 @@ fun RootlessStoreStartScreenContainer(
                 onTextFieldValueChange = { newValue -> sourceDomainContent = newValue }
             )
         }
+
+        // Application Error Dialog
         if (sharedEvent is RootlessStoreError){
             StartScreenErrorDialog(sourceScreenViewModel, sharedEvent)
         }
