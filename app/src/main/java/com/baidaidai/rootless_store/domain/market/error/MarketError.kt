@@ -1,9 +1,8 @@
 package com.baidaidai.rootless_store.domain.market.error
 
-sealed interface MarketError {
-    val errorMessage: String
+import com.baidaidai.rootless_store.domain.error.RootlessStoreError
 
-    interface ListContentManifestError: MarketError
-    interface PluginInstallError: MarketError
-    interface PluginURIError: MarketError
-}
+data class MarketError(
+    override val errorMessage: String,
+    override val errorCause: String
+): RootlessStoreError
