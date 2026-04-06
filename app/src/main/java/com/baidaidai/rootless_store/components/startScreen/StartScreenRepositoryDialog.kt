@@ -77,8 +77,8 @@ fun StartScreenRepositoryDialog(
                 OutlinedTextField(
                     value = sourceDomainContent,
                     onValueChange = { newValue -> onTextFieldValueChange(newValue)},
-                    label = { Text("Repository URL") },
-                    placeholder = { Text("https://example.com") },
+                    label = { Text("Source URL") },
+                    placeholder = { Text("https://endpoint/api/v1") },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )

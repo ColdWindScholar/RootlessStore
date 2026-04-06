@@ -17,11 +17,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
 
 @Composable
 fun RootLessStoreVersionCheckerContainer(){
+
+    val versionNumber = stringResource(R.string.app_version)
+
     val cardColors = CardDefaults.cardColors(
         containerColor = colorScheme.primaryContainer,
         contentColor = colorScheme.onPrimaryContainer,
@@ -57,7 +61,7 @@ fun RootLessStoreVersionCheckerContainer(){
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Version: ${R.string.app_version}",
+                        text = "Version: $versionNumber",
                         style = MaterialTheme.typography.titleSmall
                     )
                 }
