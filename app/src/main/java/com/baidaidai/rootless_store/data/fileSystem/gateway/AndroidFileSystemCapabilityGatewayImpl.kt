@@ -209,7 +209,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
             else -> {
                 readRawPluginManifest(originFileURI).let { json ->
-                    readEnvironmentManifestJsonContent(json).pluginPackageName
+                    readManifestJsonContent(json).pluginPackageName
                 }.trim()
             }
 
@@ -360,14 +360,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
         return manifest
     }  // Convert JSON to PluginManifestLocal
-    fun readEnvironmentManifestJsonContent(jsonContent: String): PluginManifestLocal {
-        val json = Json {
-            ignoreUnknownKeys = true // JSON 多字段也不炸
-            isLenient = true
-        }
-        val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
-        return manifest
-    }  // Convert JSON to EnvironmentManifestLocal
+
 
     // Delete FS Operator
     @Deprecated(
