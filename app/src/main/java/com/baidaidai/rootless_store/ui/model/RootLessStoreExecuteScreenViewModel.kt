@@ -21,7 +21,6 @@ class RootLessStoreExecuteScreenViewModel @Inject constructor(
     val executeLog = _executeLog.asStateFlow()
 
     fun executeOnePlugin(pluginID: String){
-        _executeLog.value = emptyList()
         viewModelScope.launch {
             executeOnePluginUseCase(pluginID)
                 .collect {

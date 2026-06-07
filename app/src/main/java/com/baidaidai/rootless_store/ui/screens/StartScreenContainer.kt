@@ -169,7 +169,7 @@ fun RootlessStoreStartScreenContainer(
                             navigationBackStack.removeLastOrNull()
                         },
                         onExecuteScreenShareButtonClick = {
-                            val executeLog = currentExecuteViewModel?.exportExecuteLog()
+                            val executeLog = currentExecuteViewModel.exportExecuteLog()
                             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                                 type = "text/plain"
                                 putExtra(Intent.EXTRA_TEXT, executeLog)

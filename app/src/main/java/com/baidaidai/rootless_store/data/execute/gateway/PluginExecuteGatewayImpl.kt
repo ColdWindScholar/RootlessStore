@@ -86,7 +86,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
                 lines.forEach { error ->
                     send(
                         ExecuteResult(
-                            resulTag = ResultTag.Normal,
+                            resulTag = ResultTag.RedLine,
                             content = "- $error"
                         )
                     )
