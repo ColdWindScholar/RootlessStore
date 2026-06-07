@@ -36,7 +36,7 @@ fun PluginInfoContainerRemote(
     onClick: ()-> Unit
 ){
     val pluginManifest = manifest as PluginManifestRemote
-    when(pluginManifest.pluginType){
+    when(pluginManifest.Type){
         0 -> {
             val pluginManifest = manifest
             Card(
@@ -72,7 +72,7 @@ fun PluginInfoContainerRemote(
                                 .weight(1f)
                         ){
                             Text(
-                                text = pluginManifest.pluginRenderingName,
+                                text = pluginManifest.RenderingName,
                                 style = MaterialTheme.typography.titleLarge
                             )
                         }
@@ -92,9 +92,9 @@ fun PluginInfoContainerRemote(
                     ){
                         PluginTagTonalAssistChip(PluginType.Client)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(pluginManifest.requiredEnvironment)
+                        PluginTagTonalAssistChip(pluginManifest.Dependences)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(pluginManifest.pluginRunModel)
+                        PluginTagTonalAssistChip(pluginManifest.RunModel)
                     }
 
                     HorizontalDivider()
@@ -104,7 +104,7 @@ fun PluginInfoContainerRemote(
                         PluginInfoRow(label = "Author", value = pluginManifest.author)
                         PluginInfoRow(
                             label = "Description",
-                            value = pluginManifest.pluginDescription
+                            value = pluginManifest.Description
                         )
                     }
                 }
@@ -144,7 +144,7 @@ fun PluginInfoContainerRemote(
                                 .weight(1f)
                         ){
                             Text(
-                                text = manifest.pluginRenderingName,
+                                text = manifest.RenderingName,
                                 style = MaterialTheme.typography.titleLarge
                             )
                         }
@@ -164,7 +164,7 @@ fun PluginInfoContainerRemote(
                     ){
                         PluginTagTonalAssistChip(PluginType.Environment)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(manifest.requiredEnvironment)
+                        PluginTagTonalAssistChip(manifest.Dependences)
                     }
 
                     HorizontalDivider()
@@ -174,7 +174,7 @@ fun PluginInfoContainerRemote(
                         PluginInfoRow(label = "Author", value = manifest.author)
                         PluginInfoRow(
                             label = "Description",
-                            value = manifest.pluginDescription
+                            value = manifest.Description
                         )
                     }
                 }

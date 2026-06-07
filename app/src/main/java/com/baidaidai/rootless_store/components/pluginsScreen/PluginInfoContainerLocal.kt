@@ -95,13 +95,13 @@ fun PluginInfoContainerLocal(
                             .weight(1f)
                     ){
                         Text(
-                            text = pluginManifest.pluginRenderingName,
+                            text = pluginManifest.RenderingName,
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
                             text = icuString(
                                 R.string.plugin_screen_info_container_local_version,
-                                mapOf("version" to pluginManifest.installedVersion)
+                                mapOf("version" to pluginManifest.Version)
                             ),
                             style = MaterialTheme.typography.labelMedium
                         )
@@ -140,7 +140,7 @@ fun PluginInfoContainerLocal(
                     )
                     PluginInfoRow(
                         label = stringResource(R.string.plugin_screen_info_container_local_required_label),
-                        value = pluginManifest.requiredEnvironment.toString()
+                        value = pluginManifest.Dependences.toString()
                     )
                 }
             }
@@ -210,13 +210,13 @@ fun EnvPluginInfoContainerLocal(
                         .weight(1f)
                     ){
                         Text(
-                            text = environmentManifest.pluginRenderingName,
+                            text = environmentManifest.RenderingName,
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
                             text = icuString(
                                 R.string.plugin_screen_info_container_local_version,
-                                mapOf("version" to environmentManifest.installedVersion)
+                                mapOf("version" to environmentManifest.Version)
                             ),
                             style = MaterialTheme.typography.labelMedium
                         )
@@ -255,7 +255,7 @@ fun EnvPluginInfoContainerLocal(
                     )
                     PluginInfoRow(
                         label = stringResource(R.string.plugin_screen_info_container_local_required_label),
-                        value = environmentManifest.requiredEnvironment.toString()
+                        value = environmentManifest.Dependences.toString()
                     )
                 }
             }

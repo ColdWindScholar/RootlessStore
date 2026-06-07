@@ -32,7 +32,7 @@ fun EnvironmentScreen(
                 environmentManifest = it,
                 onSwitchClick = {
                     pluginScreenViewModel.setEnvironmentEnabled(
-                        environmentID = it.pluginID,
+                        environmentID = it.ID,
                         environmentEnabledStatus = !it.enabled
                     )
                 },

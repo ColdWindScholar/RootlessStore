@@ -31,7 +31,7 @@ class PluginCoreGatewayImpl @Inject constructor(
 
     override suspend fun installPluginFromMarket(pluginURI: String, pluginManifestRemote: PluginManifestRemote) {
         val remotePluginContent: ByteReadChannel = downloadPluginPackage.usePluginURI(pluginURI).bodyAsChannel()
-        val pluginPackageName = pluginManifestRemote.pluginPackageName
+        val pluginPackageName = pluginManifestRemote.PackageName
         _pre_intallPlugin(
             originFileByteChannel = remotePluginContent,
             destinationFileName = pluginPackageName
@@ -45,13 +45,13 @@ class PluginCoreGatewayImpl @Inject constructor(
 
     // Read
     fun getEnvironmentRuntimePATH(environmentManifest: PluginManifest): String{
-        val environmentPackageName = environmentManifest.pluginPackageName
+        val environmentPackageName = environmentManifest.PackageName
 
         return "$defaultPluginLocation/$environmentPackageName"
     }
 
     fun getEnvironmentLDPATH(environmentManifest: PluginManifest): String{
-        val environmentPackageName = environmentManifest.pluginPackageName
+        val environmentPackageName = environmentManifest.PackageName
 
         return environmentManifest.ldLibraryPath?.joinToString(":") { libraryPath ->
             "$defaultPluginLocation/$environmentPackageName/$libraryPath"
@@ -76,7 +76,7 @@ class PluginCoreGatewayImpl @Inject constructor(
 
     internal fun judgeManifest(originFileURI: Uri): LocalManifest {
         val info = parsePluginManifest(originFileURI)
-        return if (info.pluginType == 0){
+        return if (info.Type == 0){
             LocalManifest.PluginManifestLocal
         } else {
             LocalManifest.EnvironmentManifestLocal

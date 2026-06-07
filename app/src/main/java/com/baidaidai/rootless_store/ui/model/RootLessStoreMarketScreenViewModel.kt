@@ -8,7 +8,6 @@ import com.baidaidai.rootless_store.domain.market.error.MarketError
 import com.baidaidai.rootless_store.domain.market.usecase.GetRemotePluginListUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.RootlessStoreManifestCollection
-import com.baidaidai.rootless_store.domain.plugin.usecase.InstallEnvironmentFromMarketUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallPluginFromMarketUseCase
 import com.baidaidai.rootless_store.domain.source.model.PluginSourceInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +26,6 @@ import javax.inject.Inject
 class RootLessStoreMarketScreenViewModel @Inject constructor(
     private val getRemotePluginListUseCase: GetRemotePluginListUseCase,
     private val installPluginFromMarketUseCase: InstallPluginFromMarketUseCase,
-    private val installEnvironmentFromMarketUseCase: InstallEnvironmentFromMarketUseCase
 ): ViewModel() {
 
     /**
@@ -90,15 +88,7 @@ class RootLessStoreMarketScreenViewModel @Inject constructor(
     fun installPlugin(manifest: RootlessStoreManifestCollection){
         viewModelScope.launch {
             val manifestPlugin = manifest as PluginManifestRemote
-            when(manifestPlugin.pluginType){
-                0 -> {
-                    installPluginFromMarketUseCase(manifest.pluginURI,manifest)
-                }
-                1 -> {
-                    installEnvironmentFromMarketUseCase(manifest.pluginURI,manifest)
-                }
-                else -> Unit
-            }
+            installPluginFromMarketUseCase(manifest.URI,manifest)
         }
     }
 

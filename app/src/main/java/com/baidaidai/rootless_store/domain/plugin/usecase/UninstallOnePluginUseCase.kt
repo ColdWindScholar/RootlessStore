@@ -14,7 +14,7 @@ class UninstallOnePluginUseCase @Inject constructor(
         pluginManifestRoom: PluginManifestRoom
     ){
         val pluginInfoEntity = PluginInfoEntity.fromPluginManifestRoom(pluginManifestRoom)
-        val pluginPackageName = pluginInfoEntity.pluginPackageName
+        val pluginPackageName = pluginInfoEntity.PackageName
 
         pluginFileSystemGateway.uninstallPlugin(pluginPackageName)
         repositoryImpl.deleteOnePluginInfo(pluginInfoEntity)

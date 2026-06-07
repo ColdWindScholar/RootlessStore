@@ -119,15 +119,15 @@ fun PluginScreen(
                 pluginManifest = it,
                 onSwitchClick = {
                     pluginScreenViewModel.setPluginEnabled(
-                        pluginID = it.pluginID,
+                        pluginID = it.ID,
                         pluginEnabledStatus = !it.enabled
                     )
 
                     if (!it.enabled){
-                        navigateToExecuteScreen(it.pluginID,true)
+                        navigateToExecuteScreen(it.ID,true)
                     }else{
                         coroutineScope.launch {
-                            onAbortOnePlugin(it.pluginID)
+                            onAbortOnePlugin(it.ID)
                         }
                     }
                 },
@@ -136,7 +136,7 @@ fun PluginScreen(
                 },
                 onCardClick = {
                     if (it.enabled){
-                        navigateToExecuteScreen(it.pluginID,false)
+                        navigateToExecuteScreen(it.ID,false)
                     }
                 },
                 badgeShowState = badgeShowState

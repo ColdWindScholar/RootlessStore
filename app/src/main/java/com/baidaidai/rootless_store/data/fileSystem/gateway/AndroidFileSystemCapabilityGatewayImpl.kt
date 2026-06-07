@@ -38,13 +38,13 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     } // /File/Plugin
     fun getPluginEntryPoint(pluginManifestRoom: PluginManifestRoom): String{
         val defaultPluginDirectoryPath = getDefaultPluginDirectoryPath()
-        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        val pluginPackageName = pluginManifestRoom.PackageName
         val pluginEntryPoint = pluginManifestRoom.entryPoint
         return "$defaultPluginDirectoryPath/$pluginPackageName/$pluginEntryPoint"
     }  // /File/Plugin/PLUGIN/entry
     fun getPluginPackageDirectory(pluginManifestRoom: PluginManifestRoom): String {
         val defaultPluginDirectoryPath = getDefaultPluginDirectoryPath()
-        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        val pluginPackageName = pluginManifestRoom.PackageName
         return "$defaultPluginDirectoryPath/$pluginPackageName"
     }  // /File/Plugin/PLUGIN
 
@@ -54,7 +54,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     } // /File/Environment
     fun getEnvironmentPackageDirectory(environmentManifestRoom: PluginManifestRoom): String {
         val defaultEnvironmentDirectoryPath = getDefaultEnvironmentDirectoryPath()
-        val environmentPackageName = environmentManifestRoom.pluginPackageName
+        val environmentPackageName = environmentManifestRoom.PackageName
         return "$defaultEnvironmentDirectoryPath/$environmentPackageName"
     }  // /File/Environment/ENVIRONMENT
 
@@ -99,7 +99,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
             !destinationFileName.isNullOrBlank() -> destinationFileName.trim()  // 只有destinationFilName显式指定，否则不走
             else -> {
                 readRawPluginManifest(originFileURI).let { json ->
-                    readManifestJsonContent(json).pluginPackageName
+                    readManifestJsonContent(json).PackageName
                 }.trim()
             }
         }
@@ -152,7 +152,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
             else -> {
                 readRawPluginManifest(originFileURI).let { json ->
-                    readManifestJsonContent(json).pluginPackageName
+                    readManifestJsonContent(json).PackageName
                 }.trim()
             }
 
@@ -296,7 +296,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     // Chmod FS Operator
     fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom): Boolean{
         val pluginRootDirectory = getInternalPluginRootDirectory()
-        val pluginPackageName = pluginManifestRoom.pluginPackageName
+        val pluginPackageName = pluginManifestRoom.PackageName
         val pluginEntryPoint = pluginManifestRoom.entryPoint
         val _child = "$pluginPackageName/$pluginEntryPoint"
         return File(pluginRootDirectory,_child).setExecutable(true)

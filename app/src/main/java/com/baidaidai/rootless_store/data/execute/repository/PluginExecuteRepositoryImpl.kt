@@ -80,13 +80,13 @@ class PluginExecuteRepositoryImpl @Inject constructor(
 
     suspend fun abortPluginProcess(pluginManifestRoom: PluginManifestRoom){
         val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
-        val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.pluginID)
+        val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.ID)
         pluginExecuteGatewayImpl.abortPluginProcess(pidSaved)
     }
 
     suspend fun abortPluginProcessByShizuku(pluginManifestRoom: PluginManifestRoom){
         val pluginExecuteStatusDao = rootlessStoreDatabase.pluginExecuteStatusDao()
-        val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.pluginID)
+        val pidSaved = pluginExecuteStatusDao.getPluginExecutePIDByPluginID(pluginManifestRoom.ID)
         pluginExecuteGatewayImpl.abortPluginProcessByShizuku(pidSaved)
     }
 

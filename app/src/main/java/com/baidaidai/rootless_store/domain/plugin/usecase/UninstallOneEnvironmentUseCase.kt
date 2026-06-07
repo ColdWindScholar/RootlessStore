@@ -14,7 +14,7 @@ class UninstallOneEnvironmentUseCase @Inject constructor(
         environmentManifestRoom: PluginManifestRoom
     ){
         val environmentInfoEntity = PluginInfoEntity.fromPluginManifestRoom(environmentManifestRoom)
-        val environmentPackageName = environmentInfoEntity.pluginPackageName
+        val environmentPackageName = environmentInfoEntity.PackageName
 
         pluginFileSystemGateway.uninstallPlugin(environmentPackageName)
         repositoryImpl.deleteOneEnvironmentInfo(environmentInfoEntity)

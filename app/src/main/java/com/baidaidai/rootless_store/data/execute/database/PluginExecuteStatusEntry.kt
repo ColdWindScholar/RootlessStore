@@ -21,7 +21,7 @@ data class PluginExecuteStatusEntry @Inject constructor(
     companion object{
         fun fromPluginManifest(pluginManifest: PluginManifest,executePID: Int): PluginExecuteStatusEntry{
             return PluginExecuteStatusEntry(
-                pluginID = pluginManifest.pluginID,
+                pluginID = pluginManifest.ID,
                 executeStatus = PluginState.Great,
                 executePID = executePID
             )
