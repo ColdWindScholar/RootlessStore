@@ -19,26 +19,26 @@ interface PluginInfoDAO {
     suspend fun insertOnePluginInfo(pluginInfoEntity: PluginInfoEntity)
 
     // Update
-    @Query("UPDATE pluginInfo SET enabled = :enabled WHERE pluginID = :pluginID and pluginType = 0")
+    @Query("UPDATE pluginInfo SET enabled = :enabled WHERE ID = :pluginID and Type = 0")
     suspend fun updateEnabled(pluginID: String, enabled: Boolean)
 
-    @Query("UPDATE pluginInfo SET enabled = 0 WHERE enabled = 1 and pluginType = 0")
+    @Query("UPDATE pluginInfo SET enabled = 0 WHERE enabled = 1 and Type = 0")
     suspend fun disableAllPlugin()
 
     // Read
-    @Query("SELECT * FROM pluginInfo WHERE pluginID = :pluginID and pluginType = 0 LIMIT 1")
+    @Query("SELECT * FROM pluginInfo WHERE ID = :pluginID and Type = 0 LIMIT 1")
     suspend fun getOneEntirePluginInfoByPluginID(pluginID: String): PluginManifestRoom?
 
-    @Query(value = "SELECT * FROM pluginInfo WHERE pluginType = 0")
+    @Query(value = "SELECT * FROM pluginInfo WHERE Type = 0")
     fun getEntirePluginManifest(): Flow<List<PluginManifestRoom>>
 
-    @Query("SELECT COUNT(*) FROM pluginInfo WHERE pluginType = 0")
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE Type = 0")
     fun getPluginInfoCount(): Flow<Int>
 
-    @Query("SELECT COUNT(*) FROM pluginInfo WHERE pluginType = 0")
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE Type = 0")
     suspend fun getTotalPluginCount(): Int
 
-    @Query("SELECT COUNT(*) FROM pluginInfo WHERE enabled = 1 and pluginType = 0")
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE enabled = 1 and Type = 0")
     suspend fun getEnabledPluginCount(): Int
 
     // Delete
