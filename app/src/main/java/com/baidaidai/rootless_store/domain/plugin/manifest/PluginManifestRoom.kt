@@ -16,7 +16,7 @@ data class PluginManifestRoom(
     override val iconURI: String?,
     override val author: String,
     override val Description: String,
-    override val Dependences: HosterOverallStatus,
+    override val Condition: HosterOverallStatus,
     override val entryPoint: String,
     override val ldLibraryPath: List<String>?,
     override val env: Map<String, String>?
@@ -30,7 +30,7 @@ data class PluginManifestRoom(
             ID = "29bb10c46772264df3c0d0fade57d2eb",
             iconURI = null,
             author = "Rootless Store(Creater. Bai)",
-            Dependences = HosterOverallStatus.LIMITED,
+            Condition = HosterOverallStatus.LIMITED,
             Description = "Tested by Creater. Bai",
             enabled = false,
             state = PluginState.PermissionProblems,

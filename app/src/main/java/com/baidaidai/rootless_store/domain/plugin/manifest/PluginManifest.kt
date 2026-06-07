@@ -100,7 +100,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * - If this is purely a *computed* runtime value (not declared by plugin),
      *   move it out of the manifest.
      */
-    val Dependences: HosterOverallStatus
+    val Condition: HosterOverallStatus
 
     val entryPoint: String
     val ldLibraryPath: List<String>?

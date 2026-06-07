@@ -30,7 +30,7 @@ data class PluginInfoEntity(
 
     // Plugin Runtime Infos
     val enabled: Boolean,
-    val Dependences: HosterOverallStatus,
+    val Condition: HosterOverallStatus,
     val state: PluginState,
     val source: PluginSource,
     val entryPoint: String,
@@ -62,7 +62,7 @@ data class PluginInfoEntity(
 
                 // Runtime Infos
                 enabled = false,
-                Dependences = pluginManifestRoom.Dependences,
+                Condition = pluginManifestRoom.Condition,
                 state = pluginManifestRoom.state,
                 source = pluginManifestRoom.source,
                 entryPoint = pluginManifestRoom.entryPoint,
