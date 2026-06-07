@@ -33,8 +33,8 @@ data class PluginManifestLocal(
     override val pluginDescription: String,
     override val requiredEnvironment: HosterOverallStatus,
     override val entryPoint: String,
-    override val ldLibraryPath: List<String>?,
-    override val env: Map<String, String>?
+    override val ldLibraryPath: List<String>? = null,
+    override val env: Map<String, String>? = null
 ): PluginManifest.PluginManifestLocal{
     companion object {
         val _testOnly_ = PluginManifestLocal(
