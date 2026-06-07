@@ -172,7 +172,7 @@ class PluginCoreRepositoryImpl @Inject constructor(
                     val environmentEntity = PluginInfoEntity.fromPluginManifestRoom(environmentManiFest)
 
                     pluginCoreGatewayImpl.installEnvironmentFromLocal(uri)
-                    pluginCoreGatewayImpl.setEnvironmentEntryPointExecutable(environmentManiFest)
+                    pluginCoreGatewayImpl.setPluginEntryPointExecutable(environmentManiFest)
                     insertOneEnvironmentInfo(environmentEntity)
 
                     return null
@@ -199,15 +199,9 @@ class PluginCoreRepositoryImpl @Inject constructor(
                     val pluginManifestRoom = pluginManifestRemote.toManifestRoom()
 
                     val pluginInfoEntity = PluginInfoEntity.fromPluginManifestRoom(pluginManifestRoom)
-                    if (pluginManifestRoom.pluginType == 1){
-                        pluginCoreGatewayImpl.installEnvironmentFromMarket(pluginURI, pluginManifestRemote)
-                        pluginCoreGatewayImpl.setEnvironmentEntryPointExecutable(environmentManifestRoom = pluginManifestRemote.toManifestRoom())
-                        insertOneEnvironmentInfo(environmentInfoEntity = pluginInfoEntity)
-                    }
                     pluginCoreGatewayImpl.installPluginFromMarket(pluginURI,pluginManifestRemote)
+                    insertOneEnvironmentInfo(environmentInfoEntity = pluginInfoEntity)
                     pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom = pluginManifestRemote.toManifestRoom())
-                    insertOnePluginInfo(pluginInfoEntity = pluginInfoEntity)
-
                     return null
                 }
             }

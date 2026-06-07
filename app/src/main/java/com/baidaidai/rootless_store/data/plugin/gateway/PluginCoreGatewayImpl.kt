@@ -22,7 +22,6 @@ class PluginCoreGatewayImpl @Inject constructor(
     private val androidFileSystemCapabilityGatewayImpl: AndroidFileSystemCapabilityGatewayImpl
 ): PluginCoreGateway {
     private val defaultPluginLocation = File(context.getExternalFilesDir(null), "Plugin")
-    private val defaultEnvironmentLocation = File(context.filesDir, "Environment")
 
     // Create
     override fun installPluginFromLocal(originFileURI: Uri) {
@@ -40,35 +39,24 @@ class PluginCoreGatewayImpl @Inject constructor(
             destinationFileName = pluginPackageName
         )
     }
-    suspend fun installEnvironmentFromMarket(environmentURI: String, environmentManifestRemote: PluginManifestRemote){
-        val remoteEnvironmentContent: ByteReadChannel = downloadPluginPackage.usePluginURI(environmentURI).bodyAsChannel()  // Just Download raw zip file
-        val environmentPackageName = environmentManifestRemote.pluginPackageName
-        _pre_intallEnvironment(
-            originFileByteChannel = remoteEnvironmentContent,
-            destinationFileName = environmentPackageName
-        )
-    }
 
     // Update
     fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom){
         androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom)
-    }
-    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: PluginManifestRoom){
-        androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(environmentManifestRoom)
     }
 
     // Read
     fun getEnvironmentRuntimePATH(environmentManifest: PluginManifest): String{
         val environmentPackageName = environmentManifest.pluginPackageName
 
-        return "$defaultEnvironmentLocation/$environmentPackageName"
+        return "$defaultPluginLocation/$environmentPackageName"
     }
 
     fun getEnvironmentLDPATH(environmentManifest: PluginManifest): String{
         val environmentPackageName = environmentManifest.pluginPackageName
 
         return environmentManifest.ldLibraryPath?.joinToString(":") { libraryPath ->
-            "$defaultEnvironmentLocation/$environmentPackageName/$libraryPath"
+            "$defaultPluginLocation/$environmentPackageName/$libraryPath"
         } ?: ""
     }
 
@@ -108,7 +96,7 @@ class PluginCoreGatewayImpl @Inject constructor(
             _pre_intallPlugin(originFileURI)
         }
     }
-    private fun _pre_intallEnvironment(originFileURI: Uri, destination: File = defaultEnvironmentLocation) {
+    private fun _pre_intallEnvironment(originFileURI: Uri, destination: File = defaultPluginLocation) {
         if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
             androidFileSystemCapabilityGatewayImpl.unzipEnvironmentFromFile(
                 originFileURI = originFileURI,
@@ -132,16 +120,4 @@ class PluginCoreGatewayImpl @Inject constructor(
         }
     }
 
-    private fun _pre_intallEnvironment(originFileByteChannel: ByteReadChannel, destination: File = defaultEnvironmentLocation, destinationFileName: String) {
-        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
-            androidFileSystemCapabilityGatewayImpl.unZipEnvironmentFromURI(
-                originFileByteChannel = originFileByteChannel,
-                pluginRootDirectory = destination,
-                directoryName = destinationFileName
-            )
-        }else{
-            androidFileSystemCapabilityGatewayImpl.createFileDir("Environment")
-            _pre_intallEnvironment(originFileByteChannel,destination,destinationFileName)
-        }
-    }
 }

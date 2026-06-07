@@ -31,9 +31,6 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     private fun ensureInternalPluginRootDirectory(): File {
         return getInternalPluginRootDirectory().apply { mkdirs() }
     }
-    private fun ensureInternalEnvironmentRootDirectory(): File {
-        return getInternalPluginRootDirectory().apply { mkdirs() }
-    }
 
     // Default FS Operator (Plugin)
     fun getDefaultPluginDirectoryPath(): String{
@@ -211,7 +208,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         }
 
         // Create Void Directory
-        val internalEnvironmentRootDirectory = ensureInternalEnvironmentRootDirectory()
+        val internalEnvironmentRootDirectory = ensureInternalPluginRootDirectory()
         val createdFileDirectory = createVoidFileDirectory(internalEnvironmentRootDirectory, directoryName).apply {
             mkdirs()
         }
@@ -240,9 +237,9 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
         }
     }
+
     @Suppress("UNUSED_PARAMETER")
     fun unZipFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
-
         // Provide void file, for copy use
         val internalPluginRootDirectory = ensureInternalPluginRootDirectory()
         createVoidFileDirectory(internalPluginRootDirectory, directoryName)  // needs prevent override files
@@ -272,38 +269,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
             }
         }
     }
-    @Suppress("UNUSED_PARAMETER")
-    fun unZipEnvironmentFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
 
-        // Provide void file, for copy use
-        val internalEnvironmentRootDirectory = ensureInternalEnvironmentRootDirectory()
-        createVoidFileDirectory(internalEnvironmentRootDirectory, directoryName)  // needs prevent override files
-        val operationFile = File(internalEnvironmentRootDirectory, directoryName).apply {
-            mkdirs()
-        }
-
-        // The core of copy operator
-        originFileByteChannel.toInputStream().use { input ->
-            ZipInputStream(BufferedInputStream(input)).use { zis ->
-                var entry = zis.nextEntry
-                while (entry != null) {
-                    val outFile = File(operationFile, entry.name)
-
-                    if (entry.isDirectory) {
-                        outFile.mkdirs()
-                    } else {
-                        outFile.parentFile?.mkdirs()
-                        FileOutputStream(outFile).use { out ->
-                            zis.copyTo(out)
-                        }
-                    }
-
-                    zis.closeEntry()
-                    entry = zis.nextEntry
-                }
-            }
-        }
-    }
 
     // Read FS Operator
     private fun readRawManifest(uri: Uri, manifestFileName: String): String? {
