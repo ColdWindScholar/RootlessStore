@@ -54,7 +54,7 @@ class PluginCoreGatewayImpl @Inject constructor(
         androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom)
     }
     fun setEnvironmentEntryPointExecutable(environmentManifestRoom: PluginManifestRoom){
-        androidFileSystemCapabilityGatewayImpl.setEnvironmentEntryPointExecutable(environmentManifestRoom)
+        androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(environmentManifestRoom)
     }
 
     // Read
@@ -79,11 +79,7 @@ class PluginCoreGatewayImpl @Inject constructor(
         androidFileSystemCapabilityGatewayImpl.deleteDirectoryByPackageName(pluginPackageName)
     }
 
-    fun uninstallEnvironment(
-        environmentPackageName: String  // Should use environmentManifest<Room/Local>
-    ) {
-        androidFileSystemCapabilityGatewayImpl.deleteEnvironmentDirectoryByPackageName(environmentPackageName)
-    }
+
 
     internal fun parsePluginManifest(originFileURI: Uri): PluginManifestLocal {
         return androidFileSystemCapabilityGatewayImpl.readRawPluginManifest(uri = originFileURI).let {
@@ -113,7 +109,7 @@ class PluginCoreGatewayImpl @Inject constructor(
         }
     }
     private fun _pre_intallEnvironment(originFileURI: Uri, destination: File = defaultEnvironmentLocation) {
-        if (androidFileSystemCapabilityGatewayImpl.confirmEnvironmentPathExists()){
+        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
             androidFileSystemCapabilityGatewayImpl.unzipEnvironmentFromFile(
                 originFileURI = originFileURI,
                 pluginRootDirectory = destination
@@ -137,7 +133,7 @@ class PluginCoreGatewayImpl @Inject constructor(
     }
 
     private fun _pre_intallEnvironment(originFileByteChannel: ByteReadChannel, destination: File = defaultEnvironmentLocation, destinationFileName: String) {
-        if (androidFileSystemCapabilityGatewayImpl.confirmEnvironmentPathExists()){
+        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
             androidFileSystemCapabilityGatewayImpl.unZipEnvironmentFromURI(
                 originFileByteChannel = originFileByteChannel,
                 pluginRootDirectory = destination,

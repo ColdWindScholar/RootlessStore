@@ -21,21 +21,18 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 ){
     private companion object {
         private const val PLUGIN_DIR_NAME = "Plugin"
-        private const val ENVIRONMENT_DIR_NAME = "Environment"
         private const val PLUGIN_MANIFEST_FILE_NAME = "Manifest.json"
     }
 
     private fun getInternalPluginRootDirectory(): File {
         return File(context.filesDir, PLUGIN_DIR_NAME)
     }
-    private fun getInternalEnvironmentRootDirectory(): File {
-        return File(context.filesDir, ENVIRONMENT_DIR_NAME)
-    }
+
     private fun ensureInternalPluginRootDirectory(): File {
         return getInternalPluginRootDirectory().apply { mkdirs() }
     }
     private fun ensureInternalEnvironmentRootDirectory(): File {
-        return getInternalEnvironmentRootDirectory().apply { mkdirs() }
+        return getInternalPluginRootDirectory().apply { mkdirs() }
     }
 
     // Default FS Operator (Plugin)
@@ -56,7 +53,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
     // Default FS Operator (Environment)
     fun getDefaultEnvironmentDirectoryPath(): String{
-        return getInternalEnvironmentRootDirectory().path
+        return getInternalPluginRootDirectory().path
     } // /File/Environment
     fun getEnvironmentPackageDirectory(environmentManifestRoom: PluginManifestRoom): String {
         val defaultEnvironmentDirectoryPath = getDefaultEnvironmentDirectoryPath()
@@ -68,9 +65,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     fun confirmPluginPathExists(): Boolean{
         return confirmPathExists(PLUGIN_DIR_NAME)
     }  // /File/Plugin?
-    fun confirmEnvironmentPathExists(): Boolean{
-        return confirmPathExists(ENVIRONMENT_DIR_NAME)
-    }  // /File/Environment?
+
     private fun confirmPathExists(path: String): Boolean{
         val targetFile = File(context.filesDir, path)
         Log.d("confirmPathExists", targetFile.exists().toString())
@@ -378,11 +373,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         return targetFile.deleteRecursively()
     }
 
-    fun deleteEnvironmentDirectoryByPackageName(environmentPackageName: String): Boolean {
-        val targetFile = File(getInternalEnvironmentRootDirectory(), environmentPackageName)
 
-        return targetFile.deleteRecursively()
-    }
 
     // Chmod FS Operator
     fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom): Boolean{
@@ -392,11 +383,5 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         val _child = "$pluginPackageName/$pluginEntryPoint"
         return File(pluginRootDirectory,_child).setExecutable(true)
     }
-    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: PluginManifestRoom): Boolean{
-        val environmentRootDirectory = getInternalEnvironmentRootDirectory()
-        val environmentPackageName = environmentManifestRoom.pluginPackageName
-        val environmentEntryPoint = environmentManifestRoom.entryPoint
-        val _child = "$environmentPackageName/$environmentEntryPoint"
-        return File(environmentRootDirectory,_child).setExecutable(true)
-    }
+
 }

@@ -55,7 +55,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     val environmentInfoList = getWholeEnvironmentInfoUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList<PluginManifestRoom>()
+        initialValue = emptyList()
     )
 
     val pluginInfoCount = pluginInfoCountUseCase().stateIn(
