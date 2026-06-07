@@ -10,6 +10,7 @@
 
     <application
         android:usesCleartextTraffic="true"
+        android:extractNativeLibs="true"
         android:name=".RootlessStoreApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
