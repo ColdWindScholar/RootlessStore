@@ -21,6 +21,7 @@ data class PluginManifestRemote(
     override val Condition: HosterOverallStatus,
     override val URI: String,
     override val entryPoint: String,
+    override val Dependences: List<String>?,
     override val env: Map<String, String>,
     override val ldLibraryPath: List<String>,
     override val RunModel: PluginRunModel
@@ -39,6 +40,7 @@ data class PluginManifestRemote(
             Description = "Tested by Creater.",
             entryPoint = "./index.sh",
             env = emptyMap(),
+            Dependences = emptyList(),
             ldLibraryPath = emptyList(),
             RunModel = PluginRunModel.OneTime,
         )
@@ -58,6 +60,7 @@ data class PluginManifestRemote(
             Description = Description,
             Condition = Condition,
             entryPoint = entryPoint,
+            Dependences = Dependences,
             env = env,
             ldLibraryPath = ldLibraryPath
         )
