@@ -18,6 +18,7 @@ data class PluginManifestRoom(
     override val Description: String,
     override val Condition: HosterOverallStatus,
     override val entryPoint: String,
+    override val Dependences: List<String>?,
     override val ldLibraryPath: List<String>?,
     override val env: Map<String, String>?
 ): PluginManifest.PluginManifestRoom{
@@ -36,6 +37,7 @@ data class PluginManifestRoom(
             state = PluginState.PermissionProblems,
             source = PluginSource.Local,
             entryPoint = "./index.sh",
+            Dependences = emptyList(),
             ldLibraryPath = emptyList(),
             env = emptyMap()
         )

@@ -33,6 +33,7 @@ data class PluginManifestLocal(
     override val Description: String,
     override val Condition: HosterOverallStatus,
     override val entryPoint: String,
+    override val Dependences: List<String>? = null,
     override val ldLibraryPath: List<String>? = null,
     override val env: Map<String, String>? = null
 ): PluginManifest.PluginManifestLocal{
@@ -48,6 +49,7 @@ data class PluginManifestLocal(
             Condition = HosterOverallStatus.LIMITED,
             Description = "Tested by Creater. Bai",
             entryPoint = "./index.sh",
+            Dependences = emptyList(),
             ldLibraryPath = emptyList(),
             env = emptyMap()
         )
@@ -67,6 +69,7 @@ data class PluginManifestLocal(
             Description = Description,
             Condition = Condition,
             entryPoint = entryPoint,
+            Dependences = Dependences,
             ldLibraryPath = ldLibraryPath,
             env = env
         )
