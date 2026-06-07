@@ -99,7 +99,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
         }
         send(ExecuteResult(
             resulTag = ResultTag.Normal,
-            content = "- Exit:${process.exitValue()}"
+            content = "- Exit:${process.waitFor()}"
         ))
 
         awaitClose {
