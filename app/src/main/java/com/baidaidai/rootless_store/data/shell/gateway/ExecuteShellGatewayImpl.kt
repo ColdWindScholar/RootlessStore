@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.data.shell.gateway
 
+import android.content.Context
 import android.util.Log
 import com.baidaidai.rootless_store.data.fileSystem.gateway.AndroidFileSystemCapabilityGatewayImpl
 import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
@@ -8,6 +9,7 @@ import com.baidaidai.rootless_store.data.shizuku.repository.ShizukuAdbRepository
 import com.baidaidai.rootless_store.data.shizuku.server.ShizukuEndpointCallback
 import com.baidaidai.rootless_store.domain.execute.model.ResultTag
 import com.baidaidai.rootless_store.domain.shell.model.ShellResult
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +22,7 @@ import javax.inject.Inject
 import kotlin.text.orEmpty
 
 class ExecuteShellGatewayImpl @Inject constructor(
+    @ApplicationContext val context: Context,
     private val shizukuAdbRepositoryImpl: ShizukuAdbRepositoryImpl,
     private val pluginCoreRepositoryImpl: PluginCoreRepositoryImpl,
     private val androidFileSystemCapabilityGatewayImpl: AndroidFileSystemCapabilityGatewayImpl,
@@ -29,7 +32,7 @@ class ExecuteShellGatewayImpl @Inject constructor(
     fun runCommandByAppShell(commandContent: String): Flow<ShellResult> = callbackFlow {
 
         val preferences = shellPreferencesRepositoryImpl.shellContextPreferences.first()
-        val processBuilder = ProcessBuilder("sh", "-c", commandContent)
+        val processBuilder = ProcessBuilder(File(context.applicationInfo.nativeLibraryDir, "libbash.so").path, "-c", commandContent)
         if (preferences.jumpToDirectory)
             processBuilder.directory(File(androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()))
         val environment = processBuilder.environment()
