@@ -29,7 +29,7 @@ class ExecuteShellGatewayImpl @Inject constructor(
     private val shellPreferencesRepositoryImpl: ShellPreferencesRepositoryImpl
 ) {
 
-    fun runCommandByAppShell(commandContent: String, root: Boolean = true): Flow<ShellResult> = callbackFlow {
+    fun runCommandByAppShell(commandContent: String, root: Boolean = false): Flow<ShellResult> = callbackFlow {
 
         val preferences = shellPreferencesRepositoryImpl.shellContextPreferences.first()
         val processBuilder = ProcessBuilder()
