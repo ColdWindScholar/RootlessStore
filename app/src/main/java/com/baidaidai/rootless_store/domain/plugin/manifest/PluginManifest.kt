@@ -103,9 +103,9 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
     val requiredEnvironment: HosterOverallStatus
 
     val entryPoint: String
-    val ldLibraryPath: List<String>
+    val ldLibraryPath: List<String>?
 
-    val env: Map<String, String>
+    val env: Map<String, String>?
 
     // Runtime state such as `enabled`, `state`, `source` should NOT belong here:
     // - enabled: Boolean

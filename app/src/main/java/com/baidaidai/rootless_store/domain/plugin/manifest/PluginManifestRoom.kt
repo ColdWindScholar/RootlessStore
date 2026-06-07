@@ -18,8 +18,8 @@ data class PluginManifestRoom(
     override val pluginDescription: String,
     override val requiredEnvironment: HosterOverallStatus,
     override val entryPoint: String,
-    override val ldLibraryPath: List<String>,
-    override val env: Map<String, String>
+    override val ldLibraryPath: List<String>?,
+    override val env: Map<String, String>?
 ): PluginManifest.PluginManifestRoom{
     companion object {
         val _testOnly_ = PluginManifestRoom(
