@@ -31,7 +31,7 @@ data class PluginManifestLocal(
     override val iconURI: String?,
     override val author: String,
     override val Description: String,
-    override val Dependences: HosterOverallStatus,
+    override val Condition: HosterOverallStatus,
     override val entryPoint: String,
     override val ldLibraryPath: List<String>? = null,
     override val env: Map<String, String>? = null
@@ -45,7 +45,7 @@ data class PluginManifestLocal(
             ID = "29bb10c46772264df3c0d0fade57d2eb",
             iconURI = "content://rootless_store/plugin_icon/test",
             author = "Rootless Store(Creater. Bai)",
-            Dependences = HosterOverallStatus.LIMITED,
+            Condition = HosterOverallStatus.LIMITED,
             Description = "Tested by Creater. Bai",
             entryPoint = "./index.sh",
             ldLibraryPath = emptyList(),
@@ -65,7 +65,7 @@ data class PluginManifestLocal(
             iconURI = iconURI,
             author = author,
             Description = Description,
-            Dependences = Dependences,
+            Condition = Condition,
             entryPoint = entryPoint,
             ldLibraryPath = ldLibraryPath,
             env = env
