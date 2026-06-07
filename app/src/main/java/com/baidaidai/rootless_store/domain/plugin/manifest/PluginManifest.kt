@@ -103,6 +103,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
     val Condition: HosterOverallStatus
 
     val entryPoint: String
+    val Dependences: List<String>?
     val ldLibraryPath: List<String>?
 
     val env: Map<String, String>?
