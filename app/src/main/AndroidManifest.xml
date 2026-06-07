@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true"
         android:name=".RootlessStoreApp"
         android:allowBackup="true"
