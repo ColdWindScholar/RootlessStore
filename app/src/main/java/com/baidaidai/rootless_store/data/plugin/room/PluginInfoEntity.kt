@@ -32,7 +32,9 @@ data class PluginInfoEntity(
     val requiredEnvironment: HosterOverallStatus,
     val state: PluginState,
     val source: PluginSource,
-    val entryPoint: String
+    val entryPoint: String,
+    val env: Map<String, String>?,
+    val ldLibraryPath: List<String>?,
 ){
     companion object {
 
@@ -61,7 +63,9 @@ data class PluginInfoEntity(
                 requiredEnvironment = pluginManifestRoom.requiredEnvironment,
                 state = pluginManifestRoom.state,
                 source = pluginManifestRoom.source,
-                entryPoint = pluginManifestRoom.entryPoint
+                entryPoint = pluginManifestRoom.entryPoint,
+                env = emptyMap(),
+                ldLibraryPath = emptyList()
             )
     }
 }
