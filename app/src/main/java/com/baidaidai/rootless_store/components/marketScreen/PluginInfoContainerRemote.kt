@@ -25,9 +25,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.baidaidai.rootless_store.R
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifest
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRemote
-import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifest
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.RootlessStoreManifestCollection
 import com.baidaidai.rootless_store.domain.plugin.model.PluginType
@@ -38,9 +35,10 @@ fun PluginInfoContainerRemote(
     modifier: Modifier = Modifier,
     onClick: ()-> Unit
 ){
-    when(manifest){
-        is PluginManifest -> {
-            val pluginManifest = manifest as PluginManifestRemote
+    val pluginManifest = manifest as PluginManifestRemote
+    when(pluginManifest.pluginType){
+        0 -> {
+            val pluginManifest = manifest
             Card(
                 modifier = modifier
                     .fillMaxWidth(),
@@ -112,8 +110,7 @@ fun PluginInfoContainerRemote(
                 }
             }
         }
-        is EnvironmentManifest -> {
-            val environmentManifest = manifest as EnvironmentManifestRemote
+        1 -> {
             Card(
                 modifier = modifier
                     .fillMaxWidth(),
@@ -147,7 +144,7 @@ fun PluginInfoContainerRemote(
                                 .weight(1f)
                         ){
                             Text(
-                                text = environmentManifest.environmentRenderingName,
+                                text = manifest.pluginRenderingName,
                                 style = MaterialTheme.typography.titleLarge
                             )
                         }
@@ -167,17 +164,17 @@ fun PluginInfoContainerRemote(
                     ){
                         PluginTagTonalAssistChip(PluginType.Environment)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(environmentManifest.requiredEnvironment)
+                        PluginTagTonalAssistChip(manifest.requiredEnvironment)
                     }
 
                     HorizontalDivider()
                     Column(
                         verticalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
-                        PluginInfoRow(label = "Author", value = environmentManifest.author)
+                        PluginInfoRow(label = "Author", value = manifest.author)
                         PluginInfoRow(
                             label = "Description",
-                            value = environmentManifest.environmentDescription
+                            value = manifest.pluginDescription
                         )
                     }
                 }
