@@ -20,26 +20,26 @@ interface EnvironmentInfoDAO {
     suspend fun insertOneEnvironmentInfo(environmentInfoEntity: PluginInfoEntity)
 
     // Update
-    @Query("UPDATE pluginInfo SET enabled = :enabled WHERE pluginID = :environmentID")
+    @Query("UPDATE pluginInfo SET enabled = :enabled WHERE pluginID = :environmentID and pluginType = 1")
     suspend fun updateEnabled(environmentID: String, enabled: Boolean)
 
     // Read
-    @Query("SELECT * FROM pluginInfo WHERE pluginID = :environmentID LIMIT 1")
+    @Query("SELECT * FROM pluginInfo WHERE pluginID = :environmentID and pluginType = 1 LIMIT 1")
     suspend fun getOneEntireEnvironmentInfoByEnvironmentID(environmentID: String): PluginManifestLocal?
 
-    @Query(value = "SELECT * FROM pluginInfo")
+    @Query(value = "SELECT * FROM pluginInfo WHERE pluginType = 1")
     fun getEntireEnvironmentManifest(): Flow<List<PluginManifestRoom>>
 
-    @Query("SELECT COUNT(*) FROM pluginInfo")
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE pluginType = 1")
     fun getEnvironmentInfoCount(): Flow<Int>
 
-    @Query("SELECT COUNT(*) FROM pluginInfo")
+    @Query("SELECT COUNT(*) FROM pluginInfo where pluginType = 1")
     suspend fun getTotalEnvironmentCount(): Int
 
-    @Query("SELECT COUNT(*) FROM pluginInfo WHERE enabled = 1")
+    @Query("SELECT COUNT(*) FROM pluginInfo WHERE enabled = 1 and pluginType = 1")
     suspend fun getEnabledEnvironmentCount(): Int
 
-    @Query("SELECT * FROM pluginInfo WHERE enabled = 1")
+    @Query("SELECT * FROM pluginInfo WHERE enabled = 1 and pluginType = 1")
     fun getEnabledEnvironment(): Flow<List<PluginManifestRoom>>
 
     // Delete
