@@ -140,7 +140,7 @@ fun PluginInfoContainerLocal(
                     )
                     PluginInfoRow(
                         label = stringResource(R.string.plugin_screen_info_container_local_required_label),
-                        value = pluginManifest.Dependences.toString()
+                        value = pluginManifest.Condition.toString()
                     )
                 }
             }
@@ -255,7 +255,7 @@ fun EnvPluginInfoContainerLocal(
                     )
                     PluginInfoRow(
                         label = stringResource(R.string.plugin_screen_info_container_local_required_label),
-                        value = environmentManifest.Dependences.toString()
+                        value = environmentManifest.Condition.toString()
                     )
                 }
             }

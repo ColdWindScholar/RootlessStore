@@ -92,7 +92,7 @@ fun PluginInfoContainerRemote(
                     ){
                         PluginTagTonalAssistChip(PluginType.Client)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(pluginManifest.Dependences)
+                        PluginTagTonalAssistChip(pluginManifest.Condition)
                         Spacer(modifier = Modifier.width(8.dp))
                         PluginTagTonalAssistChip(pluginManifest.RunModel)
                     }
@@ -164,7 +164,7 @@ fun PluginInfoContainerRemote(
                     ){
                         PluginTagTonalAssistChip(PluginType.Environment)
                         Spacer(modifier = Modifier.width(8.dp))
-                        PluginTagTonalAssistChip(manifest.Dependences)
+                        PluginTagTonalAssistChip(manifest.Condition)
                     }
 
                     HorizontalDivider()
