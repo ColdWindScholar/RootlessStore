@@ -17,6 +17,7 @@ data class PluginInfoEntity(
      * @example com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginMainFest
      */
     @PrimaryKey
+    val pluginType: Int,
     val pluginID: String,
 
     // Plugin Basic Infos
@@ -48,6 +49,7 @@ data class PluginInfoEntity(
             pluginManifestRoom: PluginManifestRoom
         ): PluginInfoEntity =
             PluginInfoEntity(
+                pluginType = pluginManifestRoom.pluginType,
                 pluginID = pluginManifestRoom.pluginID,
 
                 // Basic Infos
@@ -64,8 +66,8 @@ data class PluginInfoEntity(
                 state = pluginManifestRoom.state,
                 source = pluginManifestRoom.source,
                 entryPoint = pluginManifestRoom.entryPoint,
-                env = emptyMap(),
-                ldLibraryPath = emptyList()
+                env = pluginManifestRoom.env,
+                ldLibraryPath = pluginManifestRoom.ldLibraryPath
             )
     }
 }
