@@ -73,7 +73,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
         }
         send(ExecuteResult(
             resulTag = ResultTag.Normal,
-            content = "- Running:${process.exitValue()}"
+            content = "- Running:${pluginExecuteEntryPoint}"
         ))
         launch(Dispatchers.IO) {
             process.inputStream.bufferedReader().useLines { lines ->
