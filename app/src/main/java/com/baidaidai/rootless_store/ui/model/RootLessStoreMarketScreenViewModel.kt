@@ -7,7 +7,6 @@ import androidx.paging.cachedIn
 import com.baidaidai.rootless_store.domain.market.error.MarketError
 import com.baidaidai.rootless_store.domain.market.usecase.GetRemotePluginListUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.RootlessStoreManifestCollection
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallEnvironmentFromMarketUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallPluginFromMarketUseCase
