@@ -17,20 +17,20 @@ data class PluginInfoEntity(
      * @example com.baidaidai.rootless_store.domain.pluginManiFest.model.PluginMainFest
      */
     @PrimaryKey
-    val pluginType: Int,
-    val pluginID: String,
+    val Type: Int,
+    val ID: String,
 
     // Plugin Basic Infos
-    val installedVersion: String,
-    val pluginRenderingName: String,
-    val pluginPackageName: String,
+    val Version: String,
+    val RenderingName: String,
+    val PackageName: String,
     val iconURI: String?,
     val author: String,
-    val pluginDescription:String,
+    val Description:String,
 
     // Plugin Runtime Infos
     val enabled: Boolean,
-    val requiredEnvironment: HosterOverallStatus,
+    val Dependences: HosterOverallStatus,
     val state: PluginState,
     val source: PluginSource,
     val entryPoint: String,
@@ -49,20 +49,20 @@ data class PluginInfoEntity(
             pluginManifestRoom: PluginManifestRoom
         ): PluginInfoEntity =
             PluginInfoEntity(
-                pluginType = pluginManifestRoom.pluginType,
-                pluginID = pluginManifestRoom.pluginID,
+                Type = pluginManifestRoom.Type,
+                ID = pluginManifestRoom.ID,
 
                 // Basic Infos
-                installedVersion = pluginManifestRoom.installedVersion,
-                pluginRenderingName = pluginManifestRoom.pluginRenderingName,
-                pluginPackageName = pluginManifestRoom.pluginPackageName,
+                Version = pluginManifestRoom.Version,
+                RenderingName = pluginManifestRoom.RenderingName,
+                PackageName = pluginManifestRoom.PackageName,
                 iconURI = pluginManifestRoom.iconURI,
                 author = pluginManifestRoom.author,
-                pluginDescription = pluginManifestRoom.pluginDescription,
+                Description = pluginManifestRoom.Description,
 
                 // Runtime Infos
                 enabled = false,
-                requiredEnvironment = pluginManifestRoom.requiredEnvironment,
+                Dependences = pluginManifestRoom.Dependences,
                 state = pluginManifestRoom.state,
                 source = pluginManifestRoom.source,
                 entryPoint = pluginManifestRoom.entryPoint,
