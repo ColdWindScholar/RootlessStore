@@ -133,8 +133,6 @@ class PluginCoreRepositoryImpl @Inject constructor(
         return getAvailableEnvironmentConfig().values.toList()
     }
 
-
-
     // Delete
     override suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity) {
         pluginInfoDAO.deleteOnePluginInfo(pluginInfoEntity)
