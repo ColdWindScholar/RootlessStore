@@ -48,10 +48,9 @@ class PluginExecuteGatewayImpl @Inject constructor(
         pluginPackageDirectory: String,
         enableMonitor: Boolean = false
     ): Flow<ExecuteResult> = callbackFlow {
-        val processBuilder = ProcessBuilder(
-            rootEnvironmentSwitch(), "-c", "cd $pluginPackageDirectory ;echo PID:$$;exec $pluginExecuteEntryPoint"
-        )
-
+        val processBuilder = ProcessBuilder()
+        processBuilder.command(rootEnvironmentSwitch(), "-c", pluginExecuteEntryPoint)
+        processBuilder.directory(File(pluginPackageDirectory))
         val environment = processBuilder.environment()
 
         val oldPATH = environment["PATH"].orEmpty()
@@ -73,7 +72,6 @@ class PluginExecuteGatewayImpl @Inject constructor(
         if (enableMonitor){
             processMonitor(process)
         }
-
         launch(Dispatchers.IO) {
             process.inputStream.bufferedReader().useLines { lines ->
                 lines.forEach { result ->
@@ -96,6 +94,10 @@ class PluginExecuteGatewayImpl @Inject constructor(
                 }
             }
         }
+        send(ExecuteResult(
+            resulTag = ResultTag.Normal,
+            content = "- Exit:${process.exitValue()}"
+        ))
 
         awaitClose {
         }
