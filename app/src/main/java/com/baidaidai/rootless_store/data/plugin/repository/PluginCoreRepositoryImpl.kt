@@ -125,13 +125,6 @@ class PluginCoreRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun getEnvironmentConfigKeyList(): List<String> {
-        return getAvailableEnvironmentConfig().keys.toList()
-    }
-
-    suspend fun getEnvironmentConfigValueList(): List<String> {
-        return getAvailableEnvironmentConfig().values.toList()
-    }
 
     // Delete
     override suspend fun deleteOnePluginInfo(pluginInfoEntity: PluginInfoEntity) {
@@ -159,11 +152,9 @@ class PluginCoreRepositoryImpl @Inject constructor(
             }
             return null
         }catch (error: Throwable){
-            val errorStack  = error.stackTrace.OutOfStringLike()
-
             return PluginError(
                 errorMessage = error.message!!,
-                errorCause = errorStack
+                errorCause = error.stackTrace.OutOfStringLike()
             )
         }
     }
@@ -177,7 +168,6 @@ class PluginCoreRepositoryImpl @Inject constructor(
                 is PluginManifest -> {
                     val pluginManifestRemote = manifest as PluginManifestRemote
                     val pluginManifestRoom = pluginManifestRemote.toManifestRoom()
-
                     val pluginInfoEntity = PluginInfoEntity.fromPluginManifestRoom(pluginManifestRoom)
                     pluginCoreGatewayImpl.installPluginFromMarket(pluginURI,pluginManifestRemote)
                     insertOneEnvironmentInfo(environmentInfoEntity = pluginInfoEntity)

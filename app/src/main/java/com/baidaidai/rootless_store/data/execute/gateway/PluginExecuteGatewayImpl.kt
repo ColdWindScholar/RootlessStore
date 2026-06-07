@@ -133,8 +133,8 @@ class PluginExecuteGatewayImpl @Inject constructor(
 
                 val environmentPATH = pluginCoreRepositoryImpl.getAvailableEnvironmentPath()
                 val environmentLDPATH = pluginCoreRepositoryImpl.getAvailableEnvironmentLDPATH()
-                val environmentConfigKeyList = pluginCoreRepositoryImpl.getEnvironmentConfigKeyList()
-                val environmentConfigValueList = pluginCoreRepositoryImpl.getEnvironmentConfigValueList()
+                val environmentConfigKeyList = pluginCoreRepositoryImpl.getAvailableEnvironmentConfig().keys.toList()
+                val environmentConfigValueList = pluginCoreRepositoryImpl.getAvailableEnvironmentConfig().values.toList()
 
                 shizukuAdbRepositoryImpl.getShizukuEndpoint()
                     ?.exec(

@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class PluginState {
-    Great,PermissionProblems,PluginRuntimeProblems,RootlessStoreRuntimeProblems,Stop
+    Great,PermissionProblems,PluginRuntimeProblems,RootlessStoreRuntimeProblems,Stop,EnvironmentLeaks
 }
