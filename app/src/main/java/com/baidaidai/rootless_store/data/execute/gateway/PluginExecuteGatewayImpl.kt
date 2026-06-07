@@ -1,5 +1,6 @@
 package com.baidaidai.rootless_store.data.execute.gateway
 
+import android.content.Context
 import android.util.Log
 import com.baidaidai.rootless_store.data.monitor.ProcessMonitor
 import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
@@ -9,15 +10,18 @@ import com.baidaidai.rootless_store.domain.execute.model.ExecuteResult
 import com.baidaidai.rootless_store.domain.execute.model.ResultTag
 import com.topjohnwu.superuser.CallbackList
 import com.topjohnwu.superuser.Shell
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 class PluginExecuteGatewayImpl @Inject constructor(
+    @ApplicationContext val context: Context,
     private val shizukuAdbRepositoryImpl: ShizukuAdbRepositoryImpl,
     private val pluginCoreRepositoryImpl: PluginCoreRepositoryImpl,
     private val processMonitor: ProcessMonitor
@@ -36,7 +40,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
         return if (shell.isRoot){
             "su"
         }else{
-            "sh"
+            File(context.applicationInfo.nativeLibraryDir, "libbash.so").path
         }
     }
     fun executePluginEntryPoint(
@@ -76,7 +80,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
                     send(
                         ExecuteResult(
                             resulTag = ResultTag.Normal,
-                            content = "- ${result.toString()}"
+                            content = "- $result"
                         )
                     )
                 }
@@ -86,7 +90,7 @@ class PluginExecuteGatewayImpl @Inject constructor(
                     send(
                         ExecuteResult(
                             resulTag = ResultTag.Normal,
-                            content = "- ${error.toString()}"
+                            content = "- $error"
                         )
                     )
                 }
