@@ -32,9 +32,16 @@ class ExecuteShellGatewayImpl @Inject constructor(
     fun runCommandByAppShell(commandContent: String): Flow<ShellResult> = callbackFlow {
 
         val preferences = shellPreferencesRepositoryImpl.shellContextPreferences.first()
-        val processBuilder = ProcessBuilder(File(context.applicationInfo.nativeLibraryDir, "libbash.so").path, "-c", commandContent)
-        if (preferences.jumpToDirectory)
-            processBuilder.directory(File(androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()))
+        val processBuilder = ProcessBuilder()
+        processBuilder.command(File(context.applicationInfo.nativeLibraryDir, "libbash.so").path, "-c", commandContent)
+        if (preferences.jumpToDirectory) {
+            val pluginDir = androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()
+            val pluginDirObj = File(pluginDir)
+            if (!pluginDirObj.exists()){
+                pluginDirObj.mkdirs()
+            }
+            processBuilder.directory(pluginDirObj)
+        }
         val environment = processBuilder.environment()
 
         val oldPATH = environment["PATH"].orEmpty()
