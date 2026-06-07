@@ -15,7 +15,7 @@ class ExecuteShellRepositoryImpl @Inject constructor(
 
     private fun runCommandByADBShell(commandContent: String) = executeShellGatewayImpl.runCommandByADBShell(commandContent)
 
-    private fun runCommandByRootShell(commandContent: String) = executeShellGatewayImpl.runCommandByRootShell(commandContent)
+    private fun runCommandByRootShell(commandContent: String) = executeShellGatewayImpl.runCommandByAppShell(commandContent, true)
 
     fun runCommand(shellCommandContainer: ShellCommandContainer): Flow<ShellResult>{
         return when(shellCommandContainer.shellEnvironment){

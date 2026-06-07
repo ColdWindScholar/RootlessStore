@@ -29,11 +29,11 @@ class ExecuteShellGatewayImpl @Inject constructor(
     private val shellPreferencesRepositoryImpl: ShellPreferencesRepositoryImpl
 ) {
 
-    fun runCommandByAppShell(commandContent: String): Flow<ShellResult> = callbackFlow {
+    fun runCommandByAppShell(commandContent: String, root: Boolean = true): Flow<ShellResult> = callbackFlow {
 
         val preferences = shellPreferencesRepositoryImpl.shellContextPreferences.first()
         val processBuilder = ProcessBuilder()
-        processBuilder.command(File(context.applicationInfo.nativeLibraryDir, "libbash.so").path, "-c", commandContent)
+        processBuilder.command(if (!root) File(context.applicationInfo.nativeLibraryDir, "libbash.so").path  else "su", "-c", commandContent)
         if (preferences.jumpToDirectory) {
             val pluginDir = androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()
             val pluginDirObj = File(pluginDir)
@@ -66,7 +66,7 @@ class ExecuteShellGatewayImpl @Inject constructor(
                     send(
                         ShellResult(
                             resulTag = ResultTag.Normal,
-                            command = "~ $commandContent",
+                            command = "${if (!root) "~" else "#"} $commandContent",
                             content = result,
                         )
                     )
@@ -77,7 +77,7 @@ class ExecuteShellGatewayImpl @Inject constructor(
                     send(
                         ShellResult(
                             resulTag = ResultTag.RedLine,
-                            command = "~ $commandContent",
+                            command = "${if (!root) "~" else "#"} $commandContent",
                             content = error,
                         )
                     )
@@ -137,37 +137,4 @@ class ExecuteShellGatewayImpl @Inject constructor(
         }
         awaitClose {  }
     }
-
-    fun runCommandByRootShell(commandContent: String): Flow<ShellResult> = callbackFlow {
-        val process = ProcessBuilder("su", "-c", commandContent).start()
-
-        launch(Dispatchers.IO) {
-            process.inputStream.bufferedReader().useLines { lines ->
-                lines.forEach { result ->
-                    send(
-                        ShellResult(
-                            resulTag = ResultTag.Normal,
-                            command = "# $commandContent",
-                            content = result,
-                        )
-                    )
-                }
-            }
-            process.errorStream.bufferedReader().useLines { lines ->
-                lines.forEach { error ->
-                    send(
-                        ShellResult(
-                            resulTag = ResultTag.RedLine,
-                            command = "# $commandContent",
-                            content = error,
-                        )
-                    )
-                }
-            }
-        }
-
-        awaitClose {}
-
-    }.flowOn(Dispatchers.IO)
-
 }
