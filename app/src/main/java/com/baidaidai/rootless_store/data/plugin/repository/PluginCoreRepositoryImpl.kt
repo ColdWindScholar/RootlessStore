@@ -120,7 +120,7 @@ class PluginCoreRepositoryImpl @Inject constructor(
 
         return buildMap {
             environmentManifests.forEach { environmentManifest ->
-                putAll(pluginCoreGatewayImpl.getEnvironmentConfig(environmentManifest))
+                environmentManifest.env.let { putAll(environmentManifest.env!!)}
             }
         }
     }

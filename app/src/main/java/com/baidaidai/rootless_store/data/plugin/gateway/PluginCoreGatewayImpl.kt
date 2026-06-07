@@ -67,12 +67,9 @@ class PluginCoreGatewayImpl @Inject constructor(
     fun getEnvironmentLDPATH(environmentManifest: PluginManifest): String{
         val environmentPackageName = environmentManifest.pluginPackageName
 
-        return environmentManifest.ldLibraryPath.joinToString(":") { libraryPath ->
+        return environmentManifest.ldLibraryPath?.joinToString(":") { libraryPath ->
             "$defaultEnvironmentLocation/$environmentPackageName/$libraryPath"
-        }
-    }
-    fun getEnvironmentConfig(environmentManifest: PluginManifest): Map<String, String> {
-        return environmentManifest.env
+        } ?: ""
     }
 
     // Delete
