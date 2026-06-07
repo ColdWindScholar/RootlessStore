@@ -61,7 +61,7 @@ android {
         compose = true
         aidl = true
     }
-    packagingOptions{
+    packaging{
         jniLibs {
             useLegacyPackaging = true
         }
@@ -79,7 +79,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.documentfile)
     implementation(libs.androidx.compose.foundation.layout)
