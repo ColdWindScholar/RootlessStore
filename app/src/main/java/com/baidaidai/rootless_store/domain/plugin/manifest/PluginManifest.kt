@@ -54,6 +54,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * - Higher entropy reduces collision probability, which reduces DB key conflicts.
      */
     val pluginID: String
+    val pluginType: Int
 
     /**
      * Plugin icon reference shown in the plugin list.
@@ -102,6 +103,9 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
     val requiredEnvironment: HosterOverallStatus
 
     val entryPoint: String
+    val ldLibraryPath: List<String>
+
+    val env: Map<String, String>
 
     // Runtime state such as `enabled`, `state`, `source` should NOT belong here:
     // - enabled: Boolean

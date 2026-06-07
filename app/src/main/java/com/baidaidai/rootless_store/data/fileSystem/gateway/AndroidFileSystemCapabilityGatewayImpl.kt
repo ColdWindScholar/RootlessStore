@@ -3,8 +3,7 @@ package com.baidaidai.rootless_store.data.fileSystem.gateway
 import android.content.Context
 import android.net.Uri
 import android.util.Log
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestLocal
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
+
 import dagger.hilt.android.qualifiers.ApplicationContext
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
@@ -23,8 +22,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     private companion object {
         private const val PLUGIN_DIR_NAME = "Plugin"
         private const val ENVIRONMENT_DIR_NAME = "Environment"
-        private const val PLUGIN_MANIFEST_FILE_NAME = "PluginManifest.json"
-        private const val ENVIRONMENT_MANIFEST_FILE_NAME = "EnvironmentManifest.json"
+        private const val PLUGIN_MANIFEST_FILE_NAME = "Manifest.json"
     }
 
     private fun getInternalPluginRootDirectory(): File {
@@ -60,9 +58,9 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     fun getDefaultEnvironmentDirectoryPath(): String{
         return getInternalEnvironmentRootDirectory().path
     } // /File/Environment
-    fun getEnvironmentPackageDirectory(environmentManifestRoom: EnvironmentManifestRoom): String {
+    fun getEnvironmentPackageDirectory(environmentManifestRoom: PluginManifestRoom): String {
         val defaultEnvironmentDirectoryPath = getDefaultEnvironmentDirectoryPath()
-        val environmentPackageName = environmentManifestRoom.environmentPackageName
+        val environmentPackageName = environmentManifestRoom.pluginPackageName
         return "$defaultEnvironmentDirectoryPath/$environmentPackageName"
     }  // /File/Environment/ENVIRONMENT
 
@@ -210,8 +208,8 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
             }  // 只有destinationFilName显式指定，否则不走
 
             else -> {
-                readRawEnvironmentManifest(originFileURI).let { json ->
-                    readEnvironmentManifestJsonContent(json).environmentPackageName
+                readRawPluginManifest(originFileURI).let { json ->
+                    readEnvironmentManifestJsonContent(json).pluginPackageName
                 }.trim()
             }
 
@@ -353,9 +351,6 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
     fun readRawPluginManifest(uri: Uri): String{
         return readRawManifest(uri, PLUGIN_MANIFEST_FILE_NAME) ?: ""
     }  // Get JSON File
-    fun readRawEnvironmentManifest(uri: Uri): String{
-        return readRawManifest(uri, ENVIRONMENT_MANIFEST_FILE_NAME) ?: ""
-    }  // Get JSON File
 
     fun readManifestJsonContent(jsonContent: String): PluginManifestLocal {
         val json = Json {
@@ -365,12 +360,12 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
         return manifest
     }  // Convert JSON to PluginManifestLocal
-    fun readEnvironmentManifestJsonContent(jsonContent: String): EnvironmentManifestLocal {
+    fun readEnvironmentManifestJsonContent(jsonContent: String): PluginManifestLocal {
         val json = Json {
             ignoreUnknownKeys = true // JSON 多字段也不炸
             isLenient = true
         }
-        val manifest: EnvironmentManifestLocal = json.decodeFromString(EnvironmentManifestLocal.Companion.serializer(),jsonContent)
+        val manifest: PluginManifestLocal = json.decodeFromString(PluginManifestLocal.Companion.serializer(),jsonContent)
         return manifest
     }  // Convert JSON to EnvironmentManifestLocal
 
@@ -404,9 +399,9 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
         val _child = "$pluginPackageName/$pluginEntryPoint"
         return File(pluginRootDirectory,_child).setExecutable(true)
     }
-    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: EnvironmentManifestRoom): Boolean{
+    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: PluginManifestRoom): Boolean{
         val environmentRootDirectory = getInternalEnvironmentRootDirectory()
-        val environmentPackageName = environmentManifestRoom.environmentPackageName
+        val environmentPackageName = environmentManifestRoom.pluginPackageName
         val environmentEntryPoint = environmentManifestRoom.entryPoint
         val _child = "$environmentPackageName/$environmentEntryPoint"
         return File(environmentRootDirectory,_child).setExecutable(true)

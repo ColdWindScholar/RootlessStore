@@ -11,18 +11,22 @@ data class PluginManifestRoom(
     override val installedVersion: String,
     override val pluginRenderingName: String,
     override val pluginPackageName: String,
+    override val pluginType: Int,
     override val pluginID: String,
     override val iconURI: String?,
     override val author: String,
     override val pluginDescription: String,
     override val requiredEnvironment: HosterOverallStatus,
-    override val entryPoint: String
+    override val entryPoint: String,
+    override val ldLibraryPath: List<String>,
+    override val env: Map<String, String>
 ): PluginManifest.PluginManifestRoom{
     companion object {
         val _testOnly_ = PluginManifestRoom(
             installedVersion = "x.x.x",
             pluginRenderingName = "Test Plugin",
             pluginPackageName = "TestPlugin",
+            pluginType = 0,
             pluginID = "29bb10c46772264df3c0d0fade57d2eb",
             iconURI = null,
             author = "Rootless Store(Creater. Bai)",
@@ -31,7 +35,9 @@ data class PluginManifestRoom(
             enabled = false,
             state = PluginState.PermissionProblems,
             source = PluginSource.Local,
-            entryPoint = "./index.sh"
+            entryPoint = "./index.sh",
+            ldLibraryPath = emptyList(),
+            env = emptyMap()
         )
     }
 }

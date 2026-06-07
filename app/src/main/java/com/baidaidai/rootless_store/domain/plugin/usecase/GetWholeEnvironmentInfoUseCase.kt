@@ -2,7 +2,7 @@ package com.baidaidai.rootless_store.domain.plugin.usecase
 
 import com.baidaidai.rootless_store.data.fileSystem.gateway.AndroidFileSystemCapabilityGatewayImpl
 import com.baidaidai.rootless_store.data.plugin.repository.PluginCoreRepositoryImpl
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.io.File
@@ -13,7 +13,7 @@ class GetWholeEnvironmentInfoUseCase @Inject constructor(
     private val repositoryImpl: PluginCoreRepositoryImpl,
     private val androidFileSystemCapabilityGatewayImpl: AndroidFileSystemCapabilityGatewayImpl
 ) {
-    operator fun invoke(): Flow<List<EnvironmentManifestRoom>> {
+    operator fun invoke(): Flow<List<PluginManifestRoom>> {
 
         val uriRegex = Regex("^https?://",RegexOption.IGNORE_CASE)
 

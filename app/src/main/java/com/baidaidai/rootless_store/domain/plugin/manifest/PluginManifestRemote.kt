@@ -13,6 +13,7 @@ data class PluginManifestRemote(
     override val installedVersion: String,
     override val pluginRenderingName: String,
     override val pluginPackageName: String,
+    override val pluginType: Int,
     override val pluginID: String,
     override val iconURI: String?,
     override val author: String,
@@ -20,7 +21,8 @@ data class PluginManifestRemote(
     override val requiredEnvironment: HosterOverallStatus,
     override val pluginURI: String,
     override val entryPoint: String,
-
+    override val env: Map<String, String>,
+    override val ldLibraryPath: List<String>,
     override val pluginRunModel: PluginRunModel
 ): PluginManifest.PluginManifestRemote {
     companion object {
@@ -28,6 +30,7 @@ data class PluginManifestRemote(
             installedVersion = "x.x.x",
             pluginRenderingName = "Test Plugin",
             pluginPackageName = "TestPlugin",
+            pluginType = 0,
             pluginID = "29bb10c46772264df3c0d0fade57d2eb",
             pluginURI = "http://test.only.ai/api/v3/assets/plugin?id=29bb10c46772264df3c0d0fade57d2eb",
             iconURI = "content://rootless_store/plugin_icon/test",
@@ -35,7 +38,9 @@ data class PluginManifestRemote(
             requiredEnvironment = HosterOverallStatus.ADB,
             pluginDescription = "Tested by Creater.",
             entryPoint = "./index.sh",
-            pluginRunModel = PluginRunModel.OneTime
+            env = emptyMap(),
+            ldLibraryPath = emptyList(),
+            pluginRunModel = PluginRunModel.OneTime,
         )
     }
     fun toManifestRoom(): PluginManifestRoom{
@@ -46,12 +51,15 @@ data class PluginManifestRemote(
             installedVersion = installedVersion,
             pluginRenderingName = pluginRenderingName,
             pluginPackageName = pluginPackageName,
+            pluginType = pluginType,
             pluginID = pluginID,
             iconURI = iconURI,
             author = author,
             pluginDescription = pluginDescription,
             requiredEnvironment = requiredEnvironment,
-            entryPoint = entryPoint
+            entryPoint = entryPoint,
+            env = env,
+            ldLibraryPath = ldLibraryPath
         )
     }
 }

@@ -5,14 +5,11 @@ import android.net.Uri
 import com.baidaidai.rootless_store.data.fileSystem.gateway.AndroidFileSystemCapabilityGatewayImpl
 import com.baidaidai.rootless_store.data.plugin.remote.datasource.DownloadPluginPackage
 import com.baidaidai.rootless_store.domain.plugin.gateway.PluginCoreGateway
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifest
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestLocal
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRemote
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
-import com.baidaidai.rootless_store.domain.plugin.model.LocalManifest
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifest
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestLocal
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRemote
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
+import com.baidaidai.rootless_store.domain.plugin.model.LocalManifest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.utils.io.ByteReadChannel
@@ -43,9 +40,9 @@ class PluginCoreGatewayImpl @Inject constructor(
             destinationFileName = pluginPackageName
         )
     }
-    suspend fun installEnvironmentFromMarket(environmentURI: String, environmentManifestRemote: EnvironmentManifestRemote){
+    suspend fun installEnvironmentFromMarket(environmentURI: String, environmentManifestRemote: PluginManifestRemote){
         val remoteEnvironmentContent: ByteReadChannel = downloadPluginPackage.usePluginURI(environmentURI).bodyAsChannel()  // Just Download raw zip file
-        val environmentPackageName = environmentManifestRemote.environmentPackageName
+        val environmentPackageName = environmentManifestRemote.pluginPackageName
         _pre_intallEnvironment(
             originFileByteChannel = remoteEnvironmentContent,
             destinationFileName = environmentPackageName
@@ -56,25 +53,25 @@ class PluginCoreGatewayImpl @Inject constructor(
     fun setPluginEntryPointExecutable(pluginManifestRoom: PluginManifestRoom){
         androidFileSystemCapabilityGatewayImpl.setPluginEntryPointExecutable(pluginManifestRoom)
     }
-    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: EnvironmentManifestRoom){
+    fun setEnvironmentEntryPointExecutable(environmentManifestRoom: PluginManifestRoom){
         androidFileSystemCapabilityGatewayImpl.setEnvironmentEntryPointExecutable(environmentManifestRoom)
     }
 
     // Read
-    fun getEnvironmentRuntimePATH(environmentManifest: EnvironmentManifest): String{
-        val environmentPackageName = environmentManifest.environmentPackageName
+    fun getEnvironmentRuntimePATH(environmentManifest: PluginManifest): String{
+        val environmentPackageName = environmentManifest.pluginPackageName
 
         return "$defaultEnvironmentLocation/$environmentPackageName"
     }
 
-    fun getEnvironmentLDPATH(environmentManifest: EnvironmentManifest): String{
-        val environmentPackageName = environmentManifest.environmentPackageName
+    fun getEnvironmentLDPATH(environmentManifest: PluginManifest): String{
+        val environmentPackageName = environmentManifest.pluginPackageName
 
         return environmentManifest.ldLibraryPath.joinToString(":") { libraryPath ->
             "$defaultEnvironmentLocation/$environmentPackageName/$libraryPath"
         }
     }
-    fun getEnvironmentConfig(environmentManifest: EnvironmentManifest): Map<String, String> {
+    fun getEnvironmentConfig(environmentManifest: PluginManifest): Map<String, String> {
         return environmentManifest.env
     }
 
@@ -96,24 +93,15 @@ class PluginCoreGatewayImpl @Inject constructor(
             androidFileSystemCapabilityGatewayImpl.readManifestJsonContent(it)
         }
     }
-    internal fun parseEnvironmentManifest(originFileURI: Uri): EnvironmentManifestLocal {
-        return androidFileSystemCapabilityGatewayImpl.readRawEnvironmentManifest(uri = originFileURI).let {
-            androidFileSystemCapabilityGatewayImpl.readEnvironmentManifestJsonContent(it)
-        }
-    }
+
 
     internal fun judgeManifest(originFileURI: Uri): LocalManifest {
-        val pluginManifestJson = androidFileSystemCapabilityGatewayImpl.readRawPluginManifest(uri = originFileURI)
-        if (pluginManifestJson.isNotBlank()) {
-            return LocalManifest.PluginManifestLocal
+        val info = parsePluginManifest(originFileURI)
+        return if (info.pluginType == 0){
+            LocalManifest.PluginManifestLocal
+        } else {
+            LocalManifest.EnvironmentManifestLocal
         }
-
-        val environmentManifestJson = androidFileSystemCapabilityGatewayImpl.readRawEnvironmentManifest(uri = originFileURI)
-        if (environmentManifestJson.isNotBlank()) {
-            return LocalManifest.EnvironmentManifestLocal
-        }
-
-        error("Neither PluginManifest.json nor EnvironmentManifest.json was found.")
     }
 
     private fun _pre_intallPlugin(originFileURI: Uri, destination: File = defaultPluginLocation) {
