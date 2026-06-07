@@ -29,11 +29,7 @@ class RootlessStoreShizukuAdbScreenViewModel @Inject constructor(
 
     fun activeShizuku() = viewModelScope.launch {
         try {
-            if(shizukuAdbRepositoryImpl.getShizukuAuthStatus() || shizukuAdbRepositoryImpl.getShizukuAuth()){
-                _shizukuActived.value = true
-            }else{
-                _shizukuActived.value = false
-            }
+            _shizukuActived.value = shizukuAdbRepositoryImpl.getShizukuAuthStatus() || shizukuAdbRepositoryImpl.getShizukuAuth()
         }catch (error: Throwable){
             _shizukuEvent.emit(
                 PluginError(errorMessage = error.message!!, errorCause = error.stackTrace.OutOfStringLike())
