@@ -18,7 +18,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * - Should follow SemVer if possible: MAJOR.MINOR.PATCH
      * - Used for display, updates, and compatibility checks.
      */
-    val installedVersion: String
+    val Version: String
 
     /**
      * The display name shown in the plugin list UI.
@@ -26,7 +26,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * You can choose any human-friendly name.
      * Example: "Zip Tools", "Kernel Patch", "Nice Plugin"
      */
-    val pluginRenderingName: String
+    val RenderingName: String
 
     /**
      * The package name (identifier) of the plugin on the user's device.
@@ -39,7 +39,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      *
      * Example: "com.example.myplugin"
      */
-    val pluginPackageName: String
+    val PackageName: String
 
     /**
      * Primary key used by Room (plugin unique ID).
@@ -53,8 +53,8 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * Why “more random” helps:
      * - Higher entropy reduces collision probability, which reduces DB key conflicts.
      */
-    val pluginID: String
-    val pluginType: Int
+    val ID: String
+    val Type: Int
 
     /**
      * Plugin icon reference shown in the plugin list.
@@ -83,7 +83,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * - Keep it concise (1–3 sentences).
      * - Avoid extremely long text; store long-form docs elsewhere if needed.
      */
-    val pluginDescription: String
+    val Description: String
 
     // ─────────────────────────────────────────────────────────────
     // Plugin Runtime / Compatibility Infos
@@ -100,7 +100,7 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
      * - If this is purely a *computed* runtime value (not declared by plugin),
      *   move it out of the manifest.
      */
-    val requiredEnvironment: HosterOverallStatus
+    val Dependences: HosterOverallStatus
 
     val entryPoint: String
     val ldLibraryPath: List<String>?
@@ -113,8 +113,8 @@ sealed interface PluginManifest: RootlessStoreManifestCollection {
     // - source: PluginSource
     interface PluginManifestLocal: PluginManifest
     interface PluginManifestRemote: PluginManifest {
-        val pluginURI: String
-        val pluginRunModel: PluginRunModel
+        val URI: String
+        val RunModel: PluginRunModel
     }
     interface PluginManifestRoom: PluginManifest {
         val enabled: Boolean
