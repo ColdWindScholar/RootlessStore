@@ -90,12 +90,13 @@ class RootLessStoreMarketScreenViewModel @Inject constructor(
 
     fun installPlugin(manifest: RootlessStoreManifestCollection){
         viewModelScope.launch {
-            when(manifest){
-                is PluginManifestRemote -> {
+            val manifestPlugin = manifest as PluginManifestRemote
+            when(manifestPlugin.pluginType){
+                0 -> {
                     installPluginFromMarketUseCase(manifest.pluginURI,manifest)
                 }
-                is EnvironmentManifestRemote -> {
-                    installEnvironmentFromMarketUseCase(manifest.environmentURI,manifest)
+                1 -> {
+                    installEnvironmentFromMarketUseCase(manifest.pluginURI,manifest)
                 }
                 else -> Unit
             }

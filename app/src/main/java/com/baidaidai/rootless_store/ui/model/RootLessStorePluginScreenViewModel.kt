@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baidaidai.rootless_store.domain.plugin.error.PluginError
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
 import com.baidaidai.rootless_store.domain.plugin.usecase.GetWholePluginInfoUseCase
 import com.baidaidai.rootless_store.domain.plugin.usecase.InstallOnePluginUseCase
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
@@ -50,13 +49,13 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
     val pluginInfoList = getWholePluginInfoUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList<PluginManifestRoom>()
+        initialValue = emptyList()
     )
 
     val environmentInfoList = getWholeEnvironmentInfoUseCase().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = emptyList<EnvironmentManifestRoom>()
+        initialValue = emptyList<PluginManifestRoom>()
     )
 
     val pluginInfoCount = pluginInfoCountUseCase().stateIn(
@@ -90,7 +89,7 @@ class RootLessStorePluginScreenViewModel @Inject constructor(
         }
     }
     fun uninstallEnvironment(
-        environmentManifestRoom: EnvironmentManifestRoom
+        environmentManifestRoom: PluginManifestRoom
     ){
         viewModelScope.launch {
             uninstallOneEnvironmentUseCase(environmentManifestRoom)
