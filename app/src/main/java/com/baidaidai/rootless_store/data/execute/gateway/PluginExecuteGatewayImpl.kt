@@ -68,10 +68,13 @@ class PluginExecuteGatewayImpl @Inject constructor(
         Log.d("executePluginEntryPoint","environmentLDPATH: $environmentLDPATH")
 
         val process = processBuilder.start()
-
         if (enableMonitor){
             processMonitor(process)
         }
+        send(ExecuteResult(
+            resulTag = ResultTag.Normal,
+            content = "- Running:${process.exitValue()}"
+        ))
         launch(Dispatchers.IO) {
             process.inputStream.bufferedReader().useLines { lines ->
                 lines.forEach { result ->
