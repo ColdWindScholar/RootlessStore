@@ -13,7 +13,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +25,7 @@ import coil3.network.ktor2.KtorNetworkFetcherFactory
 import coil3.request.crossfade
 import com.baidaidai.rootless_store.domain.runtime.usecase.SetUpRuntimeUseCase
 import com.baidaidai.rootless_store.ui.screens.RootlessStoreStartScreenContainer
-import com.baidaidai.rootless_store.ui.theme.*
+import com.baidaidai.rootless_store.ui.theme.RootlessStoreTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 import io.ktor.client.HttpClient
@@ -35,7 +34,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.jvm.java
 
 val RootLessStoreLocalContext = compositionLocalOf<Context>{
     error("No Context Provide")
@@ -133,19 +131,19 @@ class MainActivity : ComponentActivity(){
     }
     private fun applyNotificationChannel(context: Context){
 
-        val channel_id = context.getString(R.string.notification_channel_id)
+        val channelId = context.getString(R.string.notification_channel_id)
 
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is not in the Support Library.
         val name = "插件存活通知"
         val descriptionText = "当插件因为各种原因死掉了，Rootless Store将会提醒你"
         val importance = NotificationManager.IMPORTANCE_HIGH
-        val channel = NotificationChannel(channel_id, name, importance).apply {
+        val channel = NotificationChannel(channelId, name, importance).apply {
             description = descriptionText
         }
         // Register the channel with the system.
         val notificationManager: NotificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
     }
 }

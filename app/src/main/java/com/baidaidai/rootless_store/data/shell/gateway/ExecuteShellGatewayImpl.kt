@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 import kotlin.text.orEmpty
 
@@ -28,11 +29,9 @@ class ExecuteShellGatewayImpl @Inject constructor(
     fun runCommandByAppShell(commandContent: String): Flow<ShellResult> = callbackFlow {
 
         val preferences = shellPreferencesRepositoryImpl.shellContextPreferences.first()
-
-        val changeDirectory = if (preferences.jumpToDirectory) "cd ${androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()} &&" else ""
-
-        val processBuilder = ProcessBuilder("sh", "-c", "$changeDirectory$commandContent")
-
+        val processBuilder = ProcessBuilder("sh", "-c", commandContent)
+        if (preferences.jumpToDirectory)
+            processBuilder.directory(File(androidFileSystemCapabilityGatewayImpl.getDefaultPluginDirectoryPath()))
         val environment = processBuilder.environment()
 
         val oldPATH = environment["PATH"].orEmpty()
