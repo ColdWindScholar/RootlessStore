@@ -8,14 +8,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.baidaidai.rootless_store.components.pluginsScreen.PluginInfoContainerLocal
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
+import com.baidaidai.rootless_store.components.pluginsScreen.EnvPluginInfoContainerLocal
+import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 import com.baidaidai.rootless_store.ui.model.RootLessStorePluginScreenViewModel
 
 @Composable
 fun EnvironmentScreen(
     badgeShowState: Boolean,
-    renderingList: List<EnvironmentManifestRoom>,
+    renderingList: List<PluginManifestRoom>,
     pluginScreenViewModel: RootLessStorePluginScreenViewModel,
 ){
     LazyColumn(
@@ -28,11 +28,11 @@ fun EnvironmentScreen(
         )
     ) {
         items(renderingList){
-            PluginInfoContainerLocal(
+            EnvPluginInfoContainerLocal(
                 environmentManifest = it,
                 onSwitchClick = {
                     pluginScreenViewModel.setEnvironmentEnabled(
-                        environmentID = it.environmentID,
+                        environmentID = it.pluginID,
                         environmentEnabledStatus = !it.enabled
                     )
                 },

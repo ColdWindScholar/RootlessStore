@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.baidaidai.rootless_store.R
 import com.baidaidai.rootless_store.core.i18n.icuString
-import com.baidaidai.rootless_store.domain.plugin.manifest.EnvironmentManifestRoom
 import com.baidaidai.rootless_store.domain.plugin.manifest.PluginManifestRoom
 
 @Composable
@@ -150,9 +149,9 @@ fun PluginInfoContainerLocal(
 }
 
 @Composable
-fun PluginInfoContainerLocal(
+fun EnvPluginInfoContainerLocal(
     badgeShowState: Boolean = true,
-    environmentManifest: EnvironmentManifestRoom,
+    environmentManifest: PluginManifestRoom,
     onSwitchClick: ()-> Unit,
     onBadgeClick:()-> Unit,
     onCardClick:()-> Unit,
@@ -211,7 +210,7 @@ fun PluginInfoContainerLocal(
                         .weight(1f)
                     ){
                         Text(
-                            text = environmentManifest.environmentRenderingName,
+                            text = environmentManifest.pluginRenderingName,
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
