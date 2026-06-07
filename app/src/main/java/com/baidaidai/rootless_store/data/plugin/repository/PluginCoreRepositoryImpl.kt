@@ -149,35 +149,17 @@ class PluginCoreRepositoryImpl @Inject constructor(
         uri: Uri,
     ): PluginError?{
         try {
-            when(val pluginType = pluginCoreGatewayImpl.judgeManifest(uri)){
-                LocalManifest.PluginManifestLocal -> {
-
-                    Log.d("PluginCoreRepositoryImpl.installOnePlugin","pluginType: ${pluginType.name}")
-
-                    val pluginManiFestRoom = pluginCoreGatewayImpl.parsePluginManifest(uri).toManifestRoom()
-                    val pluginInfoEntity = PluginInfoEntity.fromPluginManifestRoom(pluginManiFestRoom)
-
-                    pluginCoreGatewayImpl.installPluginFromLocal(uri)
-                    pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManiFestRoom)
-                    insertOnePluginInfo(pluginInfoEntity)
-
-                    return null
-                }
-
-                LocalManifest.EnvironmentManifestLocal -> {
-
-                    Log.d("PluginCoreRepositoryImpl.installOnePlugin","pluginType: ${pluginType.name}")
-
-                    val environmentManiFest = pluginCoreGatewayImpl.parsePluginManifest(uri).toManifestRoom()
-                    val environmentEntity = PluginInfoEntity.fromPluginManifestRoom(environmentManiFest)
-
-                    pluginCoreGatewayImpl.installEnvironmentFromLocal(uri)
-                    pluginCoreGatewayImpl.setPluginEntryPointExecutable(environmentManiFest)
-                    insertOneEnvironmentInfo(environmentEntity)
-
-                    return null
-                }
+            val pluginType = pluginCoreGatewayImpl.judgeManifest(uri)
+            Log.d("PluginCoreRepositoryImpl.installOnePlugin","pluginType: ${pluginType.name}")
+            val pluginManiFestRoom = pluginCoreGatewayImpl.parsePluginManifest(uri).toManifestRoom()
+            val pluginInfoEntity = PluginInfoEntity.fromPluginManifestRoom(pluginManiFestRoom)
+            pluginCoreGatewayImpl.installPluginFromLocal(uri)
+            pluginCoreGatewayImpl.setPluginEntryPointExecutable(pluginManiFestRoom)
+            when(pluginType){
+                LocalManifest.PluginManifestLocal -> { insertOnePluginInfo(pluginInfoEntity) }
+                LocalManifest.EnvironmentManifestLocal -> { insertOneEnvironmentInfo(pluginInfoEntity) }
             }
+            return null
         }catch (error: Throwable){
             val errorStack  = error.stackTrace.OutOfStringLike()
 

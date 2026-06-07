@@ -27,9 +27,7 @@ class PluginCoreGatewayImpl @Inject constructor(
     override fun installPluginFromLocal(originFileURI: Uri) {
         _pre_intallPlugin(originFileURI)
     }
-    override fun installEnvironmentFromLocal(originFileURI: Uri) {
-        _pre_intallEnvironment(originFileURI)
-    }
+
 
     override suspend fun installPluginFromMarket(pluginURI: String, pluginManifestRemote: PluginManifestRemote) {
         val remotePluginContent: ByteReadChannel = downloadPluginPackage.usePluginURI(pluginURI).bodyAsChannel()
@@ -96,17 +94,7 @@ class PluginCoreGatewayImpl @Inject constructor(
             _pre_intallPlugin(originFileURI)
         }
     }
-    private fun _pre_intallEnvironment(originFileURI: Uri, destination: File = defaultPluginLocation) {
-        if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
-            androidFileSystemCapabilityGatewayImpl.unzipEnvironmentFromFile(
-                originFileURI = originFileURI,
-                pluginRootDirectory = destination
-            )
-        }else{
-            androidFileSystemCapabilityGatewayImpl.createFileDir("Environment")
-            _pre_intallEnvironment(originFileURI)
-        }
-    }
+
     private fun _pre_intallPlugin(originFileByteChannel: ByteReadChannel, destination: File = defaultPluginLocation, destinationFileName: String) {
         if (androidFileSystemCapabilityGatewayImpl.confirmPluginPathExists()){
             androidFileSystemCapabilityGatewayImpl.unZipFromURI(

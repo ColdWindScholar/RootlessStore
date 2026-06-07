@@ -188,55 +188,7 @@ class AndroidFileSystemCapabilityGatewayImpl @Inject constructor(
 
         }
     }
-    @Suppress("UNUSED_PARAMETER")
-    fun unzipEnvironmentFromFile(originFileURI: Uri, pluginRootDirectory: File, directoryName: String? = null) {
 
-        // Get file's name, always powered by readManiFestJsonContent
-        val directoryName = when {
-
-            !directoryName.isNullOrBlank() -> {
-                directoryName.trim()
-
-            }  // 只有destinationFilName显式指定，否则不走
-
-            else -> {
-                readRawPluginManifest(originFileURI).let { json ->
-                    readManifestJsonContent(json).pluginPackageName
-                }.trim()
-            }
-
-        }
-
-        // Create Void Directory
-        val internalEnvironmentRootDirectory = ensureInternalPluginRootDirectory()
-        val createdFileDirectory = createVoidFileDirectory(internalEnvironmentRootDirectory, directoryName).apply {
-            mkdirs()
-        }
-
-        // Open IO Stream
-        context.contentResolver.openInputStream(originFileURI).use{ fis ->
-            // Unzip from File Input Stream
-            ZipInputStream(BufferedInputStream(fis)).use { zis ->
-                var entry = zis.nextEntry
-                while (entry != null) {
-                    val outFile = File(createdFileDirectory, entry.name)
-
-                    if (entry.isDirectory) {
-                        outFile.mkdirs()
-                    } else {
-                        outFile.parentFile?.mkdirs()
-                        FileOutputStream(outFile).use { out ->
-                            zis.copyTo(out)
-                        }
-                    }
-
-                    zis.closeEntry()
-                    entry = zis.nextEntry
-                }
-            }
-
-        }
-    }
 
     @Suppress("UNUSED_PARAMETER")
     fun unZipFromURI(originFileByteChannel: ByteReadChannel, pluginRootDirectory: File, directoryName: String){
